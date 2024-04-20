@@ -9,12 +9,23 @@ public class Emergency extends Entity<Long>
     private String description;
     private Status status;
     private FirstResponder firstResponder;
+    private String location;
 
-    public Emergency(User reporter, LocalDateTime dateTime, String description, Status status) {
+    public Emergency(User reporter, LocalDateTime dateTime, String description, Status status, FirstResponder firstResponder, String location) {
         this.reporter = reporter;
         this.dateTime = dateTime;
         this.description = description;
         this.status = status;
+        this.firstResponder = firstResponder;
+        this.location = location;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
     }
 
     public User getReporter() {

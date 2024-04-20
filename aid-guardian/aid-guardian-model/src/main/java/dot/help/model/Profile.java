@@ -10,13 +10,13 @@ public class Profile extends Entity<Long>
     private String lastName;
     private GenderType gender;
     private LocalDate birthDate;
-    private String bloodGroup;
+    private BloodGroupType bloodGroup;
     private float height;
     private float weight;
     private String medicalHistory;
     private float score;
 
-    public Profile(User user, String firstName, String lastName, GenderType gender, LocalDate birthDate, String bloodGroup, float height, float weight, String medicalHistory, float score) {
+    public Profile(User user, String firstName, String lastName, GenderType gender, LocalDate birthDate, BloodGroupType bloodGroup, float height, float weight, String medicalHistory, float score) {
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,11 +69,11 @@ public class Profile extends Entity<Long>
         this.birthDate = birthDate;
     }
 
-    public String getBloodGroup() {
+    public BloodGroupType getBloodGroup() {
         return bloodGroup;
     }
 
-    public void setBloodGroup(String bloodGroup) {
+    public void setBloodGroup(BloodGroupType bloodGroup) {
         this.bloodGroup = bloodGroup;
     }
 
