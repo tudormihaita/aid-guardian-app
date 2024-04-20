@@ -1,0 +1,56 @@
+
+syntax="proto3";
+option java_package = "dot.help.networking";
+option java_outer_classname = "Protobufs";
+
+message User{
+  int32 id=1;
+  string email=2;
+  string username=3;
+  string password=4;
+
+}
+message Profile{
+  enum Gender {Male=0;Female=1;Other=2;}
+  enum BloodGroup {O=0;A=1;B=2;AB=3;}
+  User user = 1;
+  string firstName = 2;
+  string lastName = 3;
+  Gender gender = 4;
+  string birthDate = 5;
+  BloodGroup bloodGroup = 6;
+  float height = 7;
+  float weight = 8;
+  string medicalConditions = 9;
+  int32 score = 10;
+}
+message FirstResponder{
+  Profile profile=1;
+  bool onDuty=2;
+}
+message CommunityHelper{
+  Profile profile=1;
+}
+message Emergency{
+  enum Status {Reported=0;Responded=1;OnSite=2;Resolved=3;}
+  User reporter = 1;
+  FirstResponder responder = 2;
+  string date = 3;
+  string description = 4;
+  string location = 5;
+
+}
+
+message Request{
+  enum Type{Login=0;Logout=1;}
+  Type type = 1;
+  oneof payload{
+    User user = 2;
+  }
+}
+message Response{
+  enum Type{Ok=0;Error=1;Login=2;Logout=3;}
+  Type type = 1;
+  string error = 2;
+
+}
