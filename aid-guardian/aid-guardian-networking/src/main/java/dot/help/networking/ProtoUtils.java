@@ -1,5 +1,7 @@
 package dot.help.networking;
 
+import dot.help.model.User;
+
 public class ProtoUtils {
     public static Protobufs.Request createLoginRequest(User organiser){
         Protobufs.User organiserDTO=Protobufs.User.newBuilder().setUsername(organiser.getUsername()).setPassword(organiser.getPassword()).build();

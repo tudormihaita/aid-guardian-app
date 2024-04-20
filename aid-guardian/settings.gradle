@@ -1,2 +1,4 @@
 rootProject.name = 'aid-guardian'
-
+include 'aid-guardian-model'
+include 'aid-guardian-networking'
+include 'aid-guardian-persistence'

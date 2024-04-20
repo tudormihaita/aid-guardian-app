@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'dot.help.model'
+group = 'dot.help'
 version = '1.0-SNAPSHOT'
 
 repositories {
