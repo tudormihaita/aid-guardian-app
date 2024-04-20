@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/aid-guardian-networking/ProtoFiles/ProtoFiles.iml" filepath="$PROJECT_DIR$/aid-guardian-networking/ProtoFiles/ProtoFiles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/src/aid-guardian.iml" filepath="$PROJECT_DIR$/src/aid-guardian.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aid-guardian-model/aid-guardian-model.iml" filepath="$PROJECT_DIR$/aid-guardian-model/aid-guardian-model.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aid-guardian-networking/src/aid-guardian-networking.iml" filepath="$PROJECT_DIR$/aid-guardian-networking/src/aid-guardian-networking.iml" />
+      <module fileurl="file://$PROJECT_DIR$/aid-guardian-persistence/aid-guardian-persistence.iml" filepath="$PROJECT_DIR$/aid-guardian-persistence/aid-guardian-persistence.iml" />
+    </modules>
+  </component>
+</project>
