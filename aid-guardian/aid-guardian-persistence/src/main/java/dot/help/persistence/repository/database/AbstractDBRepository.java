@@ -1,5 +1,6 @@
 package dot.help.persistence.repository.database;
 
+import dot.help.model.Entity;
 import dot.help.persistence.repository.Repository;
 import dot.help.persistence.utils.DBUtils;
 import org.apache.logging.log4j.LogManager;

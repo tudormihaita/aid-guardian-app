@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'dot.help'
+group = 'dot.help.networking'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,13 +10,12 @@ repositories {
 }
 
 dependencies {
+    implementation project(':aid-guardian-model')
 
-    implementation project(path: ':aid-guardian-model')
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
     implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '4.26.1'
 
-//    implementation project(':aid-guardian-model')
 }
 
 test {

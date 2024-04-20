@@ -1,5 +1,7 @@
 package dot.help.persistence.repository;
 
+import dot.help.model.Entity;
+
 import java.util.Optional;
 
 public interface Repository<ID, E extends Entity<ID>> {

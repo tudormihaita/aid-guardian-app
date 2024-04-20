@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'dot.help'
+group = 'dot.help.persistence'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -10,6 +10,8 @@ repositories {
 }
 
 dependencies {
+    implementation project(':aid-guardian-model')
+
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
 
