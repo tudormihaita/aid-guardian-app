@@ -42,6 +42,16 @@ public class ProtobufProxy {
         }
 
     }
+    public void Logout(User user) throws Exception {
+        sendRequest(ProtoUtils.createLogoutRequest(user));
+        Protobufs.Response response = readResponse();
+        closeConnection();
+        if(response.getType() == Protobufs.Response.Type.Error)
+        {
+            String err = response.getError();
+            throw new Exception(err);
+        }
+    }
     private Protobufs.Response readResponse() {
         Protobufs.Response response = null;
         try{
