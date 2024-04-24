@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.Controllers.ReportEmergencyController">
+   <children>
+      <Pane layoutX="126.0" layoutY="56.0" prefHeight="458.0" prefWidth="627.0" style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 2; -fx-background-color: RGB(250, 250, 250);">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="47.0" layoutY="7.0" prefHeight="35.0" prefWidth="181.0" text="AidGuardian ">
+               <font>
+                  <Font name="Avenir Light" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/shield.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="161.0" layoutY="33.0" prefHeight="52.0" prefWidth="290.0" text="Report Emergency">
+               <font>
+                  <Font name="Avenir Light" size="32.0" />
+               </font>
+            </Label>
+            <GridPane layoutX="31.0" layoutY="98.0" prefHeight="254.0" prefWidth="567.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="213.0" minHeight="3.0" prefHeight="59.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="213.0" minHeight="10.0" prefHeight="102.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="123.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="123.0" minHeight="0.0" prefHeight="31.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                  <Label prefHeight="58.0" prefWidth="210.0" text="describe the emergency:">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextArea fx:id="EmergencyDescriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="describe the emergency" GridPane.rowIndex="1" />
+                  <Label prefHeight="34.0" prefWidth="283.0" text="what is the location of the emergency?" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <RadioButton fx:id="useMyCurrentLlocationRadioButton" mnemonicParsing="false" text="use my current location" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Avenir Light" size="13.0" />
+                     </font>
+                  </RadioButton>
+                  <HBox spacing="30.0" GridPane.rowIndex="4">
+                     <children>
+                        <RadioButton fx:id="useAnotherLocationRadioButton" mnemonicParsing="false" text="use another location">
+                           <font>
+                              <Font name="Avenir Light" size="13.0" />
+                           </font>
+                        </RadioButton>
+                        <TextField fx:id="LocationTextField" prefHeight="26.0" prefWidth="352.0" promptText="enter location" />
+                     </children>
+                  </HBox>
+               </children>
+            </GridPane>
+            <Button layoutX="250.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleReportButton" prefHeight="35.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-background-color: RGB(200, 200, 200); -fx-border-color: black;" text="Report">
+               <font>
+                  <Font name="Avenir Heavy Oblique" size="18.0" />
+               </font>
+            </Button>
+         </children>
+      </Pane>
+   </children>
+</AnchorPane>
