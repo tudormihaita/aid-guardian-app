@@ -4,10 +4,13 @@ option java_package = "dot.help.networking";
 option java_outer_classname = "Protobufs";
 
 message User{
+  enum Type {CommunityHelper=0;FirstResponder=1;}
   int32 id=1;
   string email=2;
   string username=3;
   string password=4;
+  Type type=5;
+  bool onDuty=6;
 
 }
 message Profile{
@@ -24,17 +27,11 @@ message Profile{
   string medicalConditions = 9;
   int32 score = 10;
 }
-message FirstResponder{
-  Profile profile=1;
-  bool onDuty=2;
-}
-message CommunityHelper{
-  Profile profile=1;
-}
+
 message Emergency{
   enum Status {Reported=0;Responded=1;OnSite=2;Resolved=3;}
   User reporter = 1;
-  FirstResponder responder = 2;
+  User responder = 2;
   string date = 3;
   string description = 4;
   string location = 5;
