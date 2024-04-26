@@ -1,6 +1,7 @@
-package dot.help.client.Controllers;
+package dot.help.client.controller;
 
 import dot.help.client.StartProtoBufferClient;
+import dot.help.services.IServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -21,9 +22,9 @@ public class StartAppController {
     public Tab startTab;
 
 
-    private IService server;
+    private IServices server;
 
-    public void setServer(IService sev) {
+    public void setServer(IServices sev) {
         logger.traceEntry("Entering setService");
         this.server = sev;
         logger.traceExit();

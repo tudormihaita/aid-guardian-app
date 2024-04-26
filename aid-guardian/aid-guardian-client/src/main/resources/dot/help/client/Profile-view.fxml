@@ -5,14 +5,14 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.Controllers.ProfileController">
+<AnchorPane maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.controller.ProfileController">
    <children>
-      <Button layoutX="583.0" layoutY="482.0" mnemonicParsing="false" onAction="#handlReportEmergencyButton" prefHeight="49.0" prefWidth="174.0" style="-fx-border-radius: 100; -fx-background-radius: 100; -fx-border-color: black; -fx-border-width: 1; -fx-background-color: RGB(200, 200, 200);" text="Report Emergency">
+      <Button layoutX="583.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleReportEmergencyButton" prefHeight="49.0" prefWidth="174.0" style="-fx-border-radius: 100; -fx-background-radius: 100; -fx-border-color: black; -fx-border-width: 1; -fx-background-color: RGB(200, 200, 200);" text="Report Emergency">
          <font>
             <Font name="Avenir Heavy" size="14.0" />
          </font>
       </Button>
-      <Button layoutX="377.0" layoutY="482.0" mnemonicParsing="false" onAction="#handlRespondToEmergencyButton" prefHeight="49.0" prefWidth="174.0" style="-fx-border-radius: 100; -fx-background-radius: 100; -fx-border-color: black; -fx-border-width: 1; -fx-background-color: RGB(200, 200, 200);" text="Respond to Emergency">
+      <Button layoutX="377.0" layoutY="482.0" mnemonicParsing="false" onAction="#handleRespondToEmergencyButton" prefHeight="49.0" prefWidth="174.0" style="-fx-border-radius: 100; -fx-background-radius: 100; -fx-border-color: black; -fx-border-width: 1; -fx-background-color: RGB(200, 200, 200);" text="Respond to Emergency">
          <font>
             <Font name="Avenir Heavy" size="14.0" />
          </font>
@@ -36,7 +36,7 @@
             <Button mnemonicParsing="false" onAction="#handleCall112Button" prefHeight="93.0" prefWidth="298.0" style="-fx-background-color: RGB(18, 80, 151);" text="Call 112" textFill="WHITE" />
             <Button mnemonicParsing="false" onAction="#handleGuidesButton" prefHeight="93.0" prefWidth="302.0" style="-fx-background-color: RGB(18, 80, 151);" text="Guides" textFill="#fffdfd" />
             <Button mnemonicParsing="false" onAction="#handleYourScoreButton" prefHeight="93.0" prefWidth="299.0" style="-fx-background-color: RGB(18, 80, 151);" text="Your Score" textFill="WHITE" />
-            <Button mnemonicParsing="false" onAction="#handleSettingsButton" prefHeight="93.0" prefWidth="305.0" style="-fx-background-color: RGB(18, 80, 151);" text="Setings" textFill="WHITE" />
+            <Button mnemonicParsing="false" onAction="#handleSettingsButton" prefHeight="93.0" prefWidth="305.0" style="-fx-background-color: RGB(18, 80, 151);" text="Settings" textFill="WHITE" />
             <Button mnemonicParsing="false" onAction="#handleLogoutButton" prefHeight="93.0" prefWidth="314.0" style="-fx-background-color: RGB(18, 80, 151);" text="Logout" textFill="WHITE" />
          </children>
       </VBox>

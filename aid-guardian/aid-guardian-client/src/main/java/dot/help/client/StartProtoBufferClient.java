@@ -2,7 +2,8 @@ package dot.help.client;
 
 import dot.help.networking.ProtobufProxy;
 
-import dot.help.client.Controllers.StartAppController;
+import dot.help.client.controller.StartAppController;
+import dot.help.services.IServices;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -42,7 +43,7 @@ public class StartProtoBufferClient extends Application {
         logger.info("Using server IP "+serverIP);
         logger.info("Using server port "+serverPort);
 
-        IService server=new ProtobufProxy(serverIP, serverPort);
+        IServices server = new ProtobufProxy(serverIP, serverPort);
 
         FXMLLoader applicationLoader = new FXMLLoader();
         applicationLoader.setLocation(StartProtoBufferClient.class.getResource("StartApp-view.fxml"));

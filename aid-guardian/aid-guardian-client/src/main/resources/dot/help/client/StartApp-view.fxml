@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<TabPane fx:id="appTabPane" prefHeight="576.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.Controllers.StartAppController">
+<TabPane fx:id="appTabPane" prefHeight="576.0" prefWidth="834.0" xmlns="http://javafx.com/javafx/11.0.14-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.controller.StartAppController">
    <tabs>
       <Tab>
          <content>

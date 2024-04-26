@@ -26,6 +26,11 @@ public class ProtoUtils {
         return user;
     }
 
+    public static User getUser(Protobufs.Response response) {
+        User user = new User(response.getUser().getEmail(),response.getUser().getUsername(),response.getUser().getPassword());
+        return user;
+    }
+
     public static Protobufs.Response createOkResponse() {
         Protobufs.Response response = Protobufs.Response.newBuilder().setType(Protobufs.Response.Type.Ok).build();
         return response;

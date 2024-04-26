@@ -38,6 +38,9 @@ message Emergency{
 
 }
 
+// E nevoie de request type-uri noi: REPORT_EMERGENCY, UPDATE_EMERGENCY, RESPOND_EMERGENCY(asta o sa vad daca e necesar, deocamdata pune-o),
+// SAVE_PROFILE, UPDATE_PROFILE, GET_PROFILE, GET_EMERGENCY,
+// tipuri noi de date care pot aparea pe request: Profile, Emergency, (cred ca si FirstResponder putem deocamdata)
 message Request{
   enum Type{Login=0;Logout=1;}
   Type type = 1;
@@ -45,6 +48,13 @@ message Request{
     User user = 2;
   }
 }
+
+// Si aici e nevoie de tipuri de date noi ca la request-uri
+// pentru tipuri, sigur trebuie EMERGENCY_RESPONDED, EMERGENCY_REPORTED
+// aici e decizia ta daca crezi ca trb sa fie tip de raspuns care sa corespunda la fiecare request
+// ma gandesc ca putem folosi OK pentru majoritatea si doar facem functie in ProtoUtils cu response de tip OK care primeste tipu de date asteptat
+// de aia cred ca merge scos si Login sau Logout de la response
+// iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
 message Response{
   enum Type{Ok=0;Error=1;Login=2;Logout=3;}
   Type type = 1;

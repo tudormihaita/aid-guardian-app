@@ -1,19 +1,17 @@
-package dot.help.client.Controllers;
+package dot.help.client.controller;
 
-import dot.help.client.StartProtoBufferClient;
 import dot.help.model.*;
+import dot.help.services.IObserver;
+import dot.help.services.IServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
-import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
 
-public class ReportEmergencyController {
+public class ReportEmergencyController implements IObserver {
     private static final Logger logger= LogManager.getLogger(ReportEmergencyController.class);
 
 
@@ -29,13 +27,13 @@ public class ReportEmergencyController {
 
     private Profile currentProfile;
 
-    private IService server;
+    private IServices server;
     private TabPane appTabPane;
     private Tab startTab;
     private Tab reportTab;
 
 
-    public void setServer(IService sev) {
+    public void setServer(IServices sev) {
         logger.traceEntry("Entering setService");
         this.server = sev;
         logger.traceExit();
@@ -69,7 +67,7 @@ public class ReportEmergencyController {
             return;
         }
         if (anotherLocation && anotherLocationString.isEmpty()) {
-            MessageAlert.showErrorMessage(null, "Please eneter the location");
+            MessageAlert.showErrorMessage(null, "Please enter the location");
             return;
         }
         else {
@@ -77,11 +75,16 @@ public class ReportEmergencyController {
         }
         Emergency  emergency = new Emergency(reporter, dateTime, description, status, firstResponder, location);
         try {
-            server.ReportEmergency(emergency);
+            server.reportEmergency(emergency, this);
         } catch (Exception e) {
             MessageAlert.showErrorMessage(null, e.getMessage());
             return;
         }
         logger.traceExit();
+    }
+
+    @Override
+    public void emergencyReported(Emergency emergency) {
+
     }
 }

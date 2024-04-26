@@ -1,8 +1,9 @@
-package dot.help.client.Controllers;
+package dot.help.client.controller;
 
 import dot.help.client.StartProtoBufferClient;
 import dot.help.model.Profile;
 import dot.help.model.User;
+import dot.help.services.IServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,49 +15,49 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 
 public class LoginController {
-    private static final Logger logger= LogManager.getLogger(LoginController.class);
+    private User currentUser;
+    private static final Logger log = LogManager.getLogger(LoginController.class);
 
     @FXML
     public TextField usernameEmailTextField;
     @FXML
     public PasswordField passwordTextField;
 
-    private IService server;
+    private IServices server;
     private TabPane appTabPane;
     private Tab startTab;
     private Tab loginTab;
 
 
-    public void setServer(IService sev) {
-        logger.traceEntry("Entering setService");
+    public void setServer(IServices sev) {
+        log.traceEntry("Entering setService");
         this.server = sev;
-        logger.traceExit();
+        log.traceExit();
     }
 
     public void setTab(TabPane mainTabPane, Tab startTab, Tab loginTab) {
-        logger.traceEntry("Entering setTab");
+        log.traceEntry("Entering setTab");
         this.appTabPane = mainTabPane;
         this.startTab = startTab;
         this.loginTab = loginTab;
-        logger.traceExit();
+        log.traceExit();
     }
 
     @FXML
     private void initialize() {
-        logger.traceEntry("Entering initialize");
-        logger.traceExit();
+        log.traceEntry("Entering initialize");
+        log.traceExit();
     }
 
     public void handleLogin() {
-        logger.traceEntry("Entering handleLogin");
+        log.traceEntry("Entering handleLogin");
 
-        String username = usernameEmailTextField.getText();
+        String candidateCredential = usernameEmailTextField.getText();
         String candidatePassword = passwordTextField.getText();
-        User user = new User(username, candidatePassword);
 
         try {
-            server.Login(user);
-            Profile profile = server.findProfileByUser(User);
+            currentUser = server.logIn(candidateCredential, candidatePassword, profileController);
+            Profile profile = server.findProfileByUser(currentUser);
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(StartProtoBufferClient.class.getResource("Profile-view.fxml"));
@@ -81,14 +82,14 @@ public class LoginController {
             return;
         }
 
-        logger.traceExit();
+        log.traceExit();
     }
 
     public void handleBackButton(ActionEvent actionEvent) {
-        logger.traceEntry("Entering handleBackButton");
+        log.traceEntry("Entering handleBackButton");
         appTabPane.getTabs().add(startTab);
         appTabPane.getSelectionModel().select(startTab);
         appTabPane.getTabs().remove(loginTab);
-        logger.traceExit();
+        log.traceExit();
     }
 }

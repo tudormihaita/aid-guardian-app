@@ -3,10 +3,10 @@ package dot.help.model;
 import java.util.Objects;
 
 public class User extends Entity<Long>{
-
     private String email;
     private String username;
     private String password;
+    private UserRole role;
 
     public User(String username, String password) {
         this.username = username;
@@ -17,6 +17,14 @@ public class User extends Entity<Long>{
         this.email = email;
         this.username = username;
         this.password = password;
+        this.role = UserRole.COMMUNITY_DISPATCHER;
+    }
+
+    public User(String email, String username, String password, UserRole role) {
+        this.email = email;
+        this.username = username;
+        this.password = password;
+        this.role = role;
     }
 
     public String getEmail() {
@@ -43,6 +51,14 @@ public class User extends Entity<Long>{
         this.password = password;
     }
 
+    public UserRole getRole() {
+        return role;
+    }
+
+    public void setRole(UserRole role) {
+        this.role = role;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -57,11 +73,11 @@ public class User extends Entity<Long>{
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
         User user = (User) o;
-        return Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password);
+        return Objects.equals(email, user.email) && Objects.equals(username, user.username) && Objects.equals(password, user.password) && role == user.role;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(super.hashCode(), email, username, password);
+        return Objects.hash(super.hashCode(), email, username, password, role);
     }
 }

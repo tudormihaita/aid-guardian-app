@@ -1,20 +1,25 @@
-package dot.help.client.Controllers;
+package dot.help.client.controller;
 
 import dot.help.client.StartProtoBufferClient;
-import dot.help.model.CommunityHelper;
+import dot.help.model.CommunityDispatcher;
+import dot.help.model.Emergency;
 import dot.help.model.Profile;
-import dot.help.model.User;
+import dot.help.services.IObserver;
+import dot.help.services.IServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class ProfileController {
+public class ProfileController implements Initializable, IObserver {
     private static final Logger logger= LogManager.getLogger(ProfileController.class);
     @FXML
     public Label UsernameLabel;
@@ -24,13 +29,13 @@ public class ProfileController {
 
     private Profile currentProfile;
 
-    private IService server;
+    private IServices server;
     private TabPane appTabPane;
     private Tab startTab;
     private Tab profileTab;
 
 
-    public void setServer(IService sev) {
+    public void setServer(IServices sev) {
         logger.traceEntry("Entering setService");
         this.server = sev;
         logger.traceExit();
@@ -47,16 +52,27 @@ public class ProfileController {
     public void setUser(Profile profile) {
         this.currentProfile = profile;
         UsernameLabel.setText(profile.getUser().getUsername());
-        if (profile.getUser() instanceof CommunityHelper) {
-            TypeOfUserLabel.setText("CommunityHelper");
+        if (profile.getUser() instanceof CommunityDispatcher) {
+            TypeOfUserLabel.setText("CommunityDispatcher");
         }
         else {
             TypeOfUserLabel.setText("FirstResponder");
         }
     }
 
-    public void handlReportEmergencyButton(ActionEvent actionEvent) {
-        logger.traceEntry("Entering handlReportEmergencyButton");
+
+    @Override
+    public void emergencyReported(Emergency emergency) {
+
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public void handleReportEmergencyButton(ActionEvent actionEvent) {
+        logger.traceEntry("Entering handleReportEmergencyButton");
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(StartProtoBufferClient.class.getResource("ReportEmergency-view.fxml"));
@@ -80,14 +96,14 @@ public class ProfileController {
         logger.traceExit();
     }
 
-    public void handlRespondToEmergencyButton(ActionEvent actionEvent) {
-        MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Succes", "Emergency response confirmed. Your assistance is greatly appreciated.");
+    public void handleRespondToEmergencyButton(ActionEvent actionEvent) {
+        MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Success", "Emergency response confirmed. Your assistance is greatly appreciated.");
     }
 
     public void handleLogoutButton(ActionEvent actionEvent) {
         logger.traceEntry("Entering handleLogoutButton");
         try {
-            server.Logout(currentProfile.getUser(), this);
+            server.logOut(currentProfile.getUser(), this);
         } catch (Exception e) {
             MessageAlert.showErrorMessage(null, e.getMessage());
         }

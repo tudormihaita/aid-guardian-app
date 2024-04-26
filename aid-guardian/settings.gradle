@@ -3,4 +3,6 @@ include 'aid-guardian-model'
 include 'aid-guardian-networking'
 include 'aid-guardian-persistence'
 include 'aid-guardian-client'
+include 'aid-guardian-services'
+include 'aid-guardian-server'
 

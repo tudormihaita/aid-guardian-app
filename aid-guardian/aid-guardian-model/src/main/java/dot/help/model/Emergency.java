@@ -2,21 +2,28 @@ package dot.help.model;
 
 import java.time.LocalDateTime;
 
-public class Emergency extends Entity<Long>
-{
+public class Emergency extends Entity<Long> {
     private User reporter;
-    private LocalDateTime dateTime;
+    private LocalDateTime reportedAt;
     private String description;
     private Status status;
-    private FirstResponder firstResponder;
+    private FirstResponder responder;
     private String location;
 
-    public Emergency(User reporter, LocalDateTime dateTime, String description, Status status, FirstResponder firstResponder, String location) {
+    public Emergency(User reporter, LocalDateTime reportedAt, String description, Status status, FirstResponder responder, String location) {
         this.reporter = reporter;
-        this.dateTime = dateTime;
+        this.reportedAt = reportedAt;
         this.description = description;
         this.status = status;
-        this.firstResponder = firstResponder;
+        this.responder = responder;
+        this.location = location;
+    }
+
+    public Emergency(User reporter, LocalDateTime reportedAt, String description, Status status, String location) {
+        this.reporter = reporter;
+        this.reportedAt = reportedAt;
+        this.description = description;
+        this.status = status;
         this.location = location;
     }
 
@@ -36,12 +43,12 @@ public class Emergency extends Entity<Long>
         this.reporter = reporter;
     }
 
-    public LocalDateTime getDateTime() {
-        return dateTime;
+    public LocalDateTime getReportedAt() {
+        return reportedAt;
     }
 
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
+    public void setReportedAt(LocalDateTime reportedAt) {
+        this.reportedAt = reportedAt;
     }
 
     public String getDescription() {
@@ -60,11 +67,11 @@ public class Emergency extends Entity<Long>
         this.status = status;
     }
 
-    public FirstResponder getFirstResponder() {
-        return firstResponder;
+    public FirstResponder getResponder() {
+        return responder;
     }
 
-    public void setFirstResponder(FirstResponder firstResponder) {
-        this.firstResponder = firstResponder;
+    public void setResponder(FirstResponder responder) {
+        this.responder = responder;
     }
 }

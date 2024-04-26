@@ -1,7 +1,8 @@
-package dot.help.client.Controllers;
+package dot.help.client.controller;
 
 import dot.help.client.StartProtoBufferClient;
 import dot.help.model.*;
+import dot.help.services.IServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -16,7 +17,7 @@ import java.util.Objects;
 public class SignUpController {
     private static final Logger logger= LogManager.getLogger(SignUpController.class);
 
-    private IService server;
+    private IServices server;
 
 
     private TabPane appTabPane;
@@ -44,15 +45,15 @@ public class SignUpController {
     @FXML
     public PasswordField confirmPasswordTextField;
     @FXML
-    public ChoiceBox<String> genreChoiseBox;
+    public ChoiceBox<String> genderChoiceBox;
     @FXML
-    public ChoiceBox<BloodGroupType> bloodGroupChoiseBox;
+    public ChoiceBox<BloodGroupType> bloodGroupChoiceBox;
     @FXML
     public CheckBox certiifiedCheckBox;
 
 
 
-    public void setServer(IService sev) {
+    public void setServer(IServices sev) {
         logger.traceEntry("Entering setService");
         this.server = sev;
         logger.traceExit();
@@ -69,8 +70,8 @@ public class SignUpController {
     @FXML
     private void initialize() {
         logger.traceEntry("Entering initialize");
-        genreChooseBox.getItems().addAll("Male", "Female", "Other");
-        bloodGroupChoiseBox.getItems().addAll(BloodGroupType.O_NEGATIVE, BloodGroupType.O_POSITIVE, BloodGroupType.A_NEGATIVE,
+        genderChoiceBox.getItems().addAll("Male", "Female", "Other");
+        bloodGroupChoiceBox.getItems().addAll(BloodGroupType.O_NEGATIVE, BloodGroupType.O_POSITIVE, BloodGroupType.A_NEGATIVE,
         BloodGroupType.A_POSITIVE, BloodGroupType.B_NEGATIVE, BloodGroupType.B_POSITIVE, BloodGroupType.AB_NEGATIVE, BloodGroupType.AB_POSITIVE);
         logger.traceExit();
     }
@@ -85,9 +86,9 @@ public class SignUpController {
         String confirmPassword = confirmPasswordTextField.getText();
         String firstName = firstNameTextField.getText();
         String lastName = lastNameTextField.getText();
-        Boolean certified = certiifiedCheckBox.isSelected();
-        GenderType gender = GenderType.valueOf(genreChoiseBox.getValue());
-        BloodGroupType bloodGroup = bloodGroupChoiseBox.getValue();
+        boolean certified = certiifiedCheckBox.isSelected();
+        GenderType gender = GenderType.valueOf(genderChoiceBox.getValue());
+        BloodGroupType bloodGroup = bloodGroupChoiceBox.getValue();
         LocalDate dateOfBirth = dateOfBirthDatePicker.getValue();
         Float height = Float.parseFloat(heightTextField.getText());
         Float weight = Float.parseFloat(weeightTextField.getText());
@@ -102,7 +103,7 @@ public class SignUpController {
             User user;
             Profile profile;
             if (certified) {
-                user = new FirstResponder(username, password);
+                user = new FirstResponder(email, username, password);
             }
             else {
                 // o zis Tudor ca se mai gandeste daca in comunity helper pune sau nu profile

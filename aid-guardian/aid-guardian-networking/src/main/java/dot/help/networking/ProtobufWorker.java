@@ -1,6 +1,9 @@
 package dot.help.networking;
 
+import dot.help.model.Emergency;
 import dot.help.model.User;
+import dot.help.services.IObserver;
+import dot.help.services.IServices;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -8,15 +11,15 @@ import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
 
-public class ProtobufWorker implements Runnable {
+public class ProtobufWorker implements Runnable, IObserver {
 
-    private IService service;
+    private IServices service;
     private Socket connection;
     private ObjectInputStream input;
     private ObjectOutputStream output;
     private volatile boolean connected;
 
-    public ProtobufWorker(IService service, Socket connection)
+    public ProtobufWorker(IServices service, Socket connection)
     {
         this.service = service;
         this.connection = connection;
@@ -72,7 +75,7 @@ public class ProtobufWorker implements Runnable {
             System.out.println("Login request" + request.getType());
             User user = ProtoUtils.getUser(request);
             try{
-                service.Login(user, this);
+                service.logIn(user.getUsername(), user.getPassword(), this);
                 return ProtoUtils.createOkResponse();
             } catch (Exception e) {
                 connected = false;
@@ -84,7 +87,7 @@ public class ProtobufWorker implements Runnable {
             System.out.println("Logout request" +  request.getType());
             User user = ProtoUtils.getUser(request);
             try{
-                service.Logout(user, this);
+                service.logOut(user, this);
                 connected = false;
                 return ProtoUtils.createOkResponse();
             } catch (Exception e) {
@@ -93,5 +96,10 @@ public class ProtobufWorker implements Runnable {
         }
 
         return response;
+    }
+
+    @Override
+    public void emergencyReported(Emergency emergency) {
+
     }
 }

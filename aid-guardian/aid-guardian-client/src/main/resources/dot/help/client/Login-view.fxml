@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.Controllers.LoginController">
+<AnchorPane maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.controller.LoginController">
    <children>
       <Pane layoutX="197.0" layoutY="100.0" prefHeight="322.0" prefWidth="463.0" style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 2; -fx-background-color: RGB(250, 250, 250);">
          <children>

@@ -1,6 +1,10 @@
 package dot.help.networking;
 
 import dot.help.model.User;
+import dot.help.services.IObserver;
+import dot.help.services.IServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,47 +14,67 @@ import java.net.UnknownHostException;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingDeque;
 
-public class ProtobufProxy {
+public class ProtobufProxy implements IServices {
     private String host;
     private int port;
     private InputStream input;
     private OutputStream output;
     private Socket connection;
 
+
+    private IObserver client;
     private BlockingQueue<Protobufs.Response> qresponses;
     private volatile boolean finished;
+    private final Logger log = LogManager.getLogger(ProtobufProxy.class);
 
     public ProtobufProxy(String host, int port) {
         this.host = host;
         this.port = port;
         qresponses = new LinkedBlockingDeque<>();
     }
-    public void Login(User user) throws Exception {
+
+    @Override
+    public User logIn(String credential, String password, IObserver client) {
         initializeConnection();
-        System.out.println("Login request ...");
-        sendRequest(ProtoUtils.createLoginRequest(user));
-        Protobufs.Response response=readResponse();
-        if (response.getType()==Protobufs.Response.Type.Ok){
-//            this.client=client;
-            return;
+        System.out.println("sending login request ...");
+
+        try {
+            User user = new User(credential, password);
+            sendRequest(ProtoUtils.createLoginRequest(user));
+
+            Protobufs.Response response = readResponse();
+            if(response.getType() == Protobufs.Response.Type.Login) {
+                User loggedUser = ProtoUtils.getUser(response);
+                log.traceExit("Client successfully logged in: {}", client);
+                this.client = client;
+                return loggedUser;
+            }
+        } catch (Exception exception) {
+            log.error(exception);
         }
 
-        if (response.getType()==Protobufs.Response.Type.Error){
-            String errorText=ProtoUtils.getError(response);
-            closeConnection();
-            throw new Exception(errorText);
-        }
-
+        log.error("Failed to process Login request, aborting...");
+        throw new IllegalArgumentException("Failed to login!");
     }
-    public void Logout(User user) throws Exception {
-        sendRequest(ProtoUtils.createLogoutRequest(user));
-        Protobufs.Response response = readResponse();
-        closeConnection();
-        if(response.getType() == Protobufs.Response.Type.Error)
-        {
-            String err = response.getError();
-            throw new Exception(err);
+
+    @Override
+    public void logOut(User user, IObserver client) {
+        log.info("Sending logout request...");
+
+        try {
+            sendRequest(ProtoUtils.createLogoutRequest(user));
+            Protobufs.Response response = readResponse();
+
+            if (response.getType() == Protobufs.Response.Type.Error) {
+                String err = response.getError();
+                throw new Exception(err);
+            }
+        } catch (Exception exception) {
+            log.error(exception);
         }
+
+        closeConnection();
+        log.traceExit("Client successfully logged out: {}", user);
     }
     private Protobufs.Response readResponse() {
         Protobufs.Response response = null;
@@ -93,8 +117,6 @@ public class ProtobufProxy {
             input = connection.getInputStream();
             finished = false;
             startReader();
-        } catch (UnknownHostException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

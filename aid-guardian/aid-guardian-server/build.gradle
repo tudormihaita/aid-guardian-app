@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'dot.help.networking'
+group = 'dot.help.server'
 version = '1.0-SNAPSHOT'
 
 repositories {
@@ -11,17 +11,18 @@ repositories {
 
 dependencies {
     implementation project(':aid-guardian-model')
+    implementation project(':aid-guardian-networking')
+    implementation project(':aid-guardian-services')
+    implementation project(':aid-guardian-persistence')
 
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation group: 'com.google.protobuf', name: 'protobuf-java', version: '4.26.1'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
     implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
     implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
-
 }
 
 test {
