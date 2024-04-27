@@ -3121,36 +3121,47 @@ public final class Protobufs {
         dot.help.networking.Protobufs.UserOrBuilder getResponderOrBuilder();
 
         /**
-         * <code>string date = 3;</code>
+         * <code>.Emergency.Status status = 3;</code>
+         * @return The enum numeric value on the wire for status.
+         */
+        int getStatusValue();
+        /**
+         * <code>.Emergency.Status status = 3;</code>
+         * @return The status.
+         */
+        dot.help.networking.Protobufs.Emergency.Status getStatus();
+
+        /**
+         * <code>string date = 4;</code>
          * @return The date.
          */
         java.lang.String getDate();
         /**
-         * <code>string date = 3;</code>
+         * <code>string date = 4;</code>
          * @return The bytes for date.
          */
         com.google.protobuf.ByteString
         getDateBytes();
 
         /**
-         * <code>string description = 4;</code>
+         * <code>string description = 5;</code>
          * @return The description.
          */
         java.lang.String getDescription();
         /**
-         * <code>string description = 4;</code>
+         * <code>string description = 5;</code>
          * @return The bytes for description.
          */
         com.google.protobuf.ByteString
         getDescriptionBytes();
 
         /**
-         * <code>string location = 5;</code>
+         * <code>string location = 6;</code>
          * @return The location.
          */
         java.lang.String getLocation();
         /**
-         * <code>string location = 5;</code>
+         * <code>string location = 6;</code>
          * @return The bytes for location.
          */
         com.google.protobuf.ByteString
@@ -3178,6 +3189,7 @@ public final class Protobufs {
             super(builder);
         }
         private Emergency() {
+            status_ = 0;
             date_ = "";
             description_ = "";
             location_ = "";
@@ -3384,11 +3396,29 @@ public final class Protobufs {
             return responder_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : responder_;
         }
 
-        public static final int DATE_FIELD_NUMBER = 3;
+        public static final int STATUS_FIELD_NUMBER = 3;
+        private int status_ = 0;
+        /**
+         * <code>.Emergency.Status status = 3;</code>
+         * @return The enum numeric value on the wire for status.
+         */
+        @java.lang.Override public int getStatusValue() {
+            return status_;
+        }
+        /**
+         * <code>.Emergency.Status status = 3;</code>
+         * @return The status.
+         */
+        @java.lang.Override public dot.help.networking.Protobufs.Emergency.Status getStatus() {
+            dot.help.networking.Protobufs.Emergency.Status result = dot.help.networking.Protobufs.Emergency.Status.forNumber(status_);
+            return result == null ? dot.help.networking.Protobufs.Emergency.Status.UNRECOGNIZED : result;
+        }
+
+        public static final int DATE_FIELD_NUMBER = 4;
         @SuppressWarnings("serial")
         private volatile java.lang.Object date_ = "";
         /**
-         * <code>string date = 3;</code>
+         * <code>string date = 4;</code>
          * @return The date.
          */
         @java.lang.Override
@@ -3405,7 +3435,7 @@ public final class Protobufs {
             }
         }
         /**
-         * <code>string date = 3;</code>
+         * <code>string date = 4;</code>
          * @return The bytes for date.
          */
         @java.lang.Override
@@ -3423,11 +3453,11 @@ public final class Protobufs {
             }
         }
 
-        public static final int DESCRIPTION_FIELD_NUMBER = 4;
+        public static final int DESCRIPTION_FIELD_NUMBER = 5;
         @SuppressWarnings("serial")
         private volatile java.lang.Object description_ = "";
         /**
-         * <code>string description = 4;</code>
+         * <code>string description = 5;</code>
          * @return The description.
          */
         @java.lang.Override
@@ -3444,7 +3474,7 @@ public final class Protobufs {
             }
         }
         /**
-         * <code>string description = 4;</code>
+         * <code>string description = 5;</code>
          * @return The bytes for description.
          */
         @java.lang.Override
@@ -3462,11 +3492,11 @@ public final class Protobufs {
             }
         }
 
-        public static final int LOCATION_FIELD_NUMBER = 5;
+        public static final int LOCATION_FIELD_NUMBER = 6;
         @SuppressWarnings("serial")
         private volatile java.lang.Object location_ = "";
         /**
-         * <code>string location = 5;</code>
+         * <code>string location = 6;</code>
          * @return The location.
          */
         @java.lang.Override
@@ -3483,7 +3513,7 @@ public final class Protobufs {
             }
         }
         /**
-         * <code>string location = 5;</code>
+         * <code>string location = 6;</code>
          * @return The bytes for location.
          */
         @java.lang.Override
@@ -3521,14 +3551,17 @@ public final class Protobufs {
             if (((bitField0_ & 0x00000002) != 0)) {
                 output.writeMessage(2, getResponder());
             }
+            if (status_ != dot.help.networking.Protobufs.Emergency.Status.Reported.getNumber()) {
+                output.writeEnum(3, status_);
+            }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(date_)) {
-                com.google.protobuf.GeneratedMessage.writeString(output, 3, date_);
+                com.google.protobuf.GeneratedMessage.writeString(output, 4, date_);
             }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
-                com.google.protobuf.GeneratedMessage.writeString(output, 4, description_);
+                com.google.protobuf.GeneratedMessage.writeString(output, 5, description_);
             }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(location_)) {
-                com.google.protobuf.GeneratedMessage.writeString(output, 5, location_);
+                com.google.protobuf.GeneratedMessage.writeString(output, 6, location_);
             }
             getUnknownFields().writeTo(output);
         }
@@ -3547,14 +3580,18 @@ public final class Protobufs {
                 size += com.google.protobuf.CodedOutputStream
                         .computeMessageSize(2, getResponder());
             }
+            if (status_ != dot.help.networking.Protobufs.Emergency.Status.Reported.getNumber()) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeEnumSize(3, status_);
+            }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(date_)) {
-                size += com.google.protobuf.GeneratedMessage.computeStringSize(3, date_);
+                size += com.google.protobuf.GeneratedMessage.computeStringSize(4, date_);
             }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
-                size += com.google.protobuf.GeneratedMessage.computeStringSize(4, description_);
+                size += com.google.protobuf.GeneratedMessage.computeStringSize(5, description_);
             }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(location_)) {
-                size += com.google.protobuf.GeneratedMessage.computeStringSize(5, location_);
+                size += com.google.protobuf.GeneratedMessage.computeStringSize(6, location_);
             }
             size += getUnknownFields().getSerializedSize();
             memoizedSize = size;
@@ -3581,6 +3618,7 @@ public final class Protobufs {
                 if (!getResponder()
                         .equals(other.getResponder())) return false;
             }
+            if (status_ != other.status_) return false;
             if (!getDate()
                     .equals(other.getDate())) return false;
             if (!getDescription()
@@ -3606,6 +3644,8 @@ public final class Protobufs {
                 hash = (37 * hash) + RESPONDER_FIELD_NUMBER;
                 hash = (53 * hash) + getResponder().hashCode();
             }
+            hash = (37 * hash) + STATUS_FIELD_NUMBER;
+            hash = (53 * hash) + status_;
             hash = (37 * hash) + DATE_FIELD_NUMBER;
             hash = (53 * hash) + getDate().hashCode();
             hash = (37 * hash) + DESCRIPTION_FIELD_NUMBER;
@@ -3760,6 +3800,7 @@ public final class Protobufs {
                     responderBuilder_.dispose();
                     responderBuilder_ = null;
                 }
+                status_ = 0;
                 date_ = "";
                 description_ = "";
                 location_ = "";
@@ -3810,12 +3851,15 @@ public final class Protobufs {
                     to_bitField0_ |= 0x00000002;
                 }
                 if (((from_bitField0_ & 0x00000004) != 0)) {
-                    result.date_ = date_;
+                    result.status_ = status_;
                 }
                 if (((from_bitField0_ & 0x00000008) != 0)) {
-                    result.description_ = description_;
+                    result.date_ = date_;
                 }
                 if (((from_bitField0_ & 0x00000010) != 0)) {
+                    result.description_ = description_;
+                }
+                if (((from_bitField0_ & 0x00000020) != 0)) {
                     result.location_ = location_;
                 }
                 result.bitField0_ |= to_bitField0_;
@@ -3839,19 +3883,22 @@ public final class Protobufs {
                 if (other.hasResponder()) {
                     mergeResponder(other.getResponder());
                 }
+                if (other.status_ != 0) {
+                    setStatusValue(other.getStatusValue());
+                }
                 if (!other.getDate().isEmpty()) {
                     date_ = other.date_;
-                    bitField0_ |= 0x00000004;
+                    bitField0_ |= 0x00000008;
                     onChanged();
                 }
                 if (!other.getDescription().isEmpty()) {
                     description_ = other.description_;
-                    bitField0_ |= 0x00000008;
+                    bitField0_ |= 0x00000010;
                     onChanged();
                 }
                 if (!other.getLocation().isEmpty()) {
                     location_ = other.location_;
-                    bitField0_ |= 0x00000010;
+                    bitField0_ |= 0x00000020;
                     onChanged();
                 }
                 this.mergeUnknownFields(other.getUnknownFields());
@@ -3894,21 +3941,26 @@ public final class Protobufs {
                                 bitField0_ |= 0x00000002;
                                 break;
                             } // case 18
-                            case 26: {
-                                date_ = input.readStringRequireUtf8();
+                            case 24: {
+                                status_ = input.readEnum();
                                 bitField0_ |= 0x00000004;
                                 break;
-                            } // case 26
+                            } // case 24
                             case 34: {
-                                description_ = input.readStringRequireUtf8();
+                                date_ = input.readStringRequireUtf8();
                                 bitField0_ |= 0x00000008;
                                 break;
                             } // case 34
                             case 42: {
-                                location_ = input.readStringRequireUtf8();
+                                description_ = input.readStringRequireUtf8();
                                 bitField0_ |= 0x00000010;
                                 break;
                             } // case 42
+                            case 50: {
+                                location_ = input.readStringRequireUtf8();
+                                bitField0_ |= 0x00000020;
+                                break;
+                            } // case 50
                             default: {
                                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                                     done = true; // was an endgroup tag
@@ -4168,9 +4220,62 @@ public final class Protobufs {
                 return responderBuilder_;
             }
 
+            private int status_ = 0;
+            /**
+             * <code>.Emergency.Status status = 3;</code>
+             * @return The enum numeric value on the wire for status.
+             */
+            @java.lang.Override public int getStatusValue() {
+                return status_;
+            }
+            /**
+             * <code>.Emergency.Status status = 3;</code>
+             * @param value The enum numeric value on the wire for status to set.
+             * @return This builder for chaining.
+             */
+            public Builder setStatusValue(int value) {
+                status_ = value;
+                bitField0_ |= 0x00000004;
+                onChanged();
+                return this;
+            }
+            /**
+             * <code>.Emergency.Status status = 3;</code>
+             * @return The status.
+             */
+            @java.lang.Override
+            public dot.help.networking.Protobufs.Emergency.Status getStatus() {
+                dot.help.networking.Protobufs.Emergency.Status result = dot.help.networking.Protobufs.Emergency.Status.forNumber(status_);
+                return result == null ? dot.help.networking.Protobufs.Emergency.Status.UNRECOGNIZED : result;
+            }
+            /**
+             * <code>.Emergency.Status status = 3;</code>
+             * @param value The status to set.
+             * @return This builder for chaining.
+             */
+            public Builder setStatus(dot.help.networking.Protobufs.Emergency.Status value) {
+                if (value == null) {
+                    throw new NullPointerException();
+                }
+                bitField0_ |= 0x00000004;
+                status_ = value.getNumber();
+                onChanged();
+                return this;
+            }
+            /**
+             * <code>.Emergency.Status status = 3;</code>
+             * @return This builder for chaining.
+             */
+            public Builder clearStatus() {
+                bitField0_ = (bitField0_ & ~0x00000004);
+                status_ = 0;
+                onChanged();
+                return this;
+            }
+
             private java.lang.Object date_ = "";
             /**
-             * <code>string date = 3;</code>
+             * <code>string date = 4;</code>
              * @return The date.
              */
             public java.lang.String getDate() {
@@ -4186,7 +4291,7 @@ public final class Protobufs {
                 }
             }
             /**
-             * <code>string date = 3;</code>
+             * <code>string date = 4;</code>
              * @return The bytes for date.
              */
             public com.google.protobuf.ByteString
@@ -4203,7 +4308,7 @@ public final class Protobufs {
                 }
             }
             /**
-             * <code>string date = 3;</code>
+             * <code>string date = 4;</code>
              * @param value The date to set.
              * @return This builder for chaining.
              */
@@ -4211,22 +4316,22 @@ public final class Protobufs {
                     java.lang.String value) {
                 if (value == null) { throw new NullPointerException(); }
                 date_ = value;
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000008;
                 onChanged();
                 return this;
             }
             /**
-             * <code>string date = 3;</code>
+             * <code>string date = 4;</code>
              * @return This builder for chaining.
              */
             public Builder clearDate() {
                 date_ = getDefaultInstance().getDate();
-                bitField0_ = (bitField0_ & ~0x00000004);
+                bitField0_ = (bitField0_ & ~0x00000008);
                 onChanged();
                 return this;
             }
             /**
-             * <code>string date = 3;</code>
+             * <code>string date = 4;</code>
              * @param value The bytes for date to set.
              * @return This builder for chaining.
              */
@@ -4235,14 +4340,14 @@ public final class Protobufs {
                 if (value == null) { throw new NullPointerException(); }
                 checkByteStringIsUtf8(value);
                 date_ = value;
-                bitField0_ |= 0x00000004;
+                bitField0_ |= 0x00000008;
                 onChanged();
                 return this;
             }
 
             private java.lang.Object description_ = "";
             /**
-             * <code>string description = 4;</code>
+             * <code>string description = 5;</code>
              * @return The description.
              */
             public java.lang.String getDescription() {
@@ -4258,7 +4363,7 @@ public final class Protobufs {
                 }
             }
             /**
-             * <code>string description = 4;</code>
+             * <code>string description = 5;</code>
              * @return The bytes for description.
              */
             public com.google.protobuf.ByteString
@@ -4275,7 +4380,7 @@ public final class Protobufs {
                 }
             }
             /**
-             * <code>string description = 4;</code>
+             * <code>string description = 5;</code>
              * @param value The description to set.
              * @return This builder for chaining.
              */
@@ -4283,22 +4388,22 @@ public final class Protobufs {
                     java.lang.String value) {
                 if (value == null) { throw new NullPointerException(); }
                 description_ = value;
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 onChanged();
                 return this;
             }
             /**
-             * <code>string description = 4;</code>
+             * <code>string description = 5;</code>
              * @return This builder for chaining.
              */
             public Builder clearDescription() {
                 description_ = getDefaultInstance().getDescription();
-                bitField0_ = (bitField0_ & ~0x00000008);
+                bitField0_ = (bitField0_ & ~0x00000010);
                 onChanged();
                 return this;
             }
             /**
-             * <code>string description = 4;</code>
+             * <code>string description = 5;</code>
              * @param value The bytes for description to set.
              * @return This builder for chaining.
              */
@@ -4307,14 +4412,14 @@ public final class Protobufs {
                 if (value == null) { throw new NullPointerException(); }
                 checkByteStringIsUtf8(value);
                 description_ = value;
-                bitField0_ |= 0x00000008;
+                bitField0_ |= 0x00000010;
                 onChanged();
                 return this;
             }
 
             private java.lang.Object location_ = "";
             /**
-             * <code>string location = 5;</code>
+             * <code>string location = 6;</code>
              * @return The location.
              */
             public java.lang.String getLocation() {
@@ -4330,7 +4435,7 @@ public final class Protobufs {
                 }
             }
             /**
-             * <code>string location = 5;</code>
+             * <code>string location = 6;</code>
              * @return The bytes for location.
              */
             public com.google.protobuf.ByteString
@@ -4347,7 +4452,7 @@ public final class Protobufs {
                 }
             }
             /**
-             * <code>string location = 5;</code>
+             * <code>string location = 6;</code>
              * @param value The location to set.
              * @return This builder for chaining.
              */
@@ -4355,22 +4460,22 @@ public final class Protobufs {
                     java.lang.String value) {
                 if (value == null) { throw new NullPointerException(); }
                 location_ = value;
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 onChanged();
                 return this;
             }
             /**
-             * <code>string location = 5;</code>
+             * <code>string location = 6;</code>
              * @return This builder for chaining.
              */
             public Builder clearLocation() {
                 location_ = getDefaultInstance().getLocation();
-                bitField0_ = (bitField0_ & ~0x00000010);
+                bitField0_ = (bitField0_ & ~0x00000020);
                 onChanged();
                 return this;
             }
             /**
-             * <code>string location = 5;</code>
+             * <code>string location = 6;</code>
              * @param value The bytes for location to set.
              * @return This builder for chaining.
              */
@@ -4379,7 +4484,7 @@ public final class Protobufs {
                 if (value == null) { throw new NullPointerException(); }
                 checkByteStringIsUtf8(value);
                 location_ = value;
-                bitField0_ |= 0x00000010;
+                bitField0_ |= 0x00000020;
                 onChanged();
                 return this;
             }
@@ -5475,21 +5580,13 @@ public final class Protobufs {
              */
             Error(1),
             /**
-             * <code>Login = 2;</code>
+             * <code>Emergency_Responded = 2;</code>
              */
-            Login(2),
+            Emergency_Responded(2),
             /**
-             * <code>Logout = 3;</code>
+             * <code>Emergency_Reported = 3;</code>
              */
-            Logout(3),
-            /**
-             * <code>Emergency_Responded = 4;</code>
-             */
-            Emergency_Responded(4),
-            /**
-             * <code>Emergency_Reported = 5;</code>
-             */
-            Emergency_Reported(5),
+            Emergency_Reported(3),
             UNRECOGNIZED(-1),
             ;
 
@@ -5511,21 +5608,13 @@ public final class Protobufs {
              */
             public static final int Error_VALUE = 1;
             /**
-             * <code>Login = 2;</code>
+             * <code>Emergency_Responded = 2;</code>
              */
-            public static final int Login_VALUE = 2;
+            public static final int Emergency_Responded_VALUE = 2;
             /**
-             * <code>Logout = 3;</code>
+             * <code>Emergency_Reported = 3;</code>
              */
-            public static final int Logout_VALUE = 3;
-            /**
-             * <code>Emergency_Responded = 4;</code>
-             */
-            public static final int Emergency_Responded_VALUE = 4;
-            /**
-             * <code>Emergency_Reported = 5;</code>
-             */
-            public static final int Emergency_Reported_VALUE = 5;
+            public static final int Emergency_Reported_VALUE = 3;
 
 
             public final int getNumber() {
@@ -5554,10 +5643,8 @@ public final class Protobufs {
                 switch (value) {
                     case 0: return Ok;
                     case 1: return Error;
-                    case 2: return Login;
-                    case 3: return Logout;
-                    case 4: return Emergency_Responded;
-                    case 5: return Emergency_Reported;
+                    case 2: return Emergency_Responded;
+                    case 3: return Emergency_Reported;
                     default: return null;
                 }
             }
@@ -6953,21 +7040,21 @@ public final class Protobufs {
                         "\nA_POSITIVE\020\000\022\016\n\nA_NEGATIVE\020\001\022\016\n\nB_POSIT" +
                         "IVE\020\002\022\016\n\nB_NEGATIVE\020\003\022\016\n\nO_POSITIVE\020\004\022\016\n" +
                         "\nO_NEGATIVE\020\005\022\017\n\013AB_POSITIVE\020\006\022\017\n\013AB_NEG" +
-                        "ATIVE\020\007\"\264\001\n\tEmergency\022\027\n\010reporter\030\001 \001(\0132" +
-                        "\005.User\022\030\n\tresponder\030\002 \001(\0132\005.User\022\014\n\004date" +
-                        "\030\003 \001(\t\022\023\n\013description\030\004 \001(\t\022\020\n\010location\030" +
-                        "\005 \001(\t\"?\n\006Status\022\014\n\010Reported\020\000\022\r\n\tRespond" +
-                        "ed\020\001\022\n\n\006OnSite\020\002\022\014\n\010Resolved\020\003\"g\n\007Reques" +
-                        "t\022\033\n\004type\030\001 \001(\0162\r.Request.Type\022\025\n\004user\030\002" +
-                        " \001(\0132\005.UserH\000\"\035\n\004Type\022\t\n\005Login\020\000\022\n\n\006Logo" +
-                        "ut\020\001B\t\n\007payload\"\353\001\n\010Response\022\034\n\004type\030\001 \001" +
-                        "(\0162\016.Response.Type\022\r\n\005error\030\002 \001(\t\022\023\n\004use" +
-                        "r\030\003 \001(\0132\005.User\022\037\n\013emergencies\030\004 \003(\0132\n.Em" +
-                        "ergency\022\031\n\007profile\030\005 \001(\0132\010.Profile\"a\n\004Ty" +
-                        "pe\022\006\n\002Ok\020\000\022\t\n\005Error\020\001\022\t\n\005Login\020\002\022\n\n\006Logo" +
-                        "ut\020\003\022\027\n\023Emergency_Responded\020\004\022\026\n\022Emergen" +
-                        "cy_Reported\020\005B \n\023dot.help.networkingB\tPr" +
-                        "otobufsb\006proto3"
+                        "ATIVE\020\007\"\327\001\n\tEmergency\022\027\n\010reporter\030\001 \001(\0132" +
+                        "\005.User\022\030\n\tresponder\030\002 \001(\0132\005.User\022!\n\006stat" +
+                        "us\030\003 \001(\0162\021.Emergency.Status\022\014\n\004date\030\004 \001(" +
+                        "\t\022\023\n\013description\030\005 \001(\t\022\020\n\010location\030\006 \001(\t" +
+                        "\"?\n\006Status\022\014\n\010Reported\020\000\022\r\n\tResponded\020\001\022" +
+                        "\n\n\006OnSite\020\002\022\014\n\010Resolved\020\003\"g\n\007Request\022\033\n\004" +
+                        "type\030\001 \001(\0162\r.Request.Type\022\025\n\004user\030\002 \001(\0132" +
+                        "\005.UserH\000\"\035\n\004Type\022\t\n\005Login\020\000\022\n\n\006Logout\020\001B" +
+                        "\t\n\007payload\"\324\001\n\010Response\022\034\n\004type\030\001 \001(\0162\016." +
+                        "Response.Type\022\r\n\005error\030\002 \001(\t\022\023\n\004user\030\003 \001" +
+                        "(\0132\005.User\022\037\n\013emergencies\030\004 \003(\0132\n.Emergen" +
+                        "cy\022\031\n\007profile\030\005 \001(\0132\010.Profile\"J\n\004Type\022\006\n" +
+                        "\002Ok\020\000\022\t\n\005Error\020\001\022\027\n\023Emergency_Responded\020" +
+                        "\002\022\026\n\022Emergency_Reported\020\003B \n\023dot.help.ne" +
+                        "tworkingB\tProtobufsb\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -6990,7 +7077,7 @@ public final class Protobufs {
         internal_static_Emergency_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessage.FieldAccessorTable(
                 internal_static_Emergency_descriptor,
-                new java.lang.String[] { "Reporter", "Responder", "Date", "Description", "Location", });
+                new java.lang.String[] { "Reporter", "Responder", "Status", "Date", "Description", "Location", });
         internal_static_Request_descriptor =
                 getDescriptor().getMessageTypes().get(3);
         internal_static_Request_fieldAccessorTable = new

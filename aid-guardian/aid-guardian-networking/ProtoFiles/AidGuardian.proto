@@ -32,9 +32,10 @@ message Emergency{
   enum Status {Reported=0;Responded=1;OnSite=2;Resolved=3;}
   User reporter = 1;
   User responder = 2;
-  string date = 3;
-  string description = 4;
-  string location = 5;
+  Status status = 3;
+  string date = 4;
+  string description = 5;
+  string location = 6;
 
 }
 
@@ -56,7 +57,7 @@ message Request{
 // de aia cred ca merge scos si Login sau Logout de la response
 // iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
 message Response{
-  enum Type{Ok=0;Error=1;Login=2;Logout=3;Emergency_Responded=4;Emergency_Reported=5;}
+  enum Type{Ok=0;Error=1;Emergency_Responded=2;Emergency_Reported=3;}
   Type type = 1;
   string error = 2;
   User user = 3;
