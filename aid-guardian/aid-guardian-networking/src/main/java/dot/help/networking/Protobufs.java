@@ -4468,6 +4468,12 @@ public final class Protobufs {
         dot.help.networking.Protobufs.Request.PayloadCase getPayloadCase();
     }
     /**
+     * <pre>
+     * E nevoie de request type-uri noi: REPORT_EMERGENCY, UPDATE_EMERGENCY, RESPOND_EMERGENCY(asta o sa vad daca e necesar, deocamdata pune-o),
+     * SAVE_PROFILE, UPDATE_PROFILE, GET_PROFILE, GET_EMERGENCY,
+     * tipuri noi de date care pot aparea pe request: Profile, Emergency, (cred ca si FirstResponder putem deocamdata)
+     * </pre>
+     *
      * Protobuf type {@code Request}
      */
     public static final class Request extends
@@ -4892,6 +4898,12 @@ public final class Protobufs {
             return builder;
         }
         /**
+         * <pre>
+         * E nevoie de request type-uri noi: REPORT_EMERGENCY, UPDATE_EMERGENCY, RESPOND_EMERGENCY(asta o sa vad daca e necesar, deocamdata pune-o),
+         * SAVE_PROFILE, UPDATE_PROFILE, GET_PROFILE, GET_EMERGENCY,
+         * tipuri noi de date care pot aparea pe request: Profile, Emergency, (cred ca si FirstResponder putem deocamdata)
+         * </pre>
+         *
          * Protobuf type {@code Request}
          */
         public static final class Builder extends
@@ -5345,8 +5357,56 @@ public final class Protobufs {
          */
         com.google.protobuf.ByteString
         getErrorBytes();
+
+        /**
+         * <code>.User user = 3;</code>
+         * @return Whether the user field is set.
+         */
+        boolean hasUser();
+        /**
+         * <code>.User user = 3;</code>
+         * @return The user.
+         */
+        dot.help.networking.Protobufs.User getUser();
+        /**
+         * <code>.User user = 3;</code>
+         */
+        dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder();
+
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        java.util.List<dot.help.networking.Protobufs.Emergency>
+        getEmergenciesList();
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        dot.help.networking.Protobufs.Emergency getEmergencies(int index);
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        int getEmergenciesCount();
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        java.util.List<? extends dot.help.networking.Protobufs.EmergencyOrBuilder>
+        getEmergenciesOrBuilderList();
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        dot.help.networking.Protobufs.EmergencyOrBuilder getEmergenciesOrBuilder(
+                int index);
     }
     /**
+     * <pre>
+     * Si aici e nevoie de tipuri de date noi ca la request-uri
+     * pentru tipuri, sigur trebuie EMERGENCY_RESPONDED, EMERGENCY_REPORTED
+     * aici e decizia ta daca crezi ca trb sa fie tip de raspuns care sa corespunda la fiecare request
+     * ma gandesc ca putem folosi OK pentru majoritatea si doar facem functie in ProtoUtils cu response de tip OK care primeste tipu de date asteptat
+     * de aia cred ca merge scos si Login sau Logout de la response
+     * iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
+     * </pre>
+     *
      * Protobuf type {@code Response}
      */
     public static final class Response extends
@@ -5370,6 +5430,7 @@ public final class Protobufs {
         private Response() {
             type_ = 0;
             error_ = "";
+            emergencies_ = java.util.Collections.emptyList();
         }
 
         public static final com.google.protobuf.Descriptors.Descriptor
@@ -5406,6 +5467,14 @@ public final class Protobufs {
              * <code>Logout = 3;</code>
              */
             Logout(3),
+            /**
+             * <code>Emergency_Responded = 4;</code>
+             */
+            Emergency_Responded(4),
+            /**
+             * <code>Emergency_Reported = 5;</code>
+             */
+            Emergency_Reported(5),
             UNRECOGNIZED(-1),
             ;
 
@@ -5434,6 +5503,14 @@ public final class Protobufs {
              * <code>Logout = 3;</code>
              */
             public static final int Logout_VALUE = 3;
+            /**
+             * <code>Emergency_Responded = 4;</code>
+             */
+            public static final int Emergency_Responded_VALUE = 4;
+            /**
+             * <code>Emergency_Reported = 5;</code>
+             */
+            public static final int Emergency_Reported_VALUE = 5;
 
 
             public final int getNumber() {
@@ -5464,6 +5541,8 @@ public final class Protobufs {
                     case 1: return Error;
                     case 2: return Login;
                     case 3: return Logout;
+                    case 4: return Emergency_Responded;
+                    case 5: return Emergency_Reported;
                     default: return null;
                 }
             }
@@ -5520,6 +5599,7 @@ public final class Protobufs {
             // @@protoc_insertion_point(enum_scope:Response.Type)
         }
 
+        private int bitField0_;
         public static final int TYPE_FIELD_NUMBER = 1;
         private int type_ = 0;
         /**
@@ -5577,6 +5657,73 @@ public final class Protobufs {
             }
         }
 
+        public static final int USER_FIELD_NUMBER = 3;
+        private dot.help.networking.Protobufs.User user_;
+        /**
+         * <code>.User user = 3;</code>
+         * @return Whether the user field is set.
+         */
+        @java.lang.Override
+        public boolean hasUser() {
+            return ((bitField0_ & 0x00000001) != 0);
+        }
+        /**
+         * <code>.User user = 3;</code>
+         * @return The user.
+         */
+        @java.lang.Override
+        public dot.help.networking.Protobufs.User getUser() {
+            return user_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : user_;
+        }
+        /**
+         * <code>.User user = 3;</code>
+         */
+        @java.lang.Override
+        public dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder() {
+            return user_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : user_;
+        }
+
+        public static final int EMERGENCIES_FIELD_NUMBER = 4;
+        @SuppressWarnings("serial")
+        private java.util.List<dot.help.networking.Protobufs.Emergency> emergencies_;
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        @java.lang.Override
+        public java.util.List<dot.help.networking.Protobufs.Emergency> getEmergenciesList() {
+            return emergencies_;
+        }
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        @java.lang.Override
+        public java.util.List<? extends dot.help.networking.Protobufs.EmergencyOrBuilder>
+        getEmergenciesOrBuilderList() {
+            return emergencies_;
+        }
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        @java.lang.Override
+        public int getEmergenciesCount() {
+            return emergencies_.size();
+        }
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        @java.lang.Override
+        public dot.help.networking.Protobufs.Emergency getEmergencies(int index) {
+            return emergencies_.get(index);
+        }
+        /**
+         * <code>repeated .Emergency emergencies = 4;</code>
+         */
+        @java.lang.Override
+        public dot.help.networking.Protobufs.EmergencyOrBuilder getEmergenciesOrBuilder(
+                int index) {
+            return emergencies_.get(index);
+        }
+
         private byte memoizedIsInitialized = -1;
         @java.lang.Override
         public final boolean isInitialized() {
@@ -5597,6 +5744,12 @@ public final class Protobufs {
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(error_)) {
                 com.google.protobuf.GeneratedMessage.writeString(output, 2, error_);
             }
+            if (((bitField0_ & 0x00000001) != 0)) {
+                output.writeMessage(3, getUser());
+            }
+            for (int i = 0; i < emergencies_.size(); i++) {
+                output.writeMessage(4, emergencies_.get(i));
+            }
             getUnknownFields().writeTo(output);
         }
 
@@ -5612,6 +5765,14 @@ public final class Protobufs {
             }
             if (!com.google.protobuf.GeneratedMessage.isStringEmpty(error_)) {
                 size += com.google.protobuf.GeneratedMessage.computeStringSize(2, error_);
+            }
+            if (((bitField0_ & 0x00000001) != 0)) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(3, getUser());
+            }
+            for (int i = 0; i < emergencies_.size(); i++) {
+                size += com.google.protobuf.CodedOutputStream
+                        .computeMessageSize(4, emergencies_.get(i));
             }
             size += getUnknownFields().getSerializedSize();
             memoizedSize = size;
@@ -5631,6 +5792,13 @@ public final class Protobufs {
             if (type_ != other.type_) return false;
             if (!getError()
                     .equals(other.getError())) return false;
+            if (hasUser() != other.hasUser()) return false;
+            if (hasUser()) {
+                if (!getUser()
+                        .equals(other.getUser())) return false;
+            }
+            if (!getEmergenciesList()
+                    .equals(other.getEmergenciesList())) return false;
             if (!getUnknownFields().equals(other.getUnknownFields())) return false;
             return true;
         }
@@ -5646,6 +5814,14 @@ public final class Protobufs {
             hash = (53 * hash) + type_;
             hash = (37 * hash) + ERROR_FIELD_NUMBER;
             hash = (53 * hash) + getError().hashCode();
+            if (hasUser()) {
+                hash = (37 * hash) + USER_FIELD_NUMBER;
+                hash = (53 * hash) + getUser().hashCode();
+            }
+            if (getEmergenciesCount() > 0) {
+                hash = (37 * hash) + EMERGENCIES_FIELD_NUMBER;
+                hash = (53 * hash) + getEmergenciesList().hashCode();
+            }
             hash = (29 * hash) + getUnknownFields().hashCode();
             memoizedHashCode = hash;
             return hash;
@@ -5744,6 +5920,15 @@ public final class Protobufs {
             return builder;
         }
         /**
+         * <pre>
+         * Si aici e nevoie de tipuri de date noi ca la request-uri
+         * pentru tipuri, sigur trebuie EMERGENCY_RESPONDED, EMERGENCY_REPORTED
+         * aici e decizia ta daca crezi ca trb sa fie tip de raspuns care sa corespunda la fiecare request
+         * ma gandesc ca putem folosi OK pentru majoritatea si doar facem functie in ProtoUtils cu response de tip OK care primeste tipu de date asteptat
+         * de aia cred ca merge scos si Login sau Logout de la response
+         * iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
+         * </pre>
+         *
          * Protobuf type {@code Response}
          */
         public static final class Builder extends
@@ -5765,13 +5950,20 @@ public final class Protobufs {
 
             // Construct using dot.help.networking.Protobufs.Response.newBuilder()
             private Builder() {
-
+                maybeForceBuilderInitialization();
             }
 
             private Builder(
                     com.google.protobuf.GeneratedMessage.BuilderParent parent) {
                 super(parent);
-
+                maybeForceBuilderInitialization();
+            }
+            private void maybeForceBuilderInitialization() {
+                if (com.google.protobuf.GeneratedMessage
+                        .alwaysUseFieldBuilders) {
+                    getUserFieldBuilder();
+                    getEmergenciesFieldBuilder();
+                }
             }
             @java.lang.Override
             public Builder clear() {
@@ -5779,6 +5971,18 @@ public final class Protobufs {
                 bitField0_ = 0;
                 type_ = 0;
                 error_ = "";
+                user_ = null;
+                if (userBuilder_ != null) {
+                    userBuilder_.dispose();
+                    userBuilder_ = null;
+                }
+                if (emergenciesBuilder_ == null) {
+                    emergencies_ = java.util.Collections.emptyList();
+                } else {
+                    emergencies_ = null;
+                    emergenciesBuilder_.clear();
+                }
+                bitField0_ = (bitField0_ & ~0x00000008);
                 return this;
             }
 
@@ -5805,9 +6009,22 @@ public final class Protobufs {
             @java.lang.Override
             public dot.help.networking.Protobufs.Response buildPartial() {
                 dot.help.networking.Protobufs.Response result = new dot.help.networking.Protobufs.Response(this);
+                buildPartialRepeatedFields(result);
                 if (bitField0_ != 0) { buildPartial0(result); }
                 onBuilt();
                 return result;
+            }
+
+            private void buildPartialRepeatedFields(dot.help.networking.Protobufs.Response result) {
+                if (emergenciesBuilder_ == null) {
+                    if (((bitField0_ & 0x00000008) != 0)) {
+                        emergencies_ = java.util.Collections.unmodifiableList(emergencies_);
+                        bitField0_ = (bitField0_ & ~0x00000008);
+                    }
+                    result.emergencies_ = emergencies_;
+                } else {
+                    result.emergencies_ = emergenciesBuilder_.build();
+                }
             }
 
             private void buildPartial0(dot.help.networking.Protobufs.Response result) {
@@ -5818,6 +6035,14 @@ public final class Protobufs {
                 if (((from_bitField0_ & 0x00000002) != 0)) {
                     result.error_ = error_;
                 }
+                int to_bitField0_ = 0;
+                if (((from_bitField0_ & 0x00000004) != 0)) {
+                    result.user_ = userBuilder_ == null
+                            ? user_
+                            : userBuilder_.build();
+                    to_bitField0_ |= 0x00000001;
+                }
+                result.bitField0_ |= to_bitField0_;
             }
 
             @java.lang.Override
@@ -5839,6 +6064,35 @@ public final class Protobufs {
                     error_ = other.error_;
                     bitField0_ |= 0x00000002;
                     onChanged();
+                }
+                if (other.hasUser()) {
+                    mergeUser(other.getUser());
+                }
+                if (emergenciesBuilder_ == null) {
+                    if (!other.emergencies_.isEmpty()) {
+                        if (emergencies_.isEmpty()) {
+                            emergencies_ = other.emergencies_;
+                            bitField0_ = (bitField0_ & ~0x00000008);
+                        } else {
+                            ensureEmergenciesIsMutable();
+                            emergencies_.addAll(other.emergencies_);
+                        }
+                        onChanged();
+                    }
+                } else {
+                    if (!other.emergencies_.isEmpty()) {
+                        if (emergenciesBuilder_.isEmpty()) {
+                            emergenciesBuilder_.dispose();
+                            emergenciesBuilder_ = null;
+                            emergencies_ = other.emergencies_;
+                            bitField0_ = (bitField0_ & ~0x00000008);
+                            emergenciesBuilder_ =
+                                    com.google.protobuf.GeneratedMessage.alwaysUseFieldBuilders ?
+                                            getEmergenciesFieldBuilder() : null;
+                        } else {
+                            emergenciesBuilder_.addAllMessages(other.emergencies_);
+                        }
+                    }
                 }
                 this.mergeUnknownFields(other.getUnknownFields());
                 onChanged();
@@ -5876,6 +6130,26 @@ public final class Protobufs {
                                 bitField0_ |= 0x00000002;
                                 break;
                             } // case 18
+                            case 26: {
+                                input.readMessage(
+                                        getUserFieldBuilder().getBuilder(),
+                                        extensionRegistry);
+                                bitField0_ |= 0x00000004;
+                                break;
+                            } // case 26
+                            case 34: {
+                                dot.help.networking.Protobufs.Emergency m =
+                                        input.readMessage(
+                                                dot.help.networking.Protobufs.Emergency.parser(),
+                                                extensionRegistry);
+                                if (emergenciesBuilder_ == null) {
+                                    ensureEmergenciesIsMutable();
+                                    emergencies_.add(m);
+                                } else {
+                                    emergenciesBuilder_.addMessage(m);
+                                }
+                                break;
+                            } // case 34
                             default: {
                                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                                     done = true; // was an endgroup tag
@@ -6018,6 +6292,367 @@ public final class Protobufs {
                 return this;
             }
 
+            private dot.help.networking.Protobufs.User user_;
+            private com.google.protobuf.SingleFieldBuilder<
+                    dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> userBuilder_;
+            /**
+             * <code>.User user = 3;</code>
+             * @return Whether the user field is set.
+             */
+            public boolean hasUser() {
+                return ((bitField0_ & 0x00000004) != 0);
+            }
+            /**
+             * <code>.User user = 3;</code>
+             * @return The user.
+             */
+            public dot.help.networking.Protobufs.User getUser() {
+                if (userBuilder_ == null) {
+                    return user_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : user_;
+                } else {
+                    return userBuilder_.getMessage();
+                }
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            public Builder setUser(dot.help.networking.Protobufs.User value) {
+                if (userBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    user_ = value;
+                } else {
+                    userBuilder_.setMessage(value);
+                }
+                bitField0_ |= 0x00000004;
+                onChanged();
+                return this;
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            public Builder setUser(
+                    dot.help.networking.Protobufs.User.Builder builderForValue) {
+                if (userBuilder_ == null) {
+                    user_ = builderForValue.build();
+                } else {
+                    userBuilder_.setMessage(builderForValue.build());
+                }
+                bitField0_ |= 0x00000004;
+                onChanged();
+                return this;
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            public Builder mergeUser(dot.help.networking.Protobufs.User value) {
+                if (userBuilder_ == null) {
+                    if (((bitField0_ & 0x00000004) != 0) &&
+                            user_ != null &&
+                            user_ != dot.help.networking.Protobufs.User.getDefaultInstance()) {
+                        getUserBuilder().mergeFrom(value);
+                    } else {
+                        user_ = value;
+                    }
+                } else {
+                    userBuilder_.mergeFrom(value);
+                }
+                if (user_ != null) {
+                    bitField0_ |= 0x00000004;
+                    onChanged();
+                }
+                return this;
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            public Builder clearUser() {
+                bitField0_ = (bitField0_ & ~0x00000004);
+                user_ = null;
+                if (userBuilder_ != null) {
+                    userBuilder_.dispose();
+                    userBuilder_ = null;
+                }
+                onChanged();
+                return this;
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            public dot.help.networking.Protobufs.User.Builder getUserBuilder() {
+                bitField0_ |= 0x00000004;
+                onChanged();
+                return getUserFieldBuilder().getBuilder();
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            public dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder() {
+                if (userBuilder_ != null) {
+                    return userBuilder_.getMessageOrBuilder();
+                } else {
+                    return user_ == null ?
+                            dot.help.networking.Protobufs.User.getDefaultInstance() : user_;
+                }
+            }
+            /**
+             * <code>.User user = 3;</code>
+             */
+            private com.google.protobuf.SingleFieldBuilder<
+                    dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder>
+            getUserFieldBuilder() {
+                if (userBuilder_ == null) {
+                    userBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+                            dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder>(
+                            getUser(),
+                            getParentForChildren(),
+                            isClean());
+                    user_ = null;
+                }
+                return userBuilder_;
+            }
+
+            private java.util.List<dot.help.networking.Protobufs.Emergency> emergencies_ =
+                    java.util.Collections.emptyList();
+            private void ensureEmergenciesIsMutable() {
+                if (!((bitField0_ & 0x00000008) != 0)) {
+                    emergencies_ = new java.util.ArrayList<dot.help.networking.Protobufs.Emergency>(emergencies_);
+                    bitField0_ |= 0x00000008;
+                }
+            }
+
+            private com.google.protobuf.RepeatedFieldBuilder<
+                    dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder> emergenciesBuilder_;
+
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public java.util.List<dot.help.networking.Protobufs.Emergency> getEmergenciesList() {
+                if (emergenciesBuilder_ == null) {
+                    return java.util.Collections.unmodifiableList(emergencies_);
+                } else {
+                    return emergenciesBuilder_.getMessageList();
+                }
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public int getEmergenciesCount() {
+                if (emergenciesBuilder_ == null) {
+                    return emergencies_.size();
+                } else {
+                    return emergenciesBuilder_.getCount();
+                }
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public dot.help.networking.Protobufs.Emergency getEmergencies(int index) {
+                if (emergenciesBuilder_ == null) {
+                    return emergencies_.get(index);
+                } else {
+                    return emergenciesBuilder_.getMessage(index);
+                }
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder setEmergencies(
+                    int index, dot.help.networking.Protobufs.Emergency value) {
+                if (emergenciesBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureEmergenciesIsMutable();
+                    emergencies_.set(index, value);
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.setMessage(index, value);
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder setEmergencies(
+                    int index, dot.help.networking.Protobufs.Emergency.Builder builderForValue) {
+                if (emergenciesBuilder_ == null) {
+                    ensureEmergenciesIsMutable();
+                    emergencies_.set(index, builderForValue.build());
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.setMessage(index, builderForValue.build());
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder addEmergencies(dot.help.networking.Protobufs.Emergency value) {
+                if (emergenciesBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureEmergenciesIsMutable();
+                    emergencies_.add(value);
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.addMessage(value);
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder addEmergencies(
+                    int index, dot.help.networking.Protobufs.Emergency value) {
+                if (emergenciesBuilder_ == null) {
+                    if (value == null) {
+                        throw new NullPointerException();
+                    }
+                    ensureEmergenciesIsMutable();
+                    emergencies_.add(index, value);
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.addMessage(index, value);
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder addEmergencies(
+                    dot.help.networking.Protobufs.Emergency.Builder builderForValue) {
+                if (emergenciesBuilder_ == null) {
+                    ensureEmergenciesIsMutable();
+                    emergencies_.add(builderForValue.build());
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.addMessage(builderForValue.build());
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder addEmergencies(
+                    int index, dot.help.networking.Protobufs.Emergency.Builder builderForValue) {
+                if (emergenciesBuilder_ == null) {
+                    ensureEmergenciesIsMutable();
+                    emergencies_.add(index, builderForValue.build());
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.addMessage(index, builderForValue.build());
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder addAllEmergencies(
+                    java.lang.Iterable<? extends dot.help.networking.Protobufs.Emergency> values) {
+                if (emergenciesBuilder_ == null) {
+                    ensureEmergenciesIsMutable();
+                    com.google.protobuf.AbstractMessageLite.Builder.addAll(
+                            values, emergencies_);
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.addAllMessages(values);
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder clearEmergencies() {
+                if (emergenciesBuilder_ == null) {
+                    emergencies_ = java.util.Collections.emptyList();
+                    bitField0_ = (bitField0_ & ~0x00000008);
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.clear();
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public Builder removeEmergencies(int index) {
+                if (emergenciesBuilder_ == null) {
+                    ensureEmergenciesIsMutable();
+                    emergencies_.remove(index);
+                    onChanged();
+                } else {
+                    emergenciesBuilder_.remove(index);
+                }
+                return this;
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public dot.help.networking.Protobufs.Emergency.Builder getEmergenciesBuilder(
+                    int index) {
+                return getEmergenciesFieldBuilder().getBuilder(index);
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public dot.help.networking.Protobufs.EmergencyOrBuilder getEmergenciesOrBuilder(
+                    int index) {
+                if (emergenciesBuilder_ == null) {
+                    return emergencies_.get(index);  } else {
+                    return emergenciesBuilder_.getMessageOrBuilder(index);
+                }
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public java.util.List<? extends dot.help.networking.Protobufs.EmergencyOrBuilder>
+            getEmergenciesOrBuilderList() {
+                if (emergenciesBuilder_ != null) {
+                    return emergenciesBuilder_.getMessageOrBuilderList();
+                } else {
+                    return java.util.Collections.unmodifiableList(emergencies_);
+                }
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public dot.help.networking.Protobufs.Emergency.Builder addEmergenciesBuilder() {
+                return getEmergenciesFieldBuilder().addBuilder(
+                        dot.help.networking.Protobufs.Emergency.getDefaultInstance());
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public dot.help.networking.Protobufs.Emergency.Builder addEmergenciesBuilder(
+                    int index) {
+                return getEmergenciesFieldBuilder().addBuilder(
+                        index, dot.help.networking.Protobufs.Emergency.getDefaultInstance());
+            }
+            /**
+             * <code>repeated .Emergency emergencies = 4;</code>
+             */
+            public java.util.List<dot.help.networking.Protobufs.Emergency.Builder>
+            getEmergenciesBuilderList() {
+                return getEmergenciesFieldBuilder().getBuilderList();
+            }
+            private com.google.protobuf.RepeatedFieldBuilder<
+                    dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder>
+            getEmergenciesFieldBuilder() {
+                if (emergenciesBuilder_ == null) {
+                    emergenciesBuilder_ = new com.google.protobuf.RepeatedFieldBuilder<
+                            dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder>(
+                            emergencies_,
+                            ((bitField0_ & 0x00000008) != 0),
+                            getParentForChildren(),
+                            isClean());
+                    emergencies_ = null;
+                }
+                return emergenciesBuilder_;
+            }
+
             // @@protoc_insertion_point(builder_scope:Response)
         }
 
@@ -6125,11 +6760,13 @@ public final class Protobufs {
                         "ed\020\001\022\n\n\006OnSite\020\002\022\014\n\010Resolved\020\003\"g\n\007Reques" +
                         "t\022\033\n\004type\030\001 \001(\0162\r.Request.Type\022\025\n\004user\030\002" +
                         " \001(\0132\005.UserH\000\"\035\n\004Type\022\t\n\005Login\020\000\022\n\n\006Logo" +
-                        "ut\020\001B\t\n\007payload\"i\n\010Response\022\034\n\004type\030\001 \001(" +
-                        "\0162\016.Response.Type\022\r\n\005error\030\002 \001(\t\"0\n\004Type" +
-                        "\022\006\n\002Ok\020\000\022\t\n\005Error\020\001\022\t\n\005Login\020\002\022\n\n\006Logout" +
-                        "\020\003B \n\023dot.help.networkingB\tProtobufsb\006pr" +
-                        "oto3"
+                        "ut\020\001B\t\n\007payload\"\320\001\n\010Response\022\034\n\004type\030\001 \001" +
+                        "(\0162\016.Response.Type\022\r\n\005error\030\002 \001(\t\022\023\n\004use" +
+                        "r\030\003 \001(\0132\005.User\022\037\n\013emergencies\030\004 \003(\0132\n.Em" +
+                        "ergency\"a\n\004Type\022\006\n\002Ok\020\000\022\t\n\005Error\020\001\022\t\n\005Lo" +
+                        "gin\020\002\022\n\n\006Logout\020\003\022\027\n\023Emergency_Responded" +
+                        "\020\004\022\026\n\022Emergency_Reported\020\005B \n\023dot.help.n" +
+                        "etworkingB\tProtobufsb\006proto3"
         };
         descriptor = com.google.protobuf.Descriptors.FileDescriptor
                 .internalBuildGeneratedFileFrom(descriptorData,
@@ -6164,7 +6801,7 @@ public final class Protobufs {
         internal_static_Response_fieldAccessorTable = new
                 com.google.protobuf.GeneratedMessage.FieldAccessorTable(
                 internal_static_Response_descriptor,
-                new java.lang.String[] { "Type", "Error", });
+                new java.lang.String[] { "Type", "Error", "User", "Emergencies", });
         descriptor.resolveAllFeaturesImmutable();
     }
 
