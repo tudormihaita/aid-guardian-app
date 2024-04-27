@@ -5396,6 +5396,21 @@ public final class Protobufs {
      */
     dot.help.networking.Protobufs.EmergencyOrBuilder getEmergenciesOrBuilder(
         int index);
+
+    /**
+     * <code>.Profile profile = 5;</code>
+     * @return Whether the profile field is set.
+     */
+    boolean hasProfile();
+    /**
+     * <code>.Profile profile = 5;</code>
+     * @return The profile.
+     */
+    dot.help.networking.Protobufs.Profile getProfile();
+    /**
+     * <code>.Profile profile = 5;</code>
+     */
+    dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder();
   }
   /**
    * <pre>
@@ -5724,6 +5739,32 @@ public final class Protobufs {
       return emergencies_.get(index);
     }
 
+    public static final int PROFILE_FIELD_NUMBER = 5;
+    private dot.help.networking.Protobufs.Profile profile_;
+    /**
+     * <code>.Profile profile = 5;</code>
+     * @return Whether the profile field is set.
+     */
+    @java.lang.Override
+    public boolean hasProfile() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>.Profile profile = 5;</code>
+     * @return The profile.
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.Profile getProfile() {
+      return profile_ == null ? dot.help.networking.Protobufs.Profile.getDefaultInstance() : profile_;
+    }
+    /**
+     * <code>.Profile profile = 5;</code>
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder() {
+      return profile_ == null ? dot.help.networking.Protobufs.Profile.getDefaultInstance() : profile_;
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -5750,6 +5791,9 @@ public final class Protobufs {
       for (int i = 0; i < emergencies_.size(); i++) {
         output.writeMessage(4, emergencies_.get(i));
       }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        output.writeMessage(5, getProfile());
+      }
       getUnknownFields().writeTo(output);
     }
 
@@ -5773,6 +5817,10 @@ public final class Protobufs {
       for (int i = 0; i < emergencies_.size(); i++) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(4, emergencies_.get(i));
+      }
+      if (((bitField0_ & 0x00000002) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, getProfile());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -5799,6 +5847,11 @@ public final class Protobufs {
       }
       if (!getEmergenciesList()
           .equals(other.getEmergenciesList())) return false;
+      if (hasProfile() != other.hasProfile()) return false;
+      if (hasProfile()) {
+        if (!getProfile()
+            .equals(other.getProfile())) return false;
+      }
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -5821,6 +5874,10 @@ public final class Protobufs {
       if (getEmergenciesCount() > 0) {
         hash = (37 * hash) + EMERGENCIES_FIELD_NUMBER;
         hash = (53 * hash) + getEmergenciesList().hashCode();
+      }
+      if (hasProfile()) {
+        hash = (37 * hash) + PROFILE_FIELD_NUMBER;
+        hash = (53 * hash) + getProfile().hashCode();
       }
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
@@ -5963,6 +6020,7 @@ public final class Protobufs {
                 .alwaysUseFieldBuilders) {
           getUserFieldBuilder();
           getEmergenciesFieldBuilder();
+          getProfileFieldBuilder();
         }
       }
       @java.lang.Override
@@ -5983,6 +6041,11 @@ public final class Protobufs {
           emergenciesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
+        profile_ = null;
+        if (profileBuilder_ != null) {
+          profileBuilder_.dispose();
+          profileBuilder_ = null;
+        }
         return this;
       }
 
@@ -6042,6 +6105,12 @@ public final class Protobufs {
               : userBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.profile_ = profileBuilder_ == null
+              ? profile_
+              : profileBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
         result.bitField0_ |= to_bitField0_;
       }
 
@@ -6093,6 +6162,9 @@ public final class Protobufs {
               emergenciesBuilder_.addAllMessages(other.emergencies_);
             }
           }
+        }
+        if (other.hasProfile()) {
+          mergeProfile(other.getProfile());
         }
         this.mergeUnknownFields(other.getUnknownFields());
         onChanged();
@@ -6150,6 +6222,13 @@ public final class Protobufs {
                 }
                 break;
               } // case 34
+              case 42: {
+                input.readMessage(
+                    getProfileFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -6653,6 +6732,127 @@ public final class Protobufs {
         return emergenciesBuilder_;
       }
 
+      private dot.help.networking.Protobufs.Profile profile_;
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder> profileBuilder_;
+      /**
+       * <code>.Profile profile = 5;</code>
+       * @return Whether the profile field is set.
+       */
+      public boolean hasProfile() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       * @return The profile.
+       */
+      public dot.help.networking.Protobufs.Profile getProfile() {
+        if (profileBuilder_ == null) {
+          return profile_ == null ? dot.help.networking.Protobufs.Profile.getDefaultInstance() : profile_;
+        } else {
+          return profileBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      public Builder setProfile(dot.help.networking.Protobufs.Profile value) {
+        if (profileBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          profile_ = value;
+        } else {
+          profileBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      public Builder setProfile(
+          dot.help.networking.Protobufs.Profile.Builder builderForValue) {
+        if (profileBuilder_ == null) {
+          profile_ = builderForValue.build();
+        } else {
+          profileBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      public Builder mergeProfile(dot.help.networking.Protobufs.Profile value) {
+        if (profileBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            profile_ != null &&
+            profile_ != dot.help.networking.Protobufs.Profile.getDefaultInstance()) {
+            getProfileBuilder().mergeFrom(value);
+          } else {
+            profile_ = value;
+          }
+        } else {
+          profileBuilder_.mergeFrom(value);
+        }
+        if (profile_ != null) {
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      public Builder clearProfile() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        profile_ = null;
+        if (profileBuilder_ != null) {
+          profileBuilder_.dispose();
+          profileBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      public dot.help.networking.Protobufs.Profile.Builder getProfileBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getProfileFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      public dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder() {
+        if (profileBuilder_ != null) {
+          return profileBuilder_.getMessageOrBuilder();
+        } else {
+          return profile_ == null ?
+              dot.help.networking.Protobufs.Profile.getDefaultInstance() : profile_;
+        }
+      }
+      /**
+       * <code>.Profile profile = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder> 
+          getProfileFieldBuilder() {
+        if (profileBuilder_ == null) {
+          profileBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder>(
+                  getProfile(),
+                  getParentForChildren(),
+                  isClean());
+          profile_ = null;
+        }
+        return profileBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:Response)
     }
 
@@ -6760,13 +6960,14 @@ public final class Protobufs {
       "ed\020\001\022\n\n\006OnSite\020\002\022\014\n\010Resolved\020\003\"g\n\007Reques" +
       "t\022\033\n\004type\030\001 \001(\0162\r.Request.Type\022\025\n\004user\030\002" +
       " \001(\0132\005.UserH\000\"\035\n\004Type\022\t\n\005Login\020\000\022\n\n\006Logo" +
-      "ut\020\001B\t\n\007payload\"\320\001\n\010Response\022\034\n\004type\030\001 \001" +
+      "ut\020\001B\t\n\007payload\"\353\001\n\010Response\022\034\n\004type\030\001 \001" +
       "(\0162\016.Response.Type\022\r\n\005error\030\002 \001(\t\022\023\n\004use" +
       "r\030\003 \001(\0132\005.User\022\037\n\013emergencies\030\004 \003(\0132\n.Em" +
-      "ergency\"a\n\004Type\022\006\n\002Ok\020\000\022\t\n\005Error\020\001\022\t\n\005Lo" +
-      "gin\020\002\022\n\n\006Logout\020\003\022\027\n\023Emergency_Responded" +
-      "\020\004\022\026\n\022Emergency_Reported\020\005B \n\023dot.help.n" +
-      "etworkingB\tProtobufsb\006proto3"
+      "ergency\022\031\n\007profile\030\005 \001(\0132\010.Profile\"a\n\004Ty" +
+      "pe\022\006\n\002Ok\020\000\022\t\n\005Error\020\001\022\t\n\005Login\020\002\022\n\n\006Logo" +
+      "ut\020\003\022\027\n\023Emergency_Responded\020\004\022\026\n\022Emergen" +
+      "cy_Reported\020\005B \n\023dot.help.networkingB\tPr" +
+      "otobufsb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -6801,7 +7002,7 @@ public final class Protobufs {
     internal_static_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Response_descriptor,
-        new java.lang.String[] { "Type", "Error", "User", "Emergencies", });
+        new java.lang.String[] { "Type", "Error", "User", "Emergencies", "Profile", });
     descriptor.resolveAllFeaturesImmutable();
   }
 
