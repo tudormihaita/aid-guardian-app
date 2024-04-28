@@ -85,7 +85,10 @@ public class ProfileController implements Initializable, IObserver {
     @Override
     public void emergencyResponded(Emergency emergency) {
         if(currentProfile.getUser().equals(emergency.getReporter())) {
-
+            Platform.runLater(() -> {
+                MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Emergency responded",
+                        "Your reported emergency has been responded to by " + emergency.getResponder().getUsername() + ". Help is on the way!");
+            });
         }
     }
 
@@ -112,7 +115,7 @@ public class ProfileController implements Initializable, IObserver {
             emergencyController.setUser(currentProfile);
             emergencyController.setProfileController(this);
 
-            appTabPane.getTabs().remove(profileTab);
+//            appTabPane.getTabs().remove(profileTab);
         } catch (IOException e) {
             logger.error(e.getMessage());
             e.printStackTrace();

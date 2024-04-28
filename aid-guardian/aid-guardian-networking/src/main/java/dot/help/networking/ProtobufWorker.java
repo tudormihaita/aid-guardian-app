@@ -42,7 +42,7 @@ public class ProtobufWorker implements Runnable, IObserver {
         while(connected) {
             try {
                 Protobufs.Request request = Protobufs.Request.parseDelimitedFrom(input);
-                System.out.println("reading" + request.getType());
+                System.out.println("reading " + request.getType());
                 Protobufs.Response response = handleRequest(request);
                 if (response != null) {
                     sendResponse(response);
@@ -68,7 +68,7 @@ public class ProtobufWorker implements Runnable, IObserver {
 
     }
     private void sendResponse(Protobufs.Response response) {
-        System.out.println("Sending response" + response.getType());
+        System.out.println("Sending response " + response.getType());
         synchronized ( output ){
             try {
                 response.writeDelimitedTo(output);
@@ -83,7 +83,7 @@ public class ProtobufWorker implements Runnable, IObserver {
 
         if(request.getType() == Protobufs.Request.Type.LOGIN)
         {
-            log.info("Login request" + request.getType());
+            log.info("Login request " + request.getType());
             User user = ProtoUtils.getUser(request);
             try{
                 User loggedUser = service.logIn(user.getUsername(), user.getPassword(), this);
@@ -95,7 +95,7 @@ public class ProtobufWorker implements Runnable, IObserver {
         }
         if(request.getType() == Protobufs.Request.Type.LOGOUT)
         {
-            log.info("Logout request" +  request.getType());
+            log.info("Logout request " +  request.getType());
             User user = ProtoUtils.getUser(request);
             try{
                 service.logOut(user, this);
@@ -107,7 +107,7 @@ public class ProtobufWorker implements Runnable, IObserver {
         }
         if(request.getType() == Protobufs.Request.Type.GET_PROFILE)
         {
-            log.info("Get profile request" + request.getType());
+            log.info("Get profile request " + request.getType());
             User user = ProtoUtils.getUser(request);
             try {
                 Profile profile = service.findUserProfile(user, this);
@@ -118,7 +118,7 @@ public class ProtobufWorker implements Runnable, IObserver {
         }
         if(request.getType() == Protobufs.Request.Type.REPORT_EMERGENCY)
         {
-            log.info("Report emergency request" + request.getType());
+            log.info("Report emergency request " + request.getType());
             Emergency emergency = ProtoUtils.getEmergency(request);
             try {
                 service.reportEmergency(emergency, this);
@@ -129,9 +129,9 @@ public class ProtobufWorker implements Runnable, IObserver {
         }
         if(request.getType() == Protobufs.Request.Type.RESPOND_EMERGENCY)
         {
-            log.info("Respond emergency request" + request.getType());
+            log.info("Respond emergency request " + request.getType());
             Emergency emergency = ProtoUtils.getEmergency(request);
-            FirstResponder responder = (FirstResponder) ProtoUtils.getUser(request);
+            FirstResponder responder = ProtoUtils.getResponder(request.getUser());
             try {
                 service.respondToEmergency(responder, emergency, this);
                 return ProtoUtils.createRespondToEmergencyResponse(emergency);

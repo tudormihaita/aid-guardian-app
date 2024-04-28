@@ -76,6 +76,8 @@ public class LoginController {
             Profile profile = server.findUserProfile(currentUser, profileController);
             profileController.setUser(profile);
 
+            appTabPane.getTabs().add(profileTab);
+            appTabPane.getSelectionModel().select(profileTab);
             appTabPane.getTabs().remove(loginTab);
             stage.setOnCloseRequest(windowEvent -> {
                 profileController.handleLogOut(null);

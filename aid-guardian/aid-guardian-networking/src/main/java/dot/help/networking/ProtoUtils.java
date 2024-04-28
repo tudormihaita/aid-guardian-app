@@ -32,7 +32,13 @@ public class ProtoUtils {
 
 
     public static Protobufs.Request createReportEmergencyRequest(Emergency emergency) {
-        Protobufs.Emergency emergencyProto = getEmergencyProto(emergency);
+        Protobufs.User reporterProto = getUserProto(emergency.getReporter());
+        Protobufs.Emergency emergencyProto = Protobufs.Emergency.newBuilder().
+                setReporter(reporterProto).
+                setDate(emergency.getReportedAt().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"))).
+                setDescription(emergency.getDescription()).
+                setStatus(Protobufs.Emergency.Status.valueOf(emergency.getStatus().toString())).
+                setLocation(emergency.getLocation()).build();
 
         return Protobufs.Request.newBuilder().setType(Protobufs.Request.Type.REPORT_EMERGENCY).setEmergency(emergencyProto).build();
     }
@@ -117,6 +123,12 @@ public class ProtoUtils {
         return response.getError();
     }
 
+    public static FirstResponder getResponder(Protobufs.User userProto) {
+        FirstResponder responder = new FirstResponder(userProto.getEmail(), userProto.getUsername(), userProto.getPassword(), userProto.getOnDuty());
+        responder.setId(userProto.getId());
+        return responder;
+    }
+
     public static User getUser(Protobufs.Response response) {
         Protobufs.User userProto = response.getUser();
 
@@ -152,9 +164,7 @@ public class ProtoUtils {
     /* PRIVATE METHODS */
     private static User getUser(Protobufs.User userProto) {
         if (userProto.getType() == Protobufs.User.Type.FIRST_RESPONDER) {
-            FirstResponder responder = new FirstResponder(userProto.getEmail(), userProto.getUsername(), userProto.getPassword(), userProto.getOnDuty());
-            responder.setId(userProto.getId());
-            return responder;
+            return getResponder(userProto);
         }
         else {
             User user = new User(userProto.getEmail(), userProto.getUsername(), userProto.getPassword());
@@ -176,11 +186,12 @@ public class ProtoUtils {
     }
 
     private static Emergency getEmergency(Protobufs.Emergency emergencyProto) {
+        FirstResponder responder = getResponder(emergencyProto.getResponder());
         Emergency emergency = new Emergency(getUser(emergencyProto.getReporter()),
                 LocalDateTime.parse(emergencyProto.getDate(), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")),
                 emergencyProto.getDescription(),
                 Status.valueOf(emergencyProto.getStatus().toString()),
-                (FirstResponder) getUser(emergencyProto.getResponder()),
+                responder,
                 emergencyProto.getLocation());
 
         emergency.setId(emergencyProto.getId());
