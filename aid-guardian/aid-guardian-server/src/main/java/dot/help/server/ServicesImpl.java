@@ -14,6 +14,8 @@ import org.apache.logging.log4j.Logger;
 import java.util.Map;
 import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.function.Predicate;
 import dot.help.persistence.repository.UserRepository.CredentialType;
 
@@ -131,13 +133,30 @@ public class ServicesImpl implements IServices {
         log.traceExit("Emergency responded successfully: " + updatedEmergency.get());
     }
 
+    private int defaultThreadsNo = 1;
     private void notifyReportedEmergency(Emergency emergency) {
         log.info("Notifying all clients about the reported emergency...");
-        loggedClients.values().forEach(client -> client.emergencyReported(emergency));
+//        loggedClients.values().forEach(client -> client.emergencyReported(emergency));
+        ExecutorService executor = Executors.newFixedThreadPool(defaultThreadsNo);
+        for(var client:loggedClients.values())
+        {
+            executor.execute(()->{
+                    client.emergencyReported(emergency);
+            });
+        }
+        executor.shutdown();
     }
 
     private void notifyRespondedEmergency(Emergency emergency) {
         log.info("Notifying all clients about the responded emergency...");
-        loggedClients.values().forEach(client -> client.emergencyResponded(emergency));
+//        loggedClients.values().forEach(client -> client.emergencyResponded(emergency));
+        ExecutorService executor = Executors.newFixedThreadPool(defaultThreadsNo);
+        for(var client:loggedClients.values())
+        {
+            executor.execute(()->{
+                client.emergencyResponded(emergency);
+            });
+        }
+        executor.shutdown();
     }
 }

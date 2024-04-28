@@ -59,12 +59,12 @@ message Request{
     GET_EMERGENCIES = 10;
   }
   Type type = 1;
-  oneof payload{
+
     User user = 2;
     Profile profile = 3;
     Emergency emergency = 4;
     FirstResponder firstResponder = 5;
-  }
+
 }
 
 message Response{
