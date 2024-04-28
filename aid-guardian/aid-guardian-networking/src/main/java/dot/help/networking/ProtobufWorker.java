@@ -9,9 +9,7 @@ import dot.help.services.IServices;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.List;
 
@@ -19,8 +17,8 @@ public class ProtobufWorker implements Runnable, IObserver {
 
     private IServices service;
     private Socket connection;
-    private final ObjectInputStream input;
-    private final ObjectOutputStream output;
+    private final InputStream input;
+    private final OutputStream output;
     private volatile boolean connected;
 
     private final Logger log = LogManager.getLogger(ProtobufWorker.class);
@@ -32,9 +30,9 @@ public class ProtobufWorker implements Runnable, IObserver {
         this.service = service;
         this.connection = connection;
         try{
-            output = new ObjectOutputStream(connection.getOutputStream());
+            output = connection.getOutputStream();
             output.flush();
-            input = new ObjectInputStream(connection.getInputStream());
+            input = connection.getInputStream();
             connected = true;
         } catch (IOException e) {
             throw new RuntimeException(e);

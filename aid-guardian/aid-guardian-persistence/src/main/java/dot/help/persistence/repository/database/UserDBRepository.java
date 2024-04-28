@@ -21,7 +21,7 @@ public class UserDBRepository extends AbstractDBRepository<Long, User> implement
 
     @Override
     public User extractEntity(ResultSet resultSet) throws SQLException {
-        Long id = resultSet.getLong("id");
+        Long id = resultSet.getLong("id_user");
         String email = resultSet.getString("email");
         String username = resultSet.getString("username");
         String password = resultSet.getString("password");

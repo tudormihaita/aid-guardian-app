@@ -175,6 +175,7 @@ public class ProtobufProxy implements IServices {
         }
     }
 
+
     private Protobufs.Response readResponse() {
         Protobufs.Response response = null;
         try{

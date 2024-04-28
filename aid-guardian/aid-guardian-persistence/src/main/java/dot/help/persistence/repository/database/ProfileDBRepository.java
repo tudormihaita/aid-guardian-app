@@ -20,7 +20,7 @@ public class ProfileDBRepository extends AbstractDBRepository<Long, Profile> imp
         String lastName = resultSet.getString("last_name");
         GenderType gender = GenderType.valueOf(resultSet.getString("gender"));
         BloodGroupType bloodGroup = BloodGroupType.valueOf(resultSet.getString("blood_group"));
-        LocalDate birthDate = resultSet.getDate("birth_date").toLocalDate();
+        LocalDate birthDate = resultSet.getDate("birthdate").toLocalDate();
         Double weight = resultSet.getDouble("weight");
         Double height = resultSet.getDouble("height");
         String medicalHistory = resultSet.getString("medical_history");
