@@ -2,6 +2,7 @@ package dot.help.services;
 
 import dot.help.model.Emergency;
 import dot.help.model.FirstResponder;
+import dot.help.model.Profile;
 import dot.help.model.User;
 
 public interface IServices {
@@ -12,4 +13,8 @@ public interface IServices {
     void reportEmergency(Emergency emergency, IObserver client);
 
     void respondToEmergency(FirstResponder responder, Emergency emergency, IObserver client);
+
+    Profile findUserProfile(User user, IObserver client);
+
+    void registerUser(Profile profile, IObserver client);
 }

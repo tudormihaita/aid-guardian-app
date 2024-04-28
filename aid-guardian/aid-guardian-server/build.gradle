@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
 group = 'dot.help.server'
@@ -23,6 +24,20 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
     implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+}
+
+application {
+    mainClass = 'dot.help.server.StartProtobufServer'
+}
+
+jar{
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes('Main-Class': 'dot.help.server.StartProtobufServer')
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
 
 test {

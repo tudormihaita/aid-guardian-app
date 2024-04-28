@@ -36,18 +36,18 @@
                   <RowConstraints maxHeight="123.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
                </rowConstraints>
                <children>
-                  <Label prefHeight="58.0" prefWidth="210.0" text="describe the emergency:">
+                  <Label prefHeight="58.0" prefWidth="210.0" text="Describe the emergency:">
                      <font>
                         <Font name="Avenir Light" size="16.0" />
                      </font>
                   </Label>
                   <TextArea fx:id="EmergencyDescriptionTextArea" prefHeight="200.0" prefWidth="200.0" promptText="describe the emergency" GridPane.rowIndex="1" />
-                  <Label prefHeight="34.0" prefWidth="283.0" text="what is the location of the emergency?" GridPane.rowIndex="2">
+                  <Label prefHeight="34.0" prefWidth="283.0" text="What is the location of the emergency?" GridPane.rowIndex="2">
                      <font>
                         <Font name="Avenir Light" size="16.0" />
                      </font>
                   </Label>
-                  <RadioButton fx:id="useMyCurrentLlocationRadioButton" mnemonicParsing="false" text="use my current location" GridPane.rowIndex="3">
+                  <RadioButton fx:id="useMyCurrentLocationRadioButton" mnemonicParsing="false" text="use my current location" GridPane.rowIndex="3">
                      <font>
                         <Font name="Avenir Light" size="13.0" />
                      </font>

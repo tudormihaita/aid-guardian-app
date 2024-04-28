@@ -1,6 +1,7 @@
 package dot.help.client.controller;
 
-import dot.help.client.StartProtoBufferClient;
+import dot.help.client.StartProtobufClient;
+import dot.help.client.events.MessageAlert;
 import dot.help.model.Profile;
 import dot.help.model.User;
 import dot.help.services.IServices;
@@ -9,10 +10,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-
-import java.io.IOException;
 
 public class LoginController {
     private User currentUser;
@@ -27,6 +27,7 @@ public class LoginController {
     private TabPane appTabPane;
     private Tab startTab;
     private Tab loginTab;
+    private Stage stage;
 
 
     public void setServer(IServices sev) {
@@ -43,6 +44,10 @@ public class LoginController {
         log.traceExit();
     }
 
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+
     @FXML
     private void initialize() {
         log.traceEntry("Entering initialize");
@@ -56,27 +61,27 @@ public class LoginController {
         String candidatePassword = passwordTextField.getText();
 
         try {
+            FXMLLoader profileLoader = new FXMLLoader();
+            profileLoader.setLocation(StartProtobufClient.class.getResource("Profile-view.fxml"));
+            AnchorPane root = profileLoader.load();
+            ProfileController profileController= profileLoader.getController();
+
             currentUser = server.logIn(candidateCredential, candidatePassword, profileController);
-            Profile profile = server.findProfileByUser(currentUser);
-            try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(StartProtoBufferClient.class.getResource("Profile-view.fxml"));
-                AnchorPane root = loader.load();
 
-                Tab profileTab = new Tab(username + " account");
-                profileTab.setContent(root);
-                appTabPane.getTabs().add(profileTab);
-                appTabPane.getSelectionModel().select(profileTab);
+            Tab profileTab = new Tab(currentUser.getUsername() + " account");
+            profileController.setServer(server);
+            profileController.setTab(appTabPane, startTab, profileTab);
+            profileTab.setContent(root);
 
-                ProfileController profileController= loader.getController();
-                profileController.setServer(server);
-                profileController.setTab(appTabPane, startTab, profileTab);
-                profileController.setUser(profile);
+            Profile profile = server.findUserProfile(currentUser, profileController);
+            profileController.setUser(profile);
 
-                appTabPane.getTabs().remove(loginTab);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            appTabPane.getTabs().remove(loginTab);
+            stage.setOnCloseRequest(windowEvent -> {
+                profileController.handleLogOut(null);
+                System.exit(0);
+            });
+
         } catch (Exception e) {
             MessageAlert.showErrorMessage(null, e.getMessage());
             return;

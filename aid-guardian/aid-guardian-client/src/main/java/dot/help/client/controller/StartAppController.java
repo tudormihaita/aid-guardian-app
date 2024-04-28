@@ -1,6 +1,6 @@
 package dot.help.client.controller;
 
-import dot.help.client.StartProtoBufferClient;
+import dot.help.client.StartProtobufClient;
 import dot.help.services.IServices;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -8,6 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -21,13 +22,17 @@ public class StartAppController {
     @FXML
     public Tab startTab;
 
-
     private IServices server;
+    private Stage stage;
 
     public void setServer(IServices sev) {
         logger.traceEntry("Entering setService");
         this.server = sev;
         logger.traceExit();
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 
     @FXML
@@ -40,7 +45,7 @@ public class StartAppController {
             logger.traceEntry("Entering handleLogin");
             // create a new tab for Login
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtoBufferClient.class.getResource("Login-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("Login-view.fxml"));
             AnchorPane root = loader.load();
 
             // Add a tab for entering login data.
@@ -51,6 +56,7 @@ public class StartAppController {
 
             LoginController controller = loader.getController();
             controller.setServer(server);
+            controller.setStage(stage);
             controller.setTab(appTabPane, startTab, loginTab);
 
             appTabPane.getTabs().remove(startTab);
@@ -66,7 +72,7 @@ public class StartAppController {
         logger.traceEntry("Entering handleSignUp");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtoBufferClient.class.getResource("dot/help/client/SignUp-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("dot/help/client/SignUp-view.fxml"));
             AnchorPane root = loader.load();
 
             Tab signInTab = new Tab("Sign Up");

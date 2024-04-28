@@ -1,5 +1,6 @@
 package dot.help.client.controller;
 
+import dot.help.client.events.MessageAlert;
 import dot.help.model.*;
 import dot.help.services.IObserver;
 import dot.help.services.IServices;
@@ -11,14 +12,14 @@ import org.apache.logging.log4j.Logger;
 
 import java.time.LocalDateTime;
 
-public class ReportEmergencyController implements IObserver {
+public class ReportEmergencyController {
     private static final Logger logger= LogManager.getLogger(ReportEmergencyController.class);
-
+    private ProfileController profileController;
 
     @FXML
     public TextArea EmergencyDescriptionTextArea;
     @FXML
-    public RadioButton useMyCurrentLlocationRadioButton;
+    public RadioButton useMyCurrentLocationRadioButton;
     @FXML
     public RadioButton useAnotherLocationRadioButton;
     @FXML
@@ -51,6 +52,10 @@ public class ReportEmergencyController implements IObserver {
         this.currentProfile = profile;
     }
 
+    public void setProfileController(ProfileController profileController) {
+        this.profileController = profileController;
+    }
+
     public void handleReportButton(ActionEvent actionEvent) {
         User reporter = currentProfile.getUser();
         LocalDateTime dateTime = LocalDateTime.now();
@@ -58,7 +63,7 @@ public class ReportEmergencyController implements IObserver {
         Status status =  Status.Reported;
         FirstResponder firstResponder = null;
         String location = null;
-        Boolean myLocation = useMyCurrentLlocationRadioButton.isSelected();
+        Boolean myLocation = useMyCurrentLocationRadioButton.isSelected();
         Boolean anotherLocation = useAnotherLocationRadioButton.isSelected();
         String anotherLocationString = LocationTextField.getText();
 
@@ -75,7 +80,7 @@ public class ReportEmergencyController implements IObserver {
         }
         Emergency  emergency = new Emergency(reporter, dateTime, description, status, firstResponder, location);
         try {
-            server.reportEmergency(emergency, this);
+            server.reportEmergency(emergency, profileController);
         } catch (Exception e) {
             MessageAlert.showErrorMessage(null, e.getMessage());
             return;
@@ -83,8 +88,4 @@ public class ReportEmergencyController implements IObserver {
         logger.traceExit();
     }
 
-    @Override
-    public void emergencyReported(Emergency emergency) {
-
-    }
 }

@@ -15,47 +15,48 @@ import org.apache.logging.log4j.Logger;
 import java.io.IOException;
 import java.util.Properties;
 
-public class StartProtoBufferClient extends Application {
-    private static int defaultChatPort=55555;
-    private static String defaultServer="localhost";
-    private static final Logger logger= LogManager.getLogger(StartProtoBufferClient.class);
+public class StartProtobufClient extends Application {
+    private static int DEFAULT_PORT = 55555;
+    private static String DEFAULT_SERVER = "localhost";
+    private static final Logger logger = LogManager.getLogger(StartProtobufClient.class);
 
 
     public void start(Stage primaryStage) throws Exception {
 
         Properties clientProps=new Properties();
         try {
-            clientProps.load(StartProtoBufferClient.class.getResourceAsStream("/dot/help/client/client.properties"));
+            clientProps.load(StartProtobufClient.class.getResourceAsStream("/client.properties"));
             logger.info("Client properties set. ");
             clientProps.list(System.out);
         } catch (IOException e) {
-            System.err.println("Cannot find chatclient.properties "+e);
+            System.err.println("Cannot find client.properties "+e);
             return;
         }
-        String serverIP=clientProps.getProperty("chat.server.host",defaultServer);
-        int serverPort=defaultChatPort;
+        String serverIP=clientProps.getProperty("project.server.host", DEFAULT_SERVER);
+        int serverPort= DEFAULT_PORT;
         try{
-            serverPort=Integer.parseInt(clientProps.getProperty("chat.server.port"));
+            serverPort=Integer.parseInt(clientProps.getProperty("project.server.port"));
         }catch(NumberFormatException ex){
             System.err.println("Wrong port number "+ex.getMessage());
-            logger.info("Using default port: "+defaultChatPort);
+            logger.info("Using default port: "+ DEFAULT_PORT);
         }
-        logger.info("Using server IP "+serverIP);
-        logger.info("Using server port "+serverPort);
+        logger.info("Using server IP " + serverIP);
+        logger.info("Using server port " + serverPort);
 
         IServices server = new ProtobufProxy(serverIP, serverPort);
 
         FXMLLoader applicationLoader = new FXMLLoader();
-        applicationLoader.setLocation(StartProtoBufferClient.class.getResource("StartApp-view.fxml"));
+        applicationLoader.setLocation(StartProtobufClient.class.getResource("StartApp-view.fxml"));
         TabPane ApplicationLayout = applicationLoader.load();
         primaryStage.setScene(new Scene(ApplicationLayout));
 
         StartAppController controller = applicationLoader.getController();
         controller.setServer(server);
+        controller.setStage(primaryStage);
 
         primaryStage.setWidth(875);
         primaryStage.setHeight(620);
-        primaryStage.setTitle("Flight Agency");
+        primaryStage.setTitle("Aid Guardian - Welcome");
         primaryStage.show();
 
     }

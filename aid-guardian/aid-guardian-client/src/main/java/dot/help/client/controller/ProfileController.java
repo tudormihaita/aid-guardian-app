@@ -1,11 +1,12 @@
 package dot.help.client.controller;
 
-import dot.help.client.StartProtoBufferClient;
-import dot.help.model.CommunityDispatcher;
-import dot.help.model.Emergency;
-import dot.help.model.Profile;
+import dot.help.client.StartProtobufClient;
+import dot.help.client.events.EmergencyAlert;
+import dot.help.client.events.MessageAlert;
+import dot.help.model.*;
 import dot.help.services.IObserver;
 import dot.help.services.IServices;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -63,7 +64,29 @@ public class ProfileController implements Initializable, IObserver {
 
     @Override
     public void emergencyReported(Emergency emergency) {
+        if(currentProfile.getUser() instanceof FirstResponder responder) {
 
+
+            Platform.runLater(() -> {
+                EmergencyAlert.showMessage(null, Alert.AlertType.WARNING, "Emergency reported",
+                        "An emergency has been reported in your area at " + emergency.getLocation() + ". Do you want to help?",
+                        (acceptEvent) -> {
+                            server.respondToEmergency(responder, emergency, this);
+                            MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Emergency responded", "You have successfully responded to the emergency." +
+                                    " Please proceed to the provided location to offer assistance!");
+                        },
+                        (cancelEvent) -> {
+                            MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Emergency ignored", "You have ignored the emergency. You may continue with your current activities.");
+                        });
+            });
+        }
+    }
+
+    @Override
+    public void emergencyResponded(Emergency emergency) {
+        if(currentProfile.getUser().equals(emergency.getReporter())) {
+
+        }
     }
 
     @Override
@@ -75,7 +98,7 @@ public class ProfileController implements Initializable, IObserver {
         logger.traceEntry("Entering handleReportEmergencyButton");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtoBufferClient.class.getResource("ReportEmergency-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("ReportEmergency-view.fxml"));
             AnchorPane root = loader.load();
 
             Tab reportEmergencyTab = new Tab("Report Emergency");
@@ -83,10 +106,11 @@ public class ProfileController implements Initializable, IObserver {
             appTabPane.getTabs().add(reportEmergencyTab);
             appTabPane.getSelectionModel().select(reportEmergencyTab);
 
-            ProfileController profileController= loader.getController();
-            profileController.setServer(server);
-            profileController.setTab(appTabPane, profileTab, reportEmergencyTab);
-            profileController.setUser(currentProfile);
+            ReportEmergencyController emergencyController= loader.getController();
+            emergencyController.setServer(server);
+            emergencyController.setTab(appTabPane, profileTab, reportEmergencyTab);
+            emergencyController.setUser(currentProfile);
+            emergencyController.setProfileController(this);
 
             appTabPane.getTabs().remove(profileTab);
         } catch (IOException e) {
@@ -100,7 +124,7 @@ public class ProfileController implements Initializable, IObserver {
         MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Success", "Emergency response confirmed. Your assistance is greatly appreciated.");
     }
 
-    public void handleLogoutButton(ActionEvent actionEvent) {
+    public void handleLogOut(ActionEvent actionEvent) {
         logger.traceEntry("Entering handleLogoutButton");
         try {
             server.logOut(currentProfile.getUser(), this);
@@ -112,11 +136,11 @@ public class ProfileController implements Initializable, IObserver {
         logger.traceExit();
     }
 
-    public void handleSettingsButton(ActionEvent actionEvent) {
+    public void handleSettings(ActionEvent actionEvent) {
         logger.traceEntry("Entering handleSettingsButton");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtoBufferClient.class.getResource("Settings-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("Settings-view.fxml"));
             AnchorPane root = loader.load();
 
             Tab reportEmergencyTab = new Tab("Settings");
@@ -136,21 +160,21 @@ public class ProfileController implements Initializable, IObserver {
         logger.traceExit();
     }
 
-    public void handleYourScoreButton(ActionEvent actionEvent) {
+    public void handleYourScore(ActionEvent actionEvent) {
         logger.traceEntry("Entering handleYourScoreButton");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtoBufferClient.class.getResource("Score-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("Score-view.fxml"));
             AnchorPane root = loader.load();
 
-            Tab newTab = new Tab("Report Emergency");
-            reportEmergencyTab.setContent(root);
-            appTabPane.getTabs().add(newTab);
-            appTabPane.getSelectionModel().select(newTab);
+            Tab scoreTab = new Tab("Report Emergency");
+            scoreTab.setContent(root);
+            appTabPane.getTabs().add(scoreTab);
+            appTabPane.getSelectionModel().select(scoreTab);
 
             ScoreController scoreController= loader.getController();
             scoreController.setServer(server);
-            scoreController.setTab(appTabPane, profileTab, newTab);
+            scoreController.setTab(appTabPane, profileTab, scoreTab);
             scoreController.setUser(currentProfile);
 
         } catch (IOException e) {
@@ -160,15 +184,15 @@ public class ProfileController implements Initializable, IObserver {
         logger.traceExit();
     }
 
-    public void handleCall112Button(ActionEvent actionEvent) {
+    public void handleCallEmergencyNumber(ActionEvent actionEvent) {
         MessageAlert.showMessage(null, Alert.AlertType.INFORMATION, "Emergency", "Emergency response confirmed. Your assistance is greatly appreciated.");
     }
 
-    public void handleGuidesButton(ActionEvent actionEvent) {
+    public void handleGuides(ActionEvent actionEvent) {
         logger.traceEntry("Entering handleGuidesButton");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtoBufferClient.class.getResource("Guides-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("Guides-view.fxml"));
             AnchorPane root = loader.load();
 
             Tab newTab = new Tab("Report Emergency");

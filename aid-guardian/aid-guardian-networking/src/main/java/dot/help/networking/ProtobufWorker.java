@@ -1,9 +1,13 @@
 package dot.help.networking;
 
 import dot.help.model.Emergency;
+import dot.help.model.FirstResponder;
+import dot.help.model.Profile;
 import dot.help.model.User;
 import dot.help.services.IObserver;
 import dot.help.services.IServices;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,12 +19,16 @@ public class ProtobufWorker implements Runnable, IObserver {
 
     private IServices service;
     private Socket connection;
-    private ObjectInputStream input;
-    private ObjectOutputStream output;
+    private final ObjectInputStream input;
+    private final ObjectOutputStream output;
     private volatile boolean connected;
+
+    private final Logger log = LogManager.getLogger(ProtobufWorker.class);
+
 
     public ProtobufWorker(IServices service, Socket connection)
     {
+        log.info("Initializing ProtobufWorker with service and connection {} {}", service, connection);
         this.service = service;
         this.connection = connection;
         try{
@@ -61,45 +69,93 @@ public class ProtobufWorker implements Runnable, IObserver {
         }
 
     }
-    private void sendResponse(Protobufs.Response response) throws IOException {
+    private void sendResponse(Protobufs.Response response) {
         System.out.println("Sending response" + response.getType());
-        synchronized (output){
-            response.writeDelimitedTo(output);
-            output.flush();
+        synchronized ( output ){
+            try {
+                response.writeDelimitedTo(output);
+                output.flush();
+            } catch (IOException e) {
+                log.error(e);
+                throw new RuntimeException(e);
+            }
         }
     }
     private Protobufs.Response handleRequest(Protobufs.Request request) {
-        Protobufs.Response response = null;
-        if(request.getType() == Protobufs.Request.Type.Login)
+
+        if(request.getType() == Protobufs.Request.Type.LOGIN)
         {
-            System.out.println("Login request" + request.getType());
+            log.info("Login request" + request.getType());
             User user = ProtoUtils.getUser(request);
             try{
-                service.logIn(user.getUsername(), user.getPassword(), this);
-                return ProtoUtils.createOkResponse();
+                User loggedUser = service.logIn(user.getUsername(), user.getPassword(), this);
+                return ProtoUtils.createLoginResponse(loggedUser);
             } catch (Exception e) {
                 connected = false;
                 return ProtoUtils.createErrorResponse(e.getMessage());
             }
         }
-        if(request.getType() == Protobufs.Request.Type.Logout)
+        if(request.getType() == Protobufs.Request.Type.LOGOUT)
         {
-            System.out.println("Logout request" +  request.getType());
+            log.info("Logout request" +  request.getType());
             User user = ProtoUtils.getUser(request);
             try{
                 service.logOut(user, this);
                 connected = false;
-                return ProtoUtils.createOkResponse();
+                return ProtoUtils.createLogoutResponse();
+            } catch (Exception e) {
+                return ProtoUtils.createErrorResponse(e.getMessage());
+            }
+        }
+        if(request.getType() == Protobufs.Request.Type.GET_PROFILE)
+        {
+            log.info("Get profile request" + request.getType());
+            User user = ProtoUtils.getUser(request);
+            try {
+                Profile profile = service.findUserProfile(user, this);
+                return ProtoUtils.createProfileResponse(profile);
+            } catch (Exception e) {
+                return ProtoUtils.createErrorResponse(e.getMessage());
+            }
+        }
+        if(request.getType() == Protobufs.Request.Type.REPORT_EMERGENCY)
+        {
+            log.info("Report emergency request" + request.getType());
+            Emergency emergency = ProtoUtils.getEmergency(request);
+            try {
+                service.reportEmergency(emergency, this);
+                return ProtoUtils.createReportEmergencyResponse(emergency);
+            } catch (Exception e) {
+                return ProtoUtils.createErrorResponse(e.getMessage());
+            }
+        }
+        if(request.getType() == Protobufs.Request.Type.RESPOND_EMERGENCY)
+        {
+            log.info("Respond emergency request" + request.getType());
+            Emergency emergency = ProtoUtils.getEmergency(request);
+            FirstResponder responder = (FirstResponder) ProtoUtils.getUser(request);
+            try {
+                service.respondToEmergency(responder, emergency, this);
+                return ProtoUtils.createRespondToEmergencyResponse(emergency);
             } catch (Exception e) {
                 return ProtoUtils.createErrorResponse(e.getMessage());
             }
         }
 
-        return response;
+        log.error("Invalid request" + request.getType());
+        return ProtoUtils.createErrorResponse("Invalid request received");
     }
 
     @Override
     public void emergencyReported(Emergency emergency) {
-
+        log.info("Announcing the reported emergency...");
+        sendResponse(ProtoUtils.createEmergencyReportedResponse(emergency));
     }
+
+    @Override
+    public void emergencyResponded(Emergency emergency) {
+        log.info("Announcing the responded emergency...");
+        sendResponse(ProtoUtils.createEmergencyRespondedResponse(emergency));
+    }
+
 }

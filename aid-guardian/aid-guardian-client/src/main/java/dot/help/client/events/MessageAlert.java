@@ -1,4 +1,4 @@
-package dot.help.client.controller;
+package dot.help.client.events;
 
 import javafx.scene.control.Alert;
 import javafx.stage.Stage;

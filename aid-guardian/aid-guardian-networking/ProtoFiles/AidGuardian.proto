@@ -4,8 +4,8 @@ option java_package = "dot.help.networking";
 option java_outer_classname = "Protobufs";
 
 message User{
-  enum Type {CommunityHelper=0;FirstResponder=1;}
-  int32 id=1;
+  enum Type {COMMUNITY_DISPATCHER=0;FIRST_RESPONDER=1;ADMIN=2;}
+  int64 id=1;
   string email=2;
   string username=3;
   string password=4;
@@ -13,56 +13,66 @@ message User{
   bool onDuty=6;
 
 }
+
+message FirstResponder {
+  int64 id = 1;
+  string email = 2;
+  string username = 3;
+  string password = 4;
+  bool onDuty = 5;
+}
+
 message Profile{
+  int64 id = 1;
   enum Gender {Male=0;Female=1;Other=2;}
   enum BloodGroup {A_POSITIVE=0; A_NEGATIVE=1; B_POSITIVE=2; B_NEGATIVE=3; O_POSITIVE=4; O_NEGATIVE=5; AB_POSITIVE=6; AB_NEGATIVE=7;}
-  User user = 1;
-  string firstName = 2;
-  string lastName = 3;
-  Gender gender = 4;
-  string birthDate = 5;
-  BloodGroup bloodGroup = 6;
-  float height = 7;
-  float weight = 8;
-  string medicalConditions = 9;
-  int32 score = 10;
+  User user = 2;
+  string firstName = 3;
+  string lastName = 4;
+  Gender gender = 5;
+  string birthDate = 6;
+  BloodGroup bloodGroup = 7;
+  double height = 8;
+  double weight = 9;
+  string medicalConditions = 10;
+  double score = 11;
 }
 
 message Emergency{
+  int64 id = 1;
   enum Status {Reported=0;Responded=1;OnSite=2;Resolved=3;}
-  User reporter = 1;
-  User responder = 2;
-  Status status = 3;
-  string date = 4;
-  string description = 5;
-  string location = 6;
+  User reporter = 2;
+  User responder = 3;
+  Status status = 4;
+  string date = 5;
+  string description = 6;
+  string location = 7;
 
 }
 
-// E nevoie de request type-uri noi: REPORT_EMERGENCY, UPDATE_EMERGENCY, RESPOND_EMERGENCY(asta o sa vad daca e necesar, deocamdata pune-o),
-// SAVE_PROFILE, UPDATE_PROFILE, GET_PROFILE, GET_EMERGENCY,
-// tipuri noi de date care pot aparea pe request: Profile, Emergency, (cred ca si FirstResponder putem deocamdata)
 message Request{
-  enum Type{Login=0;Logout=1;}
+  enum Type{LOGIN = 0;LOGOUT = 1;
+    GET_USER = 2;
+    GET_PROFILE = 3;SAVE_PROFILE = 4;UPDATE_PROFILE = 5;
+    GET_EMERGENCY = 6;UPDATE_EMERGENCY = 7;
+    REPORT_EMERGENCY = 8; RESPOND_EMERGENCY = 9;
+    GET_EMERGENCIES = 10;
+  }
   Type type = 1;
   oneof payload{
     User user = 2;
+    Profile profile = 3;
+    Emergency emergency = 4;
+    FirstResponder firstResponder = 5;
   }
 }
 
-// Si aici e nevoie de tipuri de date noi ca la request-uri
-// pentru tipuri, sigur trebuie EMERGENCY_RESPONDED, EMERGENCY_REPORTED
-// aici e decizia ta daca crezi ca trb sa fie tip de raspuns care sa corespunda la fiecare request
-// ma gandesc ca putem folosi OK pentru majoritatea si doar facem functie in ProtoUtils cu response de tip OK care primeste tipu de date asteptat
-// de aia cred ca merge scos si Login sau Logout de la response
-// iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
 message Response{
-  enum Type{Ok=0;Error=1;Emergency_Responded=2;Emergency_Reported=3;}
+  enum Type{OK=0;ERROR=1;EMERGENCY_RESPONDED=2;EMERGENCY_REPORTED=3;}
   Type type = 1;
   string error = 2;
   User user = 3;
-  repeated Emergency emergencies= 4;
-  Profile profile = 5;
-
-
+  repeated Emergency emergencies = 4;
+  Emergency emergency = 5;
+  Profile profile = 6;
 }

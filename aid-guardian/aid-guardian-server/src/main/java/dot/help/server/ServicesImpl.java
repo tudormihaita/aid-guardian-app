@@ -1,6 +1,6 @@
 package dot.help.server;
 
-import dot.help.model.User;
+import dot.help.model.*;
 import dot.help.persistence.repository.EmergencyRepository;
 import dot.help.persistence.repository.ProfileRepository;
 import dot.help.persistence.repository.UserRepository;
@@ -32,6 +32,11 @@ public class ServicesImpl implements IServices {
         this.profileRepository = profileRepository;
         this.emergencyRepository = emergencyRepository;
         loggedClients =  new ConcurrentHashMap<>();
+    }
+
+    @Override
+    public void registerUser(Profile profile, IObserver client) {
+
     }
 
     @Override
@@ -75,5 +80,64 @@ public class ServicesImpl implements IServices {
         }
 
         log.traceExit("User logged out successfully: ", user.getUsername());
+    }
+
+    @Override
+    public Profile findUserProfile(User user, IObserver client) {
+        log.traceEntry("Finding profile for user: " + user.getUsername());
+
+        Optional<Profile> profile = profileRepository.findOne(user.getId());
+        if (profile.isEmpty()) {
+            log.error("Profile not found for user: " + user.getUsername());
+            throw new IllegalArgumentException("Profile not found for user: " + user.getUsername());
+        }
+
+        log.traceExit(profile.get());
+        return profile.get();
+    }
+
+    @Override
+    public void reportEmergency(Emergency emergency, IObserver client) {
+        log.traceEntry("Reporting emergency: " + emergency);
+
+        Optional<Emergency> reportedEmergency = emergencyRepository.save(emergency);
+        if(reportedEmergency.isEmpty()) {
+            log.error("Failed to report emergency: " + emergency);
+            throw new IllegalArgumentException("Failed to report emergency: " + emergency);
+        }
+
+        log.info("Notifying all clients about the reported emergency...");
+        notifyReportedEmergency(reportedEmergency.get());
+        log.traceExit("Emergency reported successfully: " + reportedEmergency.get());
+    }
+
+    @Override
+    public void respondToEmergency(FirstResponder responder, Emergency emergency, IObserver client) {
+        log.traceEntry("Responding to emergency: " + emergency);
+
+        Emergency respondedEmergency = new Emergency(emergency.getReporter(), emergency.getReportedAt(), emergency.getDescription(),
+                Status.Responded, emergency.getLocation());
+        respondedEmergency.setResponder(responder);
+        respondedEmergency.setId(emergency.getId());
+
+        Optional<Emergency> updatedEmergency = emergencyRepository.update(respondedEmergency);
+        if(updatedEmergency.isEmpty()) {
+            log.error("Failed to respond to emergency: " + emergency);
+            throw new IllegalArgumentException("Failed to respond to emergency: " + emergency);
+        }
+
+        log.info("Notifying all clients about the responded emergency...");
+        notifyRespondedEmergency(updatedEmergency.get());
+        log.traceExit("Emergency responded successfully: " + updatedEmergency.get());
+    }
+
+    private void notifyReportedEmergency(Emergency emergency) {
+        log.info("Notifying all clients about the reported emergency...");
+        loggedClients.values().forEach(client -> client.emergencyReported(emergency));
+    }
+
+    private void notifyRespondedEmergency(Emergency emergency) {
+        log.info("Notifying all clients about the responded emergency...");
+        loggedClients.values().forEach(client -> client.emergencyResponded(emergency));
     }
 }

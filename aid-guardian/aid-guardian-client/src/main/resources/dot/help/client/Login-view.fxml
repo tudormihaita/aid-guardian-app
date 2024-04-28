@@ -41,7 +41,7 @@
                </font>
             </Label>
             <PasswordField fx:id="passwordTextField" layoutX="236.0" layoutY="172.0" promptText="your password" />
-            <Button layoutX="158.0" layoutY="250.0" mnemonicParsing="false" onAction="#loginHandler" prefHeight="35.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-background-color: RGB(200, 200, 200); -fx-border-color: black;" text="Login">
+            <Button layoutX="158.0" layoutY="250.0" mnemonicParsing="false" onAction="#handleLogin" prefHeight="35.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-background-color: RGB(200, 200, 200); -fx-border-color: black;" text="Login">
                <font>
                   <Font name="Avenir Heavy Oblique" size="18.0" />
                </font>

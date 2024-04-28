@@ -1,6 +1,7 @@
 package dot.help.client.controller;
 
-import dot.help.client.StartProtoBufferClient;
+import dot.help.client.StartProtobufClient;
+import dot.help.client.events.MessageAlert;
 import dot.help.model.*;
 import dot.help.services.IServices;
 import javafx.fxml.FXML;
@@ -90,8 +91,8 @@ public class SignUpController {
         GenderType gender = GenderType.valueOf(genderChoiceBox.getValue());
         BloodGroupType bloodGroup = bloodGroupChoiceBox.getValue();
         LocalDate dateOfBirth = dateOfBirthDatePicker.getValue();
-        Float height = Float.parseFloat(heightTextField.getText());
-        Float weight = Float.parseFloat(weeightTextField.getText());
+        Double height = Double.parseDouble(heightTextField.getText());
+        Double weight = Double.parseDouble(weeightTextField.getText());
         String medicalHistory = medicalHstoryTextField.getText();
 
         if (!Objects.equals(password, confirmPassword)) {
@@ -106,16 +107,15 @@ public class SignUpController {
                 user = new FirstResponder(email, username, password);
             }
             else {
-                // o zis Tudor ca se mai gandeste daca in comunity helper pune sau nu profile
-                user = new CommunityHelper(username, password);
+                user = new User(username, password);
             }
-            profile = new Profile(user, firstName, lastName, gender, dateOfBirth, bloodGroup, height, weight, medicalHistory, 0);
-            // Nu era in server create account cand am facut eu controller, am prezis ca se va numi asa
-            server.createAcount(profile);
+            profile = new Profile(user, firstName, lastName, gender, dateOfBirth, bloodGroup, height, weight, medicalHistory, 1.0);
+            //TODO: check how to init client
+            server.registerUser(profile,  null);
 
             try {
                 FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(StartProtoBufferClient.class.getResource("Profile-view.fxml"));
+                loader.setLocation(StartProtobufClient.class.getResource("Profile-view.fxml"));
                 AnchorPane root = loader.load();
 
                 Tab profileTab = new Tab(username + " account");

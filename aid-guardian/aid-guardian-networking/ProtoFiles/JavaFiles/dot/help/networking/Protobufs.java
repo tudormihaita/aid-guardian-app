@@ -29,10 +29,10 @@ public final class Protobufs {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>int32 id = 1;</code>
+     * <code>int64 id = 1;</code>
      * @return The id.
      */
-    int getId();
+    long getId();
 
     /**
      * <code>string email = 2;</code>
@@ -134,13 +134,17 @@ public final class Protobufs {
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>CommunityHelper = 0;</code>
+       * <code>COMMUNITY_DISPATCHER = 0;</code>
        */
-      CommunityHelper(0),
+      COMMUNITY_DISPATCHER(0),
       /**
-       * <code>FirstResponder = 1;</code>
+       * <code>FIRST_RESPONDER = 1;</code>
        */
-      FirstResponder(1),
+      FIRST_RESPONDER(1),
+      /**
+       * <code>ADMIN = 2;</code>
+       */
+      ADMIN(2),
       UNRECOGNIZED(-1),
       ;
 
@@ -154,13 +158,17 @@ public final class Protobufs {
           Type.class.getName());
       }
       /**
-       * <code>CommunityHelper = 0;</code>
+       * <code>COMMUNITY_DISPATCHER = 0;</code>
        */
-      public static final int CommunityHelper_VALUE = 0;
+      public static final int COMMUNITY_DISPATCHER_VALUE = 0;
       /**
-       * <code>FirstResponder = 1;</code>
+       * <code>FIRST_RESPONDER = 1;</code>
        */
-      public static final int FirstResponder_VALUE = 1;
+      public static final int FIRST_RESPONDER_VALUE = 1;
+      /**
+       * <code>ADMIN = 2;</code>
+       */
+      public static final int ADMIN_VALUE = 2;
 
 
       public final int getNumber() {
@@ -187,8 +195,9 @@ public final class Protobufs {
        */
       public static Type forNumber(int value) {
         switch (value) {
-          case 0: return CommunityHelper;
-          case 1: return FirstResponder;
+          case 0: return COMMUNITY_DISPATCHER;
+          case 1: return FIRST_RESPONDER;
+          case 2: return ADMIN;
           default: return null;
         }
       }
@@ -246,13 +255,13 @@ public final class Protobufs {
     }
 
     public static final int ID_FIELD_NUMBER = 1;
-    private int id_ = 0;
+    private long id_ = 0L;
     /**
-     * <code>int32 id = 1;</code>
+     * <code>int64 id = 1;</code>
      * @return The id.
      */
     @java.lang.Override
-    public int getId() {
+    public long getId() {
       return id_;
     }
 
@@ -416,8 +425,8 @@ public final class Protobufs {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (id_ != 0) {
-        output.writeInt32(1, id_);
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(email_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 2, email_);
@@ -428,7 +437,7 @@ public final class Protobufs {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
         com.google.protobuf.GeneratedMessage.writeString(output, 4, password_);
       }
-      if (type_ != dot.help.networking.Protobufs.User.Type.CommunityHelper.getNumber()) {
+      if (type_ != dot.help.networking.Protobufs.User.Type.COMMUNITY_DISPATCHER.getNumber()) {
         output.writeEnum(5, type_);
       }
       if (onDuty_ != false) {
@@ -443,9 +452,9 @@ public final class Protobufs {
       if (size != -1) return size;
 
       size = 0;
-      if (id_ != 0) {
+      if (id_ != 0L) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(1, id_);
+          .computeInt64Size(1, id_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(email_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(2, email_);
@@ -456,7 +465,7 @@ public final class Protobufs {
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
         size += com.google.protobuf.GeneratedMessage.computeStringSize(4, password_);
       }
-      if (type_ != dot.help.networking.Protobufs.User.Type.CommunityHelper.getNumber()) {
+      if (type_ != dot.help.networking.Protobufs.User.Type.COMMUNITY_DISPATCHER.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(5, type_);
       }
@@ -502,7 +511,8 @@ public final class Protobufs {
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
       hash = (37 * hash) + ID_FIELD_NUMBER;
-      hash = (53 * hash) + getId();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
       hash = (37 * hash) + EMAIL_FIELD_NUMBER;
       hash = (53 * hash) + getEmail().hashCode();
       hash = (37 * hash) + USERNAME_FIELD_NUMBER;
@@ -645,7 +655,7 @@ public final class Protobufs {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
-        id_ = 0;
+        id_ = 0L;
         email_ = "";
         username_ = "";
         password_ = "";
@@ -716,7 +726,7 @@ public final class Protobufs {
 
       public Builder mergeFrom(dot.help.networking.Protobufs.User other) {
         if (other == dot.help.networking.Protobufs.User.getDefaultInstance()) return this;
-        if (other.getId() != 0) {
+        if (other.getId() != 0L) {
           setId(other.getId());
         }
         if (!other.getEmail().isEmpty()) {
@@ -767,7 +777,7 @@ public final class Protobufs {
                 done = true;
                 break;
               case 8: {
-                id_ = input.readInt32();
+                id_ = input.readInt64();
                 bitField0_ |= 0x00000001;
                 break;
               } // case 8
@@ -813,21 +823,21 @@ public final class Protobufs {
       }
       private int bitField0_;
 
-      private int id_ ;
+      private long id_ ;
       /**
-       * <code>int32 id = 1;</code>
+       * <code>int64 id = 1;</code>
        * @return The id.
        */
       @java.lang.Override
-      public int getId() {
+      public long getId() {
         return id_;
       }
       /**
-       * <code>int32 id = 1;</code>
+       * <code>int64 id = 1;</code>
        * @param value The id to set.
        * @return This builder for chaining.
        */
-      public Builder setId(int value) {
+      public Builder setId(long value) {
 
         id_ = value;
         bitField0_ |= 0x00000001;
@@ -835,12 +845,12 @@ public final class Protobufs {
         return this;
       }
       /**
-       * <code>int32 id = 1;</code>
+       * <code>int64 id = 1;</code>
        * @return This builder for chaining.
        */
       public Builder clearId() {
         bitField0_ = (bitField0_ & ~0x00000001);
-        id_ = 0;
+        id_ = 0L;
         onChanged();
         return this;
       }
@@ -1197,112 +1207,1070 @@ public final class Protobufs {
 
   }
 
+  public interface FirstResponderOrBuilder extends
+      // @@protoc_insertion_point(interface_extends:FirstResponder)
+      com.google.protobuf.MessageOrBuilder {
+
+    /**
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    long getId();
+
+    /**
+     * <code>string email = 2;</code>
+     * @return The email.
+     */
+    java.lang.String getEmail();
+    /**
+     * <code>string email = 2;</code>
+     * @return The bytes for email.
+     */
+    com.google.protobuf.ByteString
+        getEmailBytes();
+
+    /**
+     * <code>string username = 3;</code>
+     * @return The username.
+     */
+    java.lang.String getUsername();
+    /**
+     * <code>string username = 3;</code>
+     * @return The bytes for username.
+     */
+    com.google.protobuf.ByteString
+        getUsernameBytes();
+
+    /**
+     * <code>string password = 4;</code>
+     * @return The password.
+     */
+    java.lang.String getPassword();
+    /**
+     * <code>string password = 4;</code>
+     * @return The bytes for password.
+     */
+    com.google.protobuf.ByteString
+        getPasswordBytes();
+
+    /**
+     * <code>bool onDuty = 5;</code>
+     * @return The onDuty.
+     */
+    boolean getOnDuty();
+  }
+  /**
+   * Protobuf type {@code FirstResponder}
+   */
+  public static final class FirstResponder extends
+      com.google.protobuf.GeneratedMessage implements
+      // @@protoc_insertion_point(message_implements:FirstResponder)
+      FirstResponderOrBuilder {
+  private static final long serialVersionUID = 0L;
+    static {
+      com.google.protobuf.RuntimeVersion.validateProtobufGencodeVersion(
+        com.google.protobuf.RuntimeVersion.RuntimeDomain.PUBLIC,
+        /* major= */ 4,
+        /* minor= */ 26,
+        /* patch= */ 1,
+        /* suffix= */ "",
+        FirstResponder.class.getName());
+    }
+    // Use FirstResponder.newBuilder() to construct.
+    private FirstResponder(com.google.protobuf.GeneratedMessage.Builder<?> builder) {
+      super(builder);
+    }
+    private FirstResponder() {
+      email_ = "";
+      username_ = "";
+      password_ = "";
+    }
+
+    public static final com.google.protobuf.Descriptors.Descriptor
+        getDescriptor() {
+      return dot.help.networking.Protobufs.internal_static_FirstResponder_descriptor;
+    }
+
+    @java.lang.Override
+    protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+        internalGetFieldAccessorTable() {
+      return dot.help.networking.Protobufs.internal_static_FirstResponder_fieldAccessorTable
+          .ensureFieldAccessorsInitialized(
+              dot.help.networking.Protobufs.FirstResponder.class, dot.help.networking.Protobufs.FirstResponder.Builder.class);
+    }
+
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_ = 0L;
+    /**
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public long getId() {
+      return id_;
+    }
+
+    public static final int EMAIL_FIELD_NUMBER = 2;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object email_ = "";
+    /**
+     * <code>string email = 2;</code>
+     * @return The email.
+     */
+    @java.lang.Override
+    public java.lang.String getEmail() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        email_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string email = 2;</code>
+     * @return The bytes for email.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getEmailBytes() {
+      java.lang.Object ref = email_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        email_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int USERNAME_FIELD_NUMBER = 3;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object username_ = "";
+    /**
+     * <code>string username = 3;</code>
+     * @return The username.
+     */
+    @java.lang.Override
+    public java.lang.String getUsername() {
+      java.lang.Object ref = username_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        username_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string username = 3;</code>
+     * @return The bytes for username.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getUsernameBytes() {
+      java.lang.Object ref = username_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        username_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int PASSWORD_FIELD_NUMBER = 4;
+    @SuppressWarnings("serial")
+    private volatile java.lang.Object password_ = "";
+    /**
+     * <code>string password = 4;</code>
+     * @return The password.
+     */
+    @java.lang.Override
+    public java.lang.String getPassword() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        return (java.lang.String) ref;
+      } else {
+        com.google.protobuf.ByteString bs = 
+            (com.google.protobuf.ByteString) ref;
+        java.lang.String s = bs.toStringUtf8();
+        password_ = s;
+        return s;
+      }
+    }
+    /**
+     * <code>string password = 4;</code>
+     * @return The bytes for password.
+     */
+    @java.lang.Override
+    public com.google.protobuf.ByteString
+        getPasswordBytes() {
+      java.lang.Object ref = password_;
+      if (ref instanceof java.lang.String) {
+        com.google.protobuf.ByteString b = 
+            com.google.protobuf.ByteString.copyFromUtf8(
+                (java.lang.String) ref);
+        password_ = b;
+        return b;
+      } else {
+        return (com.google.protobuf.ByteString) ref;
+      }
+    }
+
+    public static final int ONDUTY_FIELD_NUMBER = 5;
+    private boolean onDuty_ = false;
+    /**
+     * <code>bool onDuty = 5;</code>
+     * @return The onDuty.
+     */
+    @java.lang.Override
+    public boolean getOnDuty() {
+      return onDuty_;
+    }
+
+    private byte memoizedIsInitialized = -1;
+    @java.lang.Override
+    public final boolean isInitialized() {
+      byte isInitialized = memoizedIsInitialized;
+      if (isInitialized == 1) return true;
+      if (isInitialized == 0) return false;
+
+      memoizedIsInitialized = 1;
+      return true;
+    }
+
+    @java.lang.Override
+    public void writeTo(com.google.protobuf.CodedOutputStream output)
+                        throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(email_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 2, email_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(username_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, username_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
+        com.google.protobuf.GeneratedMessage.writeString(output, 4, password_);
+      }
+      if (onDuty_ != false) {
+        output.writeBool(5, onDuty_);
+      }
+      getUnknownFields().writeTo(output);
+    }
+
+    @java.lang.Override
+    public int getSerializedSize() {
+      int size = memoizedSize;
+      if (size != -1) return size;
+
+      size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, id_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(email_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, email_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(username_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, username_);
+      }
+      if (!com.google.protobuf.GeneratedMessage.isStringEmpty(password_)) {
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, password_);
+      }
+      if (onDuty_ != false) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeBoolSize(5, onDuty_);
+      }
+      size += getUnknownFields().getSerializedSize();
+      memoizedSize = size;
+      return size;
+    }
+
+    @java.lang.Override
+    public boolean equals(final java.lang.Object obj) {
+      if (obj == this) {
+       return true;
+      }
+      if (!(obj instanceof dot.help.networking.Protobufs.FirstResponder)) {
+        return super.equals(obj);
+      }
+      dot.help.networking.Protobufs.FirstResponder other = (dot.help.networking.Protobufs.FirstResponder) obj;
+
+      if (getId()
+          != other.getId()) return false;
+      if (!getEmail()
+          .equals(other.getEmail())) return false;
+      if (!getUsername()
+          .equals(other.getUsername())) return false;
+      if (!getPassword()
+          .equals(other.getPassword())) return false;
+      if (getOnDuty()
+          != other.getOnDuty()) return false;
+      if (!getUnknownFields().equals(other.getUnknownFields())) return false;
+      return true;
+    }
+
+    @java.lang.Override
+    public int hashCode() {
+      if (memoizedHashCode != 0) {
+        return memoizedHashCode;
+      }
+      int hash = 41;
+      hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
+      hash = (37 * hash) + EMAIL_FIELD_NUMBER;
+      hash = (53 * hash) + getEmail().hashCode();
+      hash = (37 * hash) + USERNAME_FIELD_NUMBER;
+      hash = (53 * hash) + getUsername().hashCode();
+      hash = (37 * hash) + PASSWORD_FIELD_NUMBER;
+      hash = (53 * hash) + getPassword().hashCode();
+      hash = (37 * hash) + ONDUTY_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashBoolean(
+          getOnDuty());
+      hash = (29 * hash) + getUnknownFields().hashCode();
+      memoizedHashCode = hash;
+      return hash;
+    }
+
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        java.nio.ByteBuffer data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        java.nio.ByteBuffer data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        com.google.protobuf.ByteString data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        com.google.protobuf.ByteString data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(byte[] data)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        byte[] data,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws com.google.protobuf.InvalidProtocolBufferException {
+      return PARSER.parseFrom(data, extensionRegistry);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    public static dot.help.networking.Protobufs.FirstResponder parseDelimitedFrom(java.io.InputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input);
+    }
+
+    public static dot.help.networking.Protobufs.FirstResponder parseDelimitedFrom(
+        java.io.InputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseDelimitedWithIOException(PARSER, input, extensionRegistry);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        com.google.protobuf.CodedInputStream input)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input);
+    }
+    public static dot.help.networking.Protobufs.FirstResponder parseFrom(
+        com.google.protobuf.CodedInputStream input,
+        com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+        throws java.io.IOException {
+      return com.google.protobuf.GeneratedMessage
+          .parseWithIOException(PARSER, input, extensionRegistry);
+    }
+
+    @java.lang.Override
+    public Builder newBuilderForType() { return newBuilder(); }
+    public static Builder newBuilder() {
+      return DEFAULT_INSTANCE.toBuilder();
+    }
+    public static Builder newBuilder(dot.help.networking.Protobufs.FirstResponder prototype) {
+      return DEFAULT_INSTANCE.toBuilder().mergeFrom(prototype);
+    }
+    @java.lang.Override
+    public Builder toBuilder() {
+      return this == DEFAULT_INSTANCE
+          ? new Builder() : new Builder().mergeFrom(this);
+    }
+
+    @java.lang.Override
+    protected Builder newBuilderForType(
+        com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+      Builder builder = new Builder(parent);
+      return builder;
+    }
+    /**
+     * Protobuf type {@code FirstResponder}
+     */
+    public static final class Builder extends
+        com.google.protobuf.GeneratedMessage.Builder<Builder> implements
+        // @@protoc_insertion_point(builder_implements:FirstResponder)
+        dot.help.networking.Protobufs.FirstResponderOrBuilder {
+      public static final com.google.protobuf.Descriptors.Descriptor
+          getDescriptor() {
+        return dot.help.networking.Protobufs.internal_static_FirstResponder_descriptor;
+      }
+
+      @java.lang.Override
+      protected com.google.protobuf.GeneratedMessage.FieldAccessorTable
+          internalGetFieldAccessorTable() {
+        return dot.help.networking.Protobufs.internal_static_FirstResponder_fieldAccessorTable
+            .ensureFieldAccessorsInitialized(
+                dot.help.networking.Protobufs.FirstResponder.class, dot.help.networking.Protobufs.FirstResponder.Builder.class);
+      }
+
+      // Construct using dot.help.networking.Protobufs.FirstResponder.newBuilder()
+      private Builder() {
+
+      }
+
+      private Builder(
+          com.google.protobuf.GeneratedMessage.BuilderParent parent) {
+        super(parent);
+
+      }
+      @java.lang.Override
+      public Builder clear() {
+        super.clear();
+        bitField0_ = 0;
+        id_ = 0L;
+        email_ = "";
+        username_ = "";
+        password_ = "";
+        onDuty_ = false;
+        return this;
+      }
+
+      @java.lang.Override
+      public com.google.protobuf.Descriptors.Descriptor
+          getDescriptorForType() {
+        return dot.help.networking.Protobufs.internal_static_FirstResponder_descriptor;
+      }
+
+      @java.lang.Override
+      public dot.help.networking.Protobufs.FirstResponder getDefaultInstanceForType() {
+        return dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+      }
+
+      @java.lang.Override
+      public dot.help.networking.Protobufs.FirstResponder build() {
+        dot.help.networking.Protobufs.FirstResponder result = buildPartial();
+        if (!result.isInitialized()) {
+          throw newUninitializedMessageException(result);
+        }
+        return result;
+      }
+
+      @java.lang.Override
+      public dot.help.networking.Protobufs.FirstResponder buildPartial() {
+        dot.help.networking.Protobufs.FirstResponder result = new dot.help.networking.Protobufs.FirstResponder(this);
+        if (bitField0_ != 0) { buildPartial0(result); }
+        onBuilt();
+        return result;
+      }
+
+      private void buildPartial0(dot.help.networking.Protobufs.FirstResponder result) {
+        int from_bitField0_ = bitField0_;
+        if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+        if (((from_bitField0_ & 0x00000002) != 0)) {
+          result.email_ = email_;
+        }
+        if (((from_bitField0_ & 0x00000004) != 0)) {
+          result.username_ = username_;
+        }
+        if (((from_bitField0_ & 0x00000008) != 0)) {
+          result.password_ = password_;
+        }
+        if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.onDuty_ = onDuty_;
+        }
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(com.google.protobuf.Message other) {
+        if (other instanceof dot.help.networking.Protobufs.FirstResponder) {
+          return mergeFrom((dot.help.networking.Protobufs.FirstResponder)other);
+        } else {
+          super.mergeFrom(other);
+          return this;
+        }
+      }
+
+      public Builder mergeFrom(dot.help.networking.Protobufs.FirstResponder other) {
+        if (other == dot.help.networking.Protobufs.FirstResponder.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
+        if (!other.getEmail().isEmpty()) {
+          email_ = other.email_;
+          bitField0_ |= 0x00000002;
+          onChanged();
+        }
+        if (!other.getUsername().isEmpty()) {
+          username_ = other.username_;
+          bitField0_ |= 0x00000004;
+          onChanged();
+        }
+        if (!other.getPassword().isEmpty()) {
+          password_ = other.password_;
+          bitField0_ |= 0x00000008;
+          onChanged();
+        }
+        if (other.getOnDuty() != false) {
+          setOnDuty(other.getOnDuty());
+        }
+        this.mergeUnknownFields(other.getUnknownFields());
+        onChanged();
+        return this;
+      }
+
+      @java.lang.Override
+      public final boolean isInitialized() {
+        return true;
+      }
+
+      @java.lang.Override
+      public Builder mergeFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws java.io.IOException {
+        if (extensionRegistry == null) {
+          throw new java.lang.NullPointerException();
+        }
+        try {
+          boolean done = false;
+          while (!done) {
+            int tag = input.readTag();
+            switch (tag) {
+              case 0:
+                done = true;
+                break;
+              case 8: {
+                id_ = input.readInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 18: {
+                email_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000002;
+                break;
+              } // case 18
+              case 26: {
+                username_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000004;
+                break;
+              } // case 26
+              case 34: {
+                password_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000008;
+                break;
+              } // case 34
+              case 40: {
+                onDuty_ = input.readBool();
+                bitField0_ |= 0x00000010;
+                break;
+              } // case 40
+              default: {
+                if (!super.parseUnknownField(input, extensionRegistry, tag)) {
+                  done = true; // was an endgroup tag
+                }
+                break;
+              } // default:
+            } // switch (tag)
+          } // while (!done)
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.unwrapIOException();
+        } finally {
+          onChanged();
+        } // finally
+        return this;
+      }
+      private int bitField0_;
+
+      private long id_ ;
+      /**
+       * <code>int64 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>int64 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(long value) {
+
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object email_ = "";
+      /**
+       * <code>string email = 2;</code>
+       * @return The email.
+       */
+      public java.lang.String getEmail() {
+        java.lang.Object ref = email_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          email_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string email = 2;</code>
+       * @return The bytes for email.
+       */
+      public com.google.protobuf.ByteString
+          getEmailBytes() {
+        java.lang.Object ref = email_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          email_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string email = 2;</code>
+       * @param value The email to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmail(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        email_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 2;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearEmail() {
+        email_ = getDefaultInstance().getEmail();
+        bitField0_ = (bitField0_ & ~0x00000002);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string email = 2;</code>
+       * @param value The bytes for email to set.
+       * @return This builder for chaining.
+       */
+      public Builder setEmailBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        email_ = value;
+        bitField0_ |= 0x00000002;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object username_ = "";
+      /**
+       * <code>string username = 3;</code>
+       * @return The username.
+       */
+      public java.lang.String getUsername() {
+        java.lang.Object ref = username_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          username_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string username = 3;</code>
+       * @return The bytes for username.
+       */
+      public com.google.protobuf.ByteString
+          getUsernameBytes() {
+        java.lang.Object ref = username_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          username_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string username = 3;</code>
+       * @param value The username to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUsername(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        username_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string username = 3;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearUsername() {
+        username_ = getDefaultInstance().getUsername();
+        bitField0_ = (bitField0_ & ~0x00000004);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string username = 3;</code>
+       * @param value The bytes for username to set.
+       * @return This builder for chaining.
+       */
+      public Builder setUsernameBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        username_ = value;
+        bitField0_ |= 0x00000004;
+        onChanged();
+        return this;
+      }
+
+      private java.lang.Object password_ = "";
+      /**
+       * <code>string password = 4;</code>
+       * @return The password.
+       */
+      public java.lang.String getPassword() {
+        java.lang.Object ref = password_;
+        if (!(ref instanceof java.lang.String)) {
+          com.google.protobuf.ByteString bs =
+              (com.google.protobuf.ByteString) ref;
+          java.lang.String s = bs.toStringUtf8();
+          password_ = s;
+          return s;
+        } else {
+          return (java.lang.String) ref;
+        }
+      }
+      /**
+       * <code>string password = 4;</code>
+       * @return The bytes for password.
+       */
+      public com.google.protobuf.ByteString
+          getPasswordBytes() {
+        java.lang.Object ref = password_;
+        if (ref instanceof String) {
+          com.google.protobuf.ByteString b = 
+              com.google.protobuf.ByteString.copyFromUtf8(
+                  (java.lang.String) ref);
+          password_ = b;
+          return b;
+        } else {
+          return (com.google.protobuf.ByteString) ref;
+        }
+      }
+      /**
+       * <code>string password = 4;</code>
+       * @param value The password to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPassword(
+          java.lang.String value) {
+        if (value == null) { throw new NullPointerException(); }
+        password_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string password = 4;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearPassword() {
+        password_ = getDefaultInstance().getPassword();
+        bitField0_ = (bitField0_ & ~0x00000008);
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>string password = 4;</code>
+       * @param value The bytes for password to set.
+       * @return This builder for chaining.
+       */
+      public Builder setPasswordBytes(
+          com.google.protobuf.ByteString value) {
+        if (value == null) { throw new NullPointerException(); }
+        checkByteStringIsUtf8(value);
+        password_ = value;
+        bitField0_ |= 0x00000008;
+        onChanged();
+        return this;
+      }
+
+      private boolean onDuty_ ;
+      /**
+       * <code>bool onDuty = 5;</code>
+       * @return The onDuty.
+       */
+      @java.lang.Override
+      public boolean getOnDuty() {
+        return onDuty_;
+      }
+      /**
+       * <code>bool onDuty = 5;</code>
+       * @param value The onDuty to set.
+       * @return This builder for chaining.
+       */
+      public Builder setOnDuty(boolean value) {
+
+        onDuty_ = value;
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>bool onDuty = 5;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearOnDuty() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        onDuty_ = false;
+        onChanged();
+        return this;
+      }
+
+      // @@protoc_insertion_point(builder_scope:FirstResponder)
+    }
+
+    // @@protoc_insertion_point(class_scope:FirstResponder)
+    private static final dot.help.networking.Protobufs.FirstResponder DEFAULT_INSTANCE;
+    static {
+      DEFAULT_INSTANCE = new dot.help.networking.Protobufs.FirstResponder();
+    }
+
+    public static dot.help.networking.Protobufs.FirstResponder getDefaultInstance() {
+      return DEFAULT_INSTANCE;
+    }
+
+    private static final com.google.protobuf.Parser<FirstResponder>
+        PARSER = new com.google.protobuf.AbstractParser<FirstResponder>() {
+      @java.lang.Override
+      public FirstResponder parsePartialFrom(
+          com.google.protobuf.CodedInputStream input,
+          com.google.protobuf.ExtensionRegistryLite extensionRegistry)
+          throws com.google.protobuf.InvalidProtocolBufferException {
+        Builder builder = newBuilder();
+        try {
+          builder.mergeFrom(input, extensionRegistry);
+        } catch (com.google.protobuf.InvalidProtocolBufferException e) {
+          throw e.setUnfinishedMessage(builder.buildPartial());
+        } catch (com.google.protobuf.UninitializedMessageException e) {
+          throw e.asInvalidProtocolBufferException().setUnfinishedMessage(builder.buildPartial());
+        } catch (java.io.IOException e) {
+          throw new com.google.protobuf.InvalidProtocolBufferException(e)
+              .setUnfinishedMessage(builder.buildPartial());
+        }
+        return builder.buildPartial();
+      }
+    };
+
+    public static com.google.protobuf.Parser<FirstResponder> parser() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public com.google.protobuf.Parser<FirstResponder> getParserForType() {
+      return PARSER;
+    }
+
+    @java.lang.Override
+    public dot.help.networking.Protobufs.FirstResponder getDefaultInstanceForType() {
+      return DEFAULT_INSTANCE;
+    }
+
+  }
+
   public interface ProfileOrBuilder extends
       // @@protoc_insertion_point(interface_extends:Profile)
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.User user = 1;</code>
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    long getId();
+
+    /**
+     * <code>.User user = 2;</code>
      * @return Whether the user field is set.
      */
     boolean hasUser();
     /**
-     * <code>.User user = 1;</code>
+     * <code>.User user = 2;</code>
      * @return The user.
      */
     dot.help.networking.Protobufs.User getUser();
     /**
-     * <code>.User user = 1;</code>
+     * <code>.User user = 2;</code>
      */
     dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder();
 
     /**
-     * <code>string firstName = 2;</code>
+     * <code>string firstName = 3;</code>
      * @return The firstName.
      */
     java.lang.String getFirstName();
     /**
-     * <code>string firstName = 2;</code>
+     * <code>string firstName = 3;</code>
      * @return The bytes for firstName.
      */
     com.google.protobuf.ByteString
         getFirstNameBytes();
 
     /**
-     * <code>string lastName = 3;</code>
+     * <code>string lastName = 4;</code>
      * @return The lastName.
      */
     java.lang.String getLastName();
     /**
-     * <code>string lastName = 3;</code>
+     * <code>string lastName = 4;</code>
      * @return The bytes for lastName.
      */
     com.google.protobuf.ByteString
         getLastNameBytes();
 
     /**
-     * <code>.Profile.Gender gender = 4;</code>
+     * <code>.Profile.Gender gender = 5;</code>
      * @return The enum numeric value on the wire for gender.
      */
     int getGenderValue();
     /**
-     * <code>.Profile.Gender gender = 4;</code>
+     * <code>.Profile.Gender gender = 5;</code>
      * @return The gender.
      */
     dot.help.networking.Protobufs.Profile.Gender getGender();
 
     /**
-     * <code>string birthDate = 5;</code>
+     * <code>string birthDate = 6;</code>
      * @return The birthDate.
      */
     java.lang.String getBirthDate();
     /**
-     * <code>string birthDate = 5;</code>
+     * <code>string birthDate = 6;</code>
      * @return The bytes for birthDate.
      */
     com.google.protobuf.ByteString
         getBirthDateBytes();
 
     /**
-     * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+     * <code>.Profile.BloodGroup bloodGroup = 7;</code>
      * @return The enum numeric value on the wire for bloodGroup.
      */
     int getBloodGroupValue();
     /**
-     * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+     * <code>.Profile.BloodGroup bloodGroup = 7;</code>
      * @return The bloodGroup.
      */
     dot.help.networking.Protobufs.Profile.BloodGroup getBloodGroup();
 
     /**
-     * <code>float height = 7;</code>
+     * <code>double height = 8;</code>
      * @return The height.
      */
-    float getHeight();
+    double getHeight();
 
     /**
-     * <code>float weight = 8;</code>
+     * <code>double weight = 9;</code>
      * @return The weight.
      */
-    float getWeight();
+    double getWeight();
 
     /**
-     * <code>string medicalConditions = 9;</code>
+     * <code>string medicalConditions = 10;</code>
      * @return The medicalConditions.
      */
     java.lang.String getMedicalConditions();
     /**
-     * <code>string medicalConditions = 9;</code>
+     * <code>string medicalConditions = 10;</code>
      * @return The bytes for medicalConditions.
      */
     com.google.protobuf.ByteString
         getMedicalConditionsBytes();
 
     /**
-     * <code>int32 score = 10;</code>
+     * <code>double score = 11;</code>
      * @return The score.
      */
-    int getScore();
+    double getScore();
   }
   /**
    * Protobuf type {@code Profile}
@@ -1645,10 +2613,21 @@ public final class Protobufs {
     }
 
     private int bitField0_;
-    public static final int USER_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_ = 0L;
+    /**
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public long getId() {
+      return id_;
+    }
+
+    public static final int USER_FIELD_NUMBER = 2;
     private dot.help.networking.Protobufs.User user_;
     /**
-     * <code>.User user = 1;</code>
+     * <code>.User user = 2;</code>
      * @return Whether the user field is set.
      */
     @java.lang.Override
@@ -1656,7 +2635,7 @@ public final class Protobufs {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>.User user = 1;</code>
+     * <code>.User user = 2;</code>
      * @return The user.
      */
     @java.lang.Override
@@ -1664,18 +2643,18 @@ public final class Protobufs {
       return user_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : user_;
     }
     /**
-     * <code>.User user = 1;</code>
+     * <code>.User user = 2;</code>
      */
     @java.lang.Override
     public dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder() {
       return user_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : user_;
     }
 
-    public static final int FIRSTNAME_FIELD_NUMBER = 2;
+    public static final int FIRSTNAME_FIELD_NUMBER = 3;
     @SuppressWarnings("serial")
     private volatile java.lang.Object firstName_ = "";
     /**
-     * <code>string firstName = 2;</code>
+     * <code>string firstName = 3;</code>
      * @return The firstName.
      */
     @java.lang.Override
@@ -1692,7 +2671,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string firstName = 2;</code>
+     * <code>string firstName = 3;</code>
      * @return The bytes for firstName.
      */
     @java.lang.Override
@@ -1710,11 +2689,11 @@ public final class Protobufs {
       }
     }
 
-    public static final int LASTNAME_FIELD_NUMBER = 3;
+    public static final int LASTNAME_FIELD_NUMBER = 4;
     @SuppressWarnings("serial")
     private volatile java.lang.Object lastName_ = "";
     /**
-     * <code>string lastName = 3;</code>
+     * <code>string lastName = 4;</code>
      * @return The lastName.
      */
     @java.lang.Override
@@ -1731,7 +2710,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string lastName = 3;</code>
+     * <code>string lastName = 4;</code>
      * @return The bytes for lastName.
      */
     @java.lang.Override
@@ -1749,17 +2728,17 @@ public final class Protobufs {
       }
     }
 
-    public static final int GENDER_FIELD_NUMBER = 4;
+    public static final int GENDER_FIELD_NUMBER = 5;
     private int gender_ = 0;
     /**
-     * <code>.Profile.Gender gender = 4;</code>
+     * <code>.Profile.Gender gender = 5;</code>
      * @return The enum numeric value on the wire for gender.
      */
     @java.lang.Override public int getGenderValue() {
       return gender_;
     }
     /**
-     * <code>.Profile.Gender gender = 4;</code>
+     * <code>.Profile.Gender gender = 5;</code>
      * @return The gender.
      */
     @java.lang.Override public dot.help.networking.Protobufs.Profile.Gender getGender() {
@@ -1767,11 +2746,11 @@ public final class Protobufs {
       return result == null ? dot.help.networking.Protobufs.Profile.Gender.UNRECOGNIZED : result;
     }
 
-    public static final int BIRTHDATE_FIELD_NUMBER = 5;
+    public static final int BIRTHDATE_FIELD_NUMBER = 6;
     @SuppressWarnings("serial")
     private volatile java.lang.Object birthDate_ = "";
     /**
-     * <code>string birthDate = 5;</code>
+     * <code>string birthDate = 6;</code>
      * @return The birthDate.
      */
     @java.lang.Override
@@ -1788,7 +2767,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string birthDate = 5;</code>
+     * <code>string birthDate = 6;</code>
      * @return The bytes for birthDate.
      */
     @java.lang.Override
@@ -1806,17 +2785,17 @@ public final class Protobufs {
       }
     }
 
-    public static final int BLOODGROUP_FIELD_NUMBER = 6;
+    public static final int BLOODGROUP_FIELD_NUMBER = 7;
     private int bloodGroup_ = 0;
     /**
-     * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+     * <code>.Profile.BloodGroup bloodGroup = 7;</code>
      * @return The enum numeric value on the wire for bloodGroup.
      */
     @java.lang.Override public int getBloodGroupValue() {
       return bloodGroup_;
     }
     /**
-     * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+     * <code>.Profile.BloodGroup bloodGroup = 7;</code>
      * @return The bloodGroup.
      */
     @java.lang.Override public dot.help.networking.Protobufs.Profile.BloodGroup getBloodGroup() {
@@ -1824,33 +2803,33 @@ public final class Protobufs {
       return result == null ? dot.help.networking.Protobufs.Profile.BloodGroup.UNRECOGNIZED : result;
     }
 
-    public static final int HEIGHT_FIELD_NUMBER = 7;
-    private float height_ = 0F;
+    public static final int HEIGHT_FIELD_NUMBER = 8;
+    private double height_ = 0D;
     /**
-     * <code>float height = 7;</code>
+     * <code>double height = 8;</code>
      * @return The height.
      */
     @java.lang.Override
-    public float getHeight() {
+    public double getHeight() {
       return height_;
     }
 
-    public static final int WEIGHT_FIELD_NUMBER = 8;
-    private float weight_ = 0F;
+    public static final int WEIGHT_FIELD_NUMBER = 9;
+    private double weight_ = 0D;
     /**
-     * <code>float weight = 8;</code>
+     * <code>double weight = 9;</code>
      * @return The weight.
      */
     @java.lang.Override
-    public float getWeight() {
+    public double getWeight() {
       return weight_;
     }
 
-    public static final int MEDICALCONDITIONS_FIELD_NUMBER = 9;
+    public static final int MEDICALCONDITIONS_FIELD_NUMBER = 10;
     @SuppressWarnings("serial")
     private volatile java.lang.Object medicalConditions_ = "";
     /**
-     * <code>string medicalConditions = 9;</code>
+     * <code>string medicalConditions = 10;</code>
      * @return The medicalConditions.
      */
     @java.lang.Override
@@ -1867,7 +2846,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string medicalConditions = 9;</code>
+     * <code>string medicalConditions = 10;</code>
      * @return The bytes for medicalConditions.
      */
     @java.lang.Override
@@ -1885,14 +2864,14 @@ public final class Protobufs {
       }
     }
 
-    public static final int SCORE_FIELD_NUMBER = 10;
-    private int score_ = 0;
+    public static final int SCORE_FIELD_NUMBER = 11;
+    private double score_ = 0D;
     /**
-     * <code>int32 score = 10;</code>
+     * <code>double score = 11;</code>
      * @return The score.
      */
     @java.lang.Override
-    public int getScore() {
+    public double getScore() {
       return score_;
     }
 
@@ -1910,35 +2889,38 @@ public final class Protobufs {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
+      }
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getUser());
+        output.writeMessage(2, getUser());
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(firstName_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 2, firstName_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 3, firstName_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(lastName_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 3, lastName_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 4, lastName_);
       }
       if (gender_ != dot.help.networking.Protobufs.Profile.Gender.Male.getNumber()) {
-        output.writeEnum(4, gender_);
+        output.writeEnum(5, gender_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(birthDate_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 5, birthDate_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 6, birthDate_);
       }
       if (bloodGroup_ != dot.help.networking.Protobufs.Profile.BloodGroup.A_POSITIVE.getNumber()) {
-        output.writeEnum(6, bloodGroup_);
+        output.writeEnum(7, bloodGroup_);
       }
-      if (java.lang.Float.floatToRawIntBits(height_) != 0) {
-        output.writeFloat(7, height_);
+      if (java.lang.Double.doubleToRawLongBits(height_) != 0) {
+        output.writeDouble(8, height_);
       }
-      if (java.lang.Float.floatToRawIntBits(weight_) != 0) {
-        output.writeFloat(8, weight_);
+      if (java.lang.Double.doubleToRawLongBits(weight_) != 0) {
+        output.writeDouble(9, weight_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(medicalConditions_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 9, medicalConditions_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 10, medicalConditions_);
       }
-      if (score_ != 0) {
-        output.writeInt32(10, score_);
+      if (java.lang.Double.doubleToRawLongBits(score_) != 0) {
+        output.writeDouble(11, score_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -1949,41 +2931,45 @@ public final class Protobufs {
       if (size != -1) return size;
 
       size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, id_);
+      }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getUser());
+          .computeMessageSize(2, getUser());
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(firstName_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(2, firstName_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, firstName_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(lastName_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(3, lastName_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, lastName_);
       }
       if (gender_ != dot.help.networking.Protobufs.Profile.Gender.Male.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(4, gender_);
+          .computeEnumSize(5, gender_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(birthDate_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, birthDate_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(6, birthDate_);
       }
       if (bloodGroup_ != dot.help.networking.Protobufs.Profile.BloodGroup.A_POSITIVE.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(6, bloodGroup_);
+          .computeEnumSize(7, bloodGroup_);
       }
-      if (java.lang.Float.floatToRawIntBits(height_) != 0) {
+      if (java.lang.Double.doubleToRawLongBits(height_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(7, height_);
+          .computeDoubleSize(8, height_);
       }
-      if (java.lang.Float.floatToRawIntBits(weight_) != 0) {
+      if (java.lang.Double.doubleToRawLongBits(weight_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeFloatSize(8, weight_);
+          .computeDoubleSize(9, weight_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(medicalConditions_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(9, medicalConditions_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(10, medicalConditions_);
       }
-      if (score_ != 0) {
+      if (java.lang.Double.doubleToRawLongBits(score_) != 0) {
         size += com.google.protobuf.CodedOutputStream
-          .computeInt32Size(10, score_);
+          .computeDoubleSize(11, score_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -2000,6 +2986,8 @@ public final class Protobufs {
       }
       dot.help.networking.Protobufs.Profile other = (dot.help.networking.Protobufs.Profile) obj;
 
+      if (getId()
+          != other.getId()) return false;
       if (hasUser() != other.hasUser()) return false;
       if (hasUser()) {
         if (!getUser()
@@ -2013,16 +3001,17 @@ public final class Protobufs {
       if (!getBirthDate()
           .equals(other.getBirthDate())) return false;
       if (bloodGroup_ != other.bloodGroup_) return false;
-      if (java.lang.Float.floatToIntBits(getHeight())
-          != java.lang.Float.floatToIntBits(
+      if (java.lang.Double.doubleToLongBits(getHeight())
+          != java.lang.Double.doubleToLongBits(
               other.getHeight())) return false;
-      if (java.lang.Float.floatToIntBits(getWeight())
-          != java.lang.Float.floatToIntBits(
+      if (java.lang.Double.doubleToLongBits(getWeight())
+          != java.lang.Double.doubleToLongBits(
               other.getWeight())) return false;
       if (!getMedicalConditions()
           .equals(other.getMedicalConditions())) return false;
-      if (getScore()
-          != other.getScore()) return false;
+      if (java.lang.Double.doubleToLongBits(getScore())
+          != java.lang.Double.doubleToLongBits(
+              other.getScore())) return false;
       if (!getUnknownFields().equals(other.getUnknownFields())) return false;
       return true;
     }
@@ -2034,6 +3023,9 @@ public final class Protobufs {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
       if (hasUser()) {
         hash = (37 * hash) + USER_FIELD_NUMBER;
         hash = (53 * hash) + getUser().hashCode();
@@ -2049,15 +3041,16 @@ public final class Protobufs {
       hash = (37 * hash) + BLOODGROUP_FIELD_NUMBER;
       hash = (53 * hash) + bloodGroup_;
       hash = (37 * hash) + HEIGHT_FIELD_NUMBER;
-      hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getHeight());
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getHeight()));
       hash = (37 * hash) + WEIGHT_FIELD_NUMBER;
-      hash = (53 * hash) + java.lang.Float.floatToIntBits(
-          getWeight());
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getWeight()));
       hash = (37 * hash) + MEDICALCONDITIONS_FIELD_NUMBER;
       hash = (53 * hash) + getMedicalConditions().hashCode();
       hash = (37 * hash) + SCORE_FIELD_NUMBER;
-      hash = (53 * hash) + getScore();
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          java.lang.Double.doubleToLongBits(getScore()));
       hash = (29 * hash) + getUnknownFields().hashCode();
       memoizedHashCode = hash;
       return hash;
@@ -2195,6 +3188,7 @@ public final class Protobufs {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
+        id_ = 0L;
         user_ = null;
         if (userBuilder_ != null) {
           userBuilder_.dispose();
@@ -2205,10 +3199,10 @@ public final class Protobufs {
         gender_ = 0;
         birthDate_ = "";
         bloodGroup_ = 0;
-        height_ = 0F;
-        weight_ = 0F;
+        height_ = 0D;
+        weight_ = 0D;
         medicalConditions_ = "";
-        score_ = 0;
+        score_ = 0D;
         return this;
       }
 
@@ -2242,38 +3236,41 @@ public final class Protobufs {
 
       private void buildPartial0(dot.help.networking.Protobufs.Profile result) {
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.user_ = userBuilder_ == null
               ? user_
               : userBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.firstName_ = firstName_;
         }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.lastName_ = lastName_;
         }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
+        if (((from_bitField0_ & 0x00000010) != 0)) {
           result.gender_ = gender_;
         }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           result.birthDate_ = birthDate_;
         }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
           result.bloodGroup_ = bloodGroup_;
         }
-        if (((from_bitField0_ & 0x00000040) != 0)) {
+        if (((from_bitField0_ & 0x00000080) != 0)) {
           result.height_ = height_;
         }
-        if (((from_bitField0_ & 0x00000080) != 0)) {
+        if (((from_bitField0_ & 0x00000100) != 0)) {
           result.weight_ = weight_;
         }
-        if (((from_bitField0_ & 0x00000100) != 0)) {
+        if (((from_bitField0_ & 0x00000200) != 0)) {
           result.medicalConditions_ = medicalConditions_;
         }
-        if (((from_bitField0_ & 0x00000200) != 0)) {
+        if (((from_bitField0_ & 0x00000400) != 0)) {
           result.score_ = score_;
         }
         result.bitField0_ |= to_bitField0_;
@@ -2291,17 +3288,20 @@ public final class Protobufs {
 
       public Builder mergeFrom(dot.help.networking.Protobufs.Profile other) {
         if (other == dot.help.networking.Protobufs.Profile.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
         if (other.hasUser()) {
           mergeUser(other.getUser());
         }
         if (!other.getFirstName().isEmpty()) {
           firstName_ = other.firstName_;
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         if (!other.getLastName().isEmpty()) {
           lastName_ = other.lastName_;
-          bitField0_ |= 0x00000004;
+          bitField0_ |= 0x00000008;
           onChanged();
         }
         if (other.gender_ != 0) {
@@ -2309,24 +3309,24 @@ public final class Protobufs {
         }
         if (!other.getBirthDate().isEmpty()) {
           birthDate_ = other.birthDate_;
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         if (other.bloodGroup_ != 0) {
           setBloodGroupValue(other.getBloodGroupValue());
         }
-        if (other.getHeight() != 0F) {
+        if (other.getHeight() != 0D) {
           setHeight(other.getHeight());
         }
-        if (other.getWeight() != 0F) {
+        if (other.getWeight() != 0D) {
           setWeight(other.getWeight());
         }
         if (!other.getMedicalConditions().isEmpty()) {
           medicalConditions_ = other.medicalConditions_;
-          bitField0_ |= 0x00000100;
+          bitField0_ |= 0x00000200;
           onChanged();
         }
-        if (other.getScore() != 0) {
+        if (other.getScore() != 0D) {
           setScore(other.getScore());
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -2355,58 +3355,63 @@ public final class Protobufs {
               case 0:
                 done = true;
                 break;
-              case 10: {
+              case 8: {
+                id_ = input.readInt64();
+                bitField0_ |= 0x00000001;
+                break;
+              } // case 8
+              case 18: {
                 input.readMessage(
                     getUserFieldBuilder().getBuilder(),
                     extensionRegistry);
-                bitField0_ |= 0x00000001;
-                break;
-              } // case 10
-              case 18: {
-                firstName_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
               case 26: {
-                lastName_ = input.readStringRequireUtf8();
+                firstName_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000004;
                 break;
               } // case 26
-              case 32: {
-                gender_ = input.readEnum();
+              case 34: {
+                lastName_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000008;
                 break;
-              } // case 32
-              case 42: {
-                birthDate_ = input.readStringRequireUtf8();
+              } // case 34
+              case 40: {
+                gender_ = input.readEnum();
                 bitField0_ |= 0x00000010;
                 break;
-              } // case 42
-              case 48: {
-                bloodGroup_ = input.readEnum();
+              } // case 40
+              case 50: {
+                birthDate_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000020;
                 break;
-              } // case 48
-              case 61: {
-                height_ = input.readFloat();
+              } // case 50
+              case 56: {
+                bloodGroup_ = input.readEnum();
                 bitField0_ |= 0x00000040;
                 break;
-              } // case 61
-              case 69: {
-                weight_ = input.readFloat();
+              } // case 56
+              case 65: {
+                height_ = input.readDouble();
                 bitField0_ |= 0x00000080;
                 break;
-              } // case 69
-              case 74: {
-                medicalConditions_ = input.readStringRequireUtf8();
+              } // case 65
+              case 73: {
+                weight_ = input.readDouble();
                 bitField0_ |= 0x00000100;
                 break;
-              } // case 74
-              case 80: {
-                score_ = input.readInt32();
+              } // case 73
+              case 82: {
+                medicalConditions_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000200;
                 break;
-              } // case 80
+              } // case 82
+              case 89: {
+                score_ = input.readDouble();
+                bitField0_ |= 0x00000400;
+                break;
+              } // case 89
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -2424,18 +3429,50 @@ public final class Protobufs {
       }
       private int bitField0_;
 
+      private long id_ ;
+      /**
+       * <code>int64 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>int64 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(long value) {
+
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private dot.help.networking.Protobufs.User user_;
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> userBuilder_;
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        * @return Whether the user field is set.
        */
       public boolean hasUser() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        * @return The user.
        */
       public dot.help.networking.Protobufs.User getUser() {
@@ -2446,7 +3483,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       public Builder setUser(dot.help.networking.Protobufs.User value) {
         if (userBuilder_ == null) {
@@ -2457,12 +3494,12 @@ public final class Protobufs {
         } else {
           userBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       public Builder setUser(
           dot.help.networking.Protobufs.User.Builder builderForValue) {
@@ -2471,16 +3508,16 @@ public final class Protobufs {
         } else {
           userBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       public Builder mergeUser(dot.help.networking.Protobufs.User value) {
         if (userBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
+          if (((bitField0_ & 0x00000002) != 0) &&
             user_ != null &&
             user_ != dot.help.networking.Protobufs.User.getDefaultInstance()) {
             getUserBuilder().mergeFrom(value);
@@ -2491,16 +3528,16 @@ public final class Protobufs {
           userBuilder_.mergeFrom(value);
         }
         if (user_ != null) {
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         return this;
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       public Builder clearUser() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         user_ = null;
         if (userBuilder_ != null) {
           userBuilder_.dispose();
@@ -2510,15 +3547,15 @@ public final class Protobufs {
         return this;
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       public dot.help.networking.Protobufs.User.Builder getUserBuilder() {
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return getUserFieldBuilder().getBuilder();
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       public dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder() {
         if (userBuilder_ != null) {
@@ -2529,7 +3566,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.User user = 1;</code>
+       * <code>.User user = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> 
@@ -2547,7 +3584,7 @@ public final class Protobufs {
 
       private java.lang.Object firstName_ = "";
       /**
-       * <code>string firstName = 2;</code>
+       * <code>string firstName = 3;</code>
        * @return The firstName.
        */
       public java.lang.String getFirstName() {
@@ -2563,7 +3600,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string firstName = 2;</code>
+       * <code>string firstName = 3;</code>
        * @return The bytes for firstName.
        */
       public com.google.protobuf.ByteString
@@ -2580,7 +3617,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string firstName = 2;</code>
+       * <code>string firstName = 3;</code>
        * @param value The firstName to set.
        * @return This builder for chaining.
        */
@@ -2588,22 +3625,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         firstName_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>string firstName = 2;</code>
+       * <code>string firstName = 3;</code>
        * @return This builder for chaining.
        */
       public Builder clearFirstName() {
         firstName_ = getDefaultInstance().getFirstName();
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         onChanged();
         return this;
       }
       /**
-       * <code>string firstName = 2;</code>
+       * <code>string firstName = 3;</code>
        * @param value The bytes for firstName to set.
        * @return This builder for chaining.
        */
@@ -2612,14 +3649,14 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         firstName_ = value;
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
 
       private java.lang.Object lastName_ = "";
       /**
-       * <code>string lastName = 3;</code>
+       * <code>string lastName = 4;</code>
        * @return The lastName.
        */
       public java.lang.String getLastName() {
@@ -2635,7 +3672,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string lastName = 3;</code>
+       * <code>string lastName = 4;</code>
        * @return The bytes for lastName.
        */
       public com.google.protobuf.ByteString
@@ -2652,7 +3689,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string lastName = 3;</code>
+       * <code>string lastName = 4;</code>
        * @param value The lastName to set.
        * @return This builder for chaining.
        */
@@ -2660,22 +3697,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         lastName_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
       /**
-       * <code>string lastName = 3;</code>
+       * <code>string lastName = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearLastName() {
         lastName_ = getDefaultInstance().getLastName();
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         onChanged();
         return this;
       }
       /**
-       * <code>string lastName = 3;</code>
+       * <code>string lastName = 4;</code>
        * @param value The bytes for lastName to set.
        * @return This builder for chaining.
        */
@@ -2684,32 +3721,32 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         lastName_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
 
       private int gender_ = 0;
       /**
-       * <code>.Profile.Gender gender = 4;</code>
+       * <code>.Profile.Gender gender = 5;</code>
        * @return The enum numeric value on the wire for gender.
        */
       @java.lang.Override public int getGenderValue() {
         return gender_;
       }
       /**
-       * <code>.Profile.Gender gender = 4;</code>
+       * <code>.Profile.Gender gender = 5;</code>
        * @param value The enum numeric value on the wire for gender to set.
        * @return This builder for chaining.
        */
       public Builder setGenderValue(int value) {
         gender_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
       /**
-       * <code>.Profile.Gender gender = 4;</code>
+       * <code>.Profile.Gender gender = 5;</code>
        * @return The gender.
        */
       @java.lang.Override
@@ -2718,7 +3755,7 @@ public final class Protobufs {
         return result == null ? dot.help.networking.Protobufs.Profile.Gender.UNRECOGNIZED : result;
       }
       /**
-       * <code>.Profile.Gender gender = 4;</code>
+       * <code>.Profile.Gender gender = 5;</code>
        * @param value The gender to set.
        * @return This builder for chaining.
        */
@@ -2726,17 +3763,17 @@ public final class Protobufs {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         gender_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>.Profile.Gender gender = 4;</code>
+       * <code>.Profile.Gender gender = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearGender() {
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         gender_ = 0;
         onChanged();
         return this;
@@ -2744,7 +3781,7 @@ public final class Protobufs {
 
       private java.lang.Object birthDate_ = "";
       /**
-       * <code>string birthDate = 5;</code>
+       * <code>string birthDate = 6;</code>
        * @return The birthDate.
        */
       public java.lang.String getBirthDate() {
@@ -2760,7 +3797,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string birthDate = 5;</code>
+       * <code>string birthDate = 6;</code>
        * @return The bytes for birthDate.
        */
       public com.google.protobuf.ByteString
@@ -2777,7 +3814,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string birthDate = 5;</code>
+       * <code>string birthDate = 6;</code>
        * @param value The birthDate to set.
        * @return This builder for chaining.
        */
@@ -2785,22 +3822,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         birthDate_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
       /**
-       * <code>string birthDate = 5;</code>
+       * <code>string birthDate = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearBirthDate() {
         birthDate_ = getDefaultInstance().getBirthDate();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         onChanged();
         return this;
       }
       /**
-       * <code>string birthDate = 5;</code>
+       * <code>string birthDate = 6;</code>
        * @param value The bytes for birthDate to set.
        * @return This builder for chaining.
        */
@@ -2809,32 +3846,32 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         birthDate_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
 
       private int bloodGroup_ = 0;
       /**
-       * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+       * <code>.Profile.BloodGroup bloodGroup = 7;</code>
        * @return The enum numeric value on the wire for bloodGroup.
        */
       @java.lang.Override public int getBloodGroupValue() {
         return bloodGroup_;
       }
       /**
-       * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+       * <code>.Profile.BloodGroup bloodGroup = 7;</code>
        * @param value The enum numeric value on the wire for bloodGroup to set.
        * @return This builder for chaining.
        */
       public Builder setBloodGroupValue(int value) {
         bloodGroup_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
       /**
-       * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+       * <code>.Profile.BloodGroup bloodGroup = 7;</code>
        * @return The bloodGroup.
        */
       @java.lang.Override
@@ -2843,7 +3880,7 @@ public final class Protobufs {
         return result == null ? dot.help.networking.Protobufs.Profile.BloodGroup.UNRECOGNIZED : result;
       }
       /**
-       * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+       * <code>.Profile.BloodGroup bloodGroup = 7;</code>
        * @param value The bloodGroup to set.
        * @return This builder for chaining.
        */
@@ -2851,89 +3888,89 @@ public final class Protobufs {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         bloodGroup_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>.Profile.BloodGroup bloodGroup = 6;</code>
+       * <code>.Profile.BloodGroup bloodGroup = 7;</code>
        * @return This builder for chaining.
        */
       public Builder clearBloodGroup() {
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         bloodGroup_ = 0;
         onChanged();
         return this;
       }
 
-      private float height_ ;
+      private double height_ ;
       /**
-       * <code>float height = 7;</code>
+       * <code>double height = 8;</code>
        * @return The height.
        */
       @java.lang.Override
-      public float getHeight() {
+      public double getHeight() {
         return height_;
       }
       /**
-       * <code>float height = 7;</code>
+       * <code>double height = 8;</code>
        * @param value The height to set.
        * @return This builder for chaining.
        */
-      public Builder setHeight(float value) {
+      public Builder setHeight(double value) {
 
         height_ = value;
-        bitField0_ |= 0x00000040;
-        onChanged();
-        return this;
-      }
-      /**
-       * <code>float height = 7;</code>
-       * @return This builder for chaining.
-       */
-      public Builder clearHeight() {
-        bitField0_ = (bitField0_ & ~0x00000040);
-        height_ = 0F;
-        onChanged();
-        return this;
-      }
-
-      private float weight_ ;
-      /**
-       * <code>float weight = 8;</code>
-       * @return The weight.
-       */
-      @java.lang.Override
-      public float getWeight() {
-        return weight_;
-      }
-      /**
-       * <code>float weight = 8;</code>
-       * @param value The weight to set.
-       * @return This builder for chaining.
-       */
-      public Builder setWeight(float value) {
-
-        weight_ = value;
         bitField0_ |= 0x00000080;
         onChanged();
         return this;
       }
       /**
-       * <code>float weight = 8;</code>
+       * <code>double height = 8;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearHeight() {
+        bitField0_ = (bitField0_ & ~0x00000080);
+        height_ = 0D;
+        onChanged();
+        return this;
+      }
+
+      private double weight_ ;
+      /**
+       * <code>double weight = 9;</code>
+       * @return The weight.
+       */
+      @java.lang.Override
+      public double getWeight() {
+        return weight_;
+      }
+      /**
+       * <code>double weight = 9;</code>
+       * @param value The weight to set.
+       * @return This builder for chaining.
+       */
+      public Builder setWeight(double value) {
+
+        weight_ = value;
+        bitField0_ |= 0x00000100;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double weight = 9;</code>
        * @return This builder for chaining.
        */
       public Builder clearWeight() {
-        bitField0_ = (bitField0_ & ~0x00000080);
-        weight_ = 0F;
+        bitField0_ = (bitField0_ & ~0x00000100);
+        weight_ = 0D;
         onChanged();
         return this;
       }
 
       private java.lang.Object medicalConditions_ = "";
       /**
-       * <code>string medicalConditions = 9;</code>
+       * <code>string medicalConditions = 10;</code>
        * @return The medicalConditions.
        */
       public java.lang.String getMedicalConditions() {
@@ -2949,7 +3986,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string medicalConditions = 9;</code>
+       * <code>string medicalConditions = 10;</code>
        * @return The bytes for medicalConditions.
        */
       public com.google.protobuf.ByteString
@@ -2966,7 +4003,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string medicalConditions = 9;</code>
+       * <code>string medicalConditions = 10;</code>
        * @param value The medicalConditions to set.
        * @return This builder for chaining.
        */
@@ -2974,22 +4011,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         medicalConditions_ = value;
-        bitField0_ |= 0x00000100;
+        bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
       /**
-       * <code>string medicalConditions = 9;</code>
+       * <code>string medicalConditions = 10;</code>
        * @return This builder for chaining.
        */
       public Builder clearMedicalConditions() {
         medicalConditions_ = getDefaultInstance().getMedicalConditions();
-        bitField0_ = (bitField0_ & ~0x00000100);
+        bitField0_ = (bitField0_ & ~0x00000200);
         onChanged();
         return this;
       }
       /**
-       * <code>string medicalConditions = 9;</code>
+       * <code>string medicalConditions = 10;</code>
        * @param value The bytes for medicalConditions to set.
        * @return This builder for chaining.
        */
@@ -2998,39 +4035,39 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         medicalConditions_ = value;
-        bitField0_ |= 0x00000100;
-        onChanged();
-        return this;
-      }
-
-      private int score_ ;
-      /**
-       * <code>int32 score = 10;</code>
-       * @return The score.
-       */
-      @java.lang.Override
-      public int getScore() {
-        return score_;
-      }
-      /**
-       * <code>int32 score = 10;</code>
-       * @param value The score to set.
-       * @return This builder for chaining.
-       */
-      public Builder setScore(int value) {
-
-        score_ = value;
         bitField0_ |= 0x00000200;
         onChanged();
         return this;
       }
+
+      private double score_ ;
       /**
-       * <code>int32 score = 10;</code>
+       * <code>double score = 11;</code>
+       * @return The score.
+       */
+      @java.lang.Override
+      public double getScore() {
+        return score_;
+      }
+      /**
+       * <code>double score = 11;</code>
+       * @param value The score to set.
+       * @return This builder for chaining.
+       */
+      public Builder setScore(double value) {
+
+        score_ = value;
+        bitField0_ |= 0x00000400;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>double score = 11;</code>
        * @return This builder for chaining.
        */
       public Builder clearScore() {
-        bitField0_ = (bitField0_ & ~0x00000200);
-        score_ = 0;
+        bitField0_ = (bitField0_ & ~0x00000400);
+        score_ = 0D;
         onChanged();
         return this;
       }
@@ -3091,77 +4128,83 @@ public final class Protobufs {
       com.google.protobuf.MessageOrBuilder {
 
     /**
-     * <code>.User reporter = 1;</code>
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    long getId();
+
+    /**
+     * <code>.User reporter = 2;</code>
      * @return Whether the reporter field is set.
      */
     boolean hasReporter();
     /**
-     * <code>.User reporter = 1;</code>
+     * <code>.User reporter = 2;</code>
      * @return The reporter.
      */
     dot.help.networking.Protobufs.User getReporter();
     /**
-     * <code>.User reporter = 1;</code>
+     * <code>.User reporter = 2;</code>
      */
     dot.help.networking.Protobufs.UserOrBuilder getReporterOrBuilder();
 
     /**
-     * <code>.User responder = 2;</code>
+     * <code>.User responder = 3;</code>
      * @return Whether the responder field is set.
      */
     boolean hasResponder();
     /**
-     * <code>.User responder = 2;</code>
+     * <code>.User responder = 3;</code>
      * @return The responder.
      */
     dot.help.networking.Protobufs.User getResponder();
     /**
-     * <code>.User responder = 2;</code>
+     * <code>.User responder = 3;</code>
      */
     dot.help.networking.Protobufs.UserOrBuilder getResponderOrBuilder();
 
     /**
-     * <code>.Emergency.Status status = 3;</code>
+     * <code>.Emergency.Status status = 4;</code>
      * @return The enum numeric value on the wire for status.
      */
     int getStatusValue();
     /**
-     * <code>.Emergency.Status status = 3;</code>
+     * <code>.Emergency.Status status = 4;</code>
      * @return The status.
      */
     dot.help.networking.Protobufs.Emergency.Status getStatus();
 
     /**
-     * <code>string date = 4;</code>
+     * <code>string date = 5;</code>
      * @return The date.
      */
     java.lang.String getDate();
     /**
-     * <code>string date = 4;</code>
+     * <code>string date = 5;</code>
      * @return The bytes for date.
      */
     com.google.protobuf.ByteString
         getDateBytes();
 
     /**
-     * <code>string description = 5;</code>
+     * <code>string description = 6;</code>
      * @return The description.
      */
     java.lang.String getDescription();
     /**
-     * <code>string description = 5;</code>
+     * <code>string description = 6;</code>
      * @return The bytes for description.
      */
     com.google.protobuf.ByteString
         getDescriptionBytes();
 
     /**
-     * <code>string location = 6;</code>
+     * <code>string location = 7;</code>
      * @return The location.
      */
     java.lang.String getLocation();
     /**
-     * <code>string location = 6;</code>
+     * <code>string location = 7;</code>
      * @return The bytes for location.
      */
     com.google.protobuf.ByteString
@@ -3344,10 +4387,21 @@ public final class Protobufs {
     }
 
     private int bitField0_;
-    public static final int REPORTER_FIELD_NUMBER = 1;
+    public static final int ID_FIELD_NUMBER = 1;
+    private long id_ = 0L;
+    /**
+     * <code>int64 id = 1;</code>
+     * @return The id.
+     */
+    @java.lang.Override
+    public long getId() {
+      return id_;
+    }
+
+    public static final int REPORTER_FIELD_NUMBER = 2;
     private dot.help.networking.Protobufs.User reporter_;
     /**
-     * <code>.User reporter = 1;</code>
+     * <code>.User reporter = 2;</code>
      * @return Whether the reporter field is set.
      */
     @java.lang.Override
@@ -3355,7 +4409,7 @@ public final class Protobufs {
       return ((bitField0_ & 0x00000001) != 0);
     }
     /**
-     * <code>.User reporter = 1;</code>
+     * <code>.User reporter = 2;</code>
      * @return The reporter.
      */
     @java.lang.Override
@@ -3363,17 +4417,17 @@ public final class Protobufs {
       return reporter_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : reporter_;
     }
     /**
-     * <code>.User reporter = 1;</code>
+     * <code>.User reporter = 2;</code>
      */
     @java.lang.Override
     public dot.help.networking.Protobufs.UserOrBuilder getReporterOrBuilder() {
       return reporter_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : reporter_;
     }
 
-    public static final int RESPONDER_FIELD_NUMBER = 2;
+    public static final int RESPONDER_FIELD_NUMBER = 3;
     private dot.help.networking.Protobufs.User responder_;
     /**
-     * <code>.User responder = 2;</code>
+     * <code>.User responder = 3;</code>
      * @return Whether the responder field is set.
      */
     @java.lang.Override
@@ -3381,7 +4435,7 @@ public final class Protobufs {
       return ((bitField0_ & 0x00000002) != 0);
     }
     /**
-     * <code>.User responder = 2;</code>
+     * <code>.User responder = 3;</code>
      * @return The responder.
      */
     @java.lang.Override
@@ -3389,24 +4443,24 @@ public final class Protobufs {
       return responder_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : responder_;
     }
     /**
-     * <code>.User responder = 2;</code>
+     * <code>.User responder = 3;</code>
      */
     @java.lang.Override
     public dot.help.networking.Protobufs.UserOrBuilder getResponderOrBuilder() {
       return responder_ == null ? dot.help.networking.Protobufs.User.getDefaultInstance() : responder_;
     }
 
-    public static final int STATUS_FIELD_NUMBER = 3;
+    public static final int STATUS_FIELD_NUMBER = 4;
     private int status_ = 0;
     /**
-     * <code>.Emergency.Status status = 3;</code>
+     * <code>.Emergency.Status status = 4;</code>
      * @return The enum numeric value on the wire for status.
      */
     @java.lang.Override public int getStatusValue() {
       return status_;
     }
     /**
-     * <code>.Emergency.Status status = 3;</code>
+     * <code>.Emergency.Status status = 4;</code>
      * @return The status.
      */
     @java.lang.Override public dot.help.networking.Protobufs.Emergency.Status getStatus() {
@@ -3414,11 +4468,11 @@ public final class Protobufs {
       return result == null ? dot.help.networking.Protobufs.Emergency.Status.UNRECOGNIZED : result;
     }
 
-    public static final int DATE_FIELD_NUMBER = 4;
+    public static final int DATE_FIELD_NUMBER = 5;
     @SuppressWarnings("serial")
     private volatile java.lang.Object date_ = "";
     /**
-     * <code>string date = 4;</code>
+     * <code>string date = 5;</code>
      * @return The date.
      */
     @java.lang.Override
@@ -3435,7 +4489,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string date = 4;</code>
+     * <code>string date = 5;</code>
      * @return The bytes for date.
      */
     @java.lang.Override
@@ -3453,11 +4507,11 @@ public final class Protobufs {
       }
     }
 
-    public static final int DESCRIPTION_FIELD_NUMBER = 5;
+    public static final int DESCRIPTION_FIELD_NUMBER = 6;
     @SuppressWarnings("serial")
     private volatile java.lang.Object description_ = "";
     /**
-     * <code>string description = 5;</code>
+     * <code>string description = 6;</code>
      * @return The description.
      */
     @java.lang.Override
@@ -3474,7 +4528,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string description = 5;</code>
+     * <code>string description = 6;</code>
      * @return The bytes for description.
      */
     @java.lang.Override
@@ -3492,11 +4546,11 @@ public final class Protobufs {
       }
     }
 
-    public static final int LOCATION_FIELD_NUMBER = 6;
+    public static final int LOCATION_FIELD_NUMBER = 7;
     @SuppressWarnings("serial")
     private volatile java.lang.Object location_ = "";
     /**
-     * <code>string location = 6;</code>
+     * <code>string location = 7;</code>
      * @return The location.
      */
     @java.lang.Override
@@ -3513,7 +4567,7 @@ public final class Protobufs {
       }
     }
     /**
-     * <code>string location = 6;</code>
+     * <code>string location = 7;</code>
      * @return The bytes for location.
      */
     @java.lang.Override
@@ -3545,23 +4599,26 @@ public final class Protobufs {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
+      if (id_ != 0L) {
+        output.writeInt64(1, id_);
+      }
       if (((bitField0_ & 0x00000001) != 0)) {
-        output.writeMessage(1, getReporter());
+        output.writeMessage(2, getReporter());
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeMessage(2, getResponder());
+        output.writeMessage(3, getResponder());
       }
       if (status_ != dot.help.networking.Protobufs.Emergency.Status.Reported.getNumber()) {
-        output.writeEnum(3, status_);
+        output.writeEnum(4, status_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(date_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 4, date_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 5, date_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 5, description_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 6, description_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(location_)) {
-        com.google.protobuf.GeneratedMessage.writeString(output, 6, location_);
+        com.google.protobuf.GeneratedMessage.writeString(output, 7, location_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -3572,26 +4629,30 @@ public final class Protobufs {
       if (size != -1) return size;
 
       size = 0;
+      if (id_ != 0L) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeInt64Size(1, id_);
+      }
       if (((bitField0_ & 0x00000001) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(1, getReporter());
+          .computeMessageSize(2, getReporter());
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(2, getResponder());
+          .computeMessageSize(3, getResponder());
       }
       if (status_ != dot.help.networking.Protobufs.Emergency.Status.Reported.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
-          .computeEnumSize(3, status_);
+          .computeEnumSize(4, status_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(date_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(4, date_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, date_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(description_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(5, description_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(6, description_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(location_)) {
-        size += com.google.protobuf.GeneratedMessage.computeStringSize(6, location_);
+        size += com.google.protobuf.GeneratedMessage.computeStringSize(7, location_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -3608,6 +4669,8 @@ public final class Protobufs {
       }
       dot.help.networking.Protobufs.Emergency other = (dot.help.networking.Protobufs.Emergency) obj;
 
+      if (getId()
+          != other.getId()) return false;
       if (hasReporter() != other.hasReporter()) return false;
       if (hasReporter()) {
         if (!getReporter()
@@ -3636,6 +4699,9 @@ public final class Protobufs {
       }
       int hash = 41;
       hash = (19 * hash) + getDescriptor().hashCode();
+      hash = (37 * hash) + ID_FIELD_NUMBER;
+      hash = (53 * hash) + com.google.protobuf.Internal.hashLong(
+          getId());
       if (hasReporter()) {
         hash = (37 * hash) + REPORTER_FIELD_NUMBER;
         hash = (53 * hash) + getReporter().hashCode();
@@ -3790,6 +4856,7 @@ public final class Protobufs {
       public Builder clear() {
         super.clear();
         bitField0_ = 0;
+        id_ = 0L;
         reporter_ = null;
         if (reporterBuilder_ != null) {
           reporterBuilder_.dispose();
@@ -3837,29 +4904,32 @@ public final class Protobufs {
 
       private void buildPartial0(dot.help.networking.Protobufs.Emergency result) {
         int from_bitField0_ = bitField0_;
-        int to_bitField0_ = 0;
         if (((from_bitField0_ & 0x00000001) != 0)) {
+          result.id_ = id_;
+        }
+        int to_bitField0_ = 0;
+        if (((from_bitField0_ & 0x00000002) != 0)) {
           result.reporter_ = reporterBuilder_ == null
               ? reporter_
               : reporterBuilder_.build();
           to_bitField0_ |= 0x00000001;
         }
-        if (((from_bitField0_ & 0x00000002) != 0)) {
+        if (((from_bitField0_ & 0x00000004) != 0)) {
           result.responder_ = responderBuilder_ == null
               ? responder_
               : responderBuilder_.build();
           to_bitField0_ |= 0x00000002;
         }
-        if (((from_bitField0_ & 0x00000004) != 0)) {
+        if (((from_bitField0_ & 0x00000008) != 0)) {
           result.status_ = status_;
         }
-        if (((from_bitField0_ & 0x00000008) != 0)) {
+        if (((from_bitField0_ & 0x00000010) != 0)) {
           result.date_ = date_;
         }
-        if (((from_bitField0_ & 0x00000010) != 0)) {
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           result.description_ = description_;
         }
-        if (((from_bitField0_ & 0x00000020) != 0)) {
+        if (((from_bitField0_ & 0x00000040) != 0)) {
           result.location_ = location_;
         }
         result.bitField0_ |= to_bitField0_;
@@ -3877,6 +4947,9 @@ public final class Protobufs {
 
       public Builder mergeFrom(dot.help.networking.Protobufs.Emergency other) {
         if (other == dot.help.networking.Protobufs.Emergency.getDefaultInstance()) return this;
+        if (other.getId() != 0L) {
+          setId(other.getId());
+        }
         if (other.hasReporter()) {
           mergeReporter(other.getReporter());
         }
@@ -3888,17 +4961,17 @@ public final class Protobufs {
         }
         if (!other.getDate().isEmpty()) {
           date_ = other.date_;
-          bitField0_ |= 0x00000008;
+          bitField0_ |= 0x00000010;
           onChanged();
         }
         if (!other.getDescription().isEmpty()) {
           description_ = other.description_;
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         if (!other.getLocation().isEmpty()) {
           location_ = other.location_;
-          bitField0_ |= 0x00000020;
+          bitField0_ |= 0x00000040;
           onChanged();
         }
         this.mergeUnknownFields(other.getUnknownFields());
@@ -3927,40 +5000,45 @@ public final class Protobufs {
               case 0:
                 done = true;
                 break;
-              case 10: {
-                input.readMessage(
-                    getReporterFieldBuilder().getBuilder(),
-                    extensionRegistry);
+              case 8: {
+                id_ = input.readInt64();
                 bitField0_ |= 0x00000001;
                 break;
-              } // case 10
+              } // case 8
               case 18: {
                 input.readMessage(
-                    getResponderFieldBuilder().getBuilder(),
+                    getReporterFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000002;
                 break;
               } // case 18
-              case 24: {
-                status_ = input.readEnum();
+              case 26: {
+                input.readMessage(
+                    getResponderFieldBuilder().getBuilder(),
+                    extensionRegistry);
                 bitField0_ |= 0x00000004;
                 break;
-              } // case 24
-              case 34: {
-                date_ = input.readStringRequireUtf8();
+              } // case 26
+              case 32: {
+                status_ = input.readEnum();
                 bitField0_ |= 0x00000008;
                 break;
-              } // case 34
+              } // case 32
               case 42: {
-                description_ = input.readStringRequireUtf8();
+                date_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000010;
                 break;
               } // case 42
               case 50: {
-                location_ = input.readStringRequireUtf8();
+                description_ = input.readStringRequireUtf8();
                 bitField0_ |= 0x00000020;
                 break;
               } // case 50
+              case 58: {
+                location_ = input.readStringRequireUtf8();
+                bitField0_ |= 0x00000040;
+                break;
+              } // case 58
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -3978,18 +5056,50 @@ public final class Protobufs {
       }
       private int bitField0_;
 
+      private long id_ ;
+      /**
+       * <code>int64 id = 1;</code>
+       * @return The id.
+       */
+      @java.lang.Override
+      public long getId() {
+        return id_;
+      }
+      /**
+       * <code>int64 id = 1;</code>
+       * @param value The id to set.
+       * @return This builder for chaining.
+       */
+      public Builder setId(long value) {
+
+        id_ = value;
+        bitField0_ |= 0x00000001;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>int64 id = 1;</code>
+       * @return This builder for chaining.
+       */
+      public Builder clearId() {
+        bitField0_ = (bitField0_ & ~0x00000001);
+        id_ = 0L;
+        onChanged();
+        return this;
+      }
+
       private dot.help.networking.Protobufs.User reporter_;
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> reporterBuilder_;
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        * @return Whether the reporter field is set.
        */
       public boolean hasReporter() {
-        return ((bitField0_ & 0x00000001) != 0);
+        return ((bitField0_ & 0x00000002) != 0);
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        * @return The reporter.
        */
       public dot.help.networking.Protobufs.User getReporter() {
@@ -4000,7 +5110,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       public Builder setReporter(dot.help.networking.Protobufs.User value) {
         if (reporterBuilder_ == null) {
@@ -4011,12 +5121,12 @@ public final class Protobufs {
         } else {
           reporterBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       public Builder setReporter(
           dot.help.networking.Protobufs.User.Builder builderForValue) {
@@ -4025,16 +5135,16 @@ public final class Protobufs {
         } else {
           reporterBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return this;
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       public Builder mergeReporter(dot.help.networking.Protobufs.User value) {
         if (reporterBuilder_ == null) {
-          if (((bitField0_ & 0x00000001) != 0) &&
+          if (((bitField0_ & 0x00000002) != 0) &&
             reporter_ != null &&
             reporter_ != dot.help.networking.Protobufs.User.getDefaultInstance()) {
             getReporterBuilder().mergeFrom(value);
@@ -4045,16 +5155,16 @@ public final class Protobufs {
           reporterBuilder_.mergeFrom(value);
         }
         if (reporter_ != null) {
-          bitField0_ |= 0x00000001;
+          bitField0_ |= 0x00000002;
           onChanged();
         }
         return this;
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       public Builder clearReporter() {
-        bitField0_ = (bitField0_ & ~0x00000001);
+        bitField0_ = (bitField0_ & ~0x00000002);
         reporter_ = null;
         if (reporterBuilder_ != null) {
           reporterBuilder_.dispose();
@@ -4064,15 +5174,15 @@ public final class Protobufs {
         return this;
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       public dot.help.networking.Protobufs.User.Builder getReporterBuilder() {
-        bitField0_ |= 0x00000001;
+        bitField0_ |= 0x00000002;
         onChanged();
         return getReporterFieldBuilder().getBuilder();
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       public dot.help.networking.Protobufs.UserOrBuilder getReporterOrBuilder() {
         if (reporterBuilder_ != null) {
@@ -4083,7 +5193,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.User reporter = 1;</code>
+       * <code>.User reporter = 2;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> 
@@ -4103,14 +5213,14 @@ public final class Protobufs {
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> responderBuilder_;
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        * @return Whether the responder field is set.
        */
       public boolean hasResponder() {
-        return ((bitField0_ & 0x00000002) != 0);
+        return ((bitField0_ & 0x00000004) != 0);
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        * @return The responder.
        */
       public dot.help.networking.Protobufs.User getResponder() {
@@ -4121,7 +5231,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       public Builder setResponder(dot.help.networking.Protobufs.User value) {
         if (responderBuilder_ == null) {
@@ -4132,12 +5242,12 @@ public final class Protobufs {
         } else {
           responderBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       public Builder setResponder(
           dot.help.networking.Protobufs.User.Builder builderForValue) {
@@ -4146,16 +5256,16 @@ public final class Protobufs {
         } else {
           responderBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return this;
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       public Builder mergeResponder(dot.help.networking.Protobufs.User value) {
         if (responderBuilder_ == null) {
-          if (((bitField0_ & 0x00000002) != 0) &&
+          if (((bitField0_ & 0x00000004) != 0) &&
             responder_ != null &&
             responder_ != dot.help.networking.Protobufs.User.getDefaultInstance()) {
             getResponderBuilder().mergeFrom(value);
@@ -4166,16 +5276,16 @@ public final class Protobufs {
           responderBuilder_.mergeFrom(value);
         }
         if (responder_ != null) {
-          bitField0_ |= 0x00000002;
+          bitField0_ |= 0x00000004;
           onChanged();
         }
         return this;
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       public Builder clearResponder() {
-        bitField0_ = (bitField0_ & ~0x00000002);
+        bitField0_ = (bitField0_ & ~0x00000004);
         responder_ = null;
         if (responderBuilder_ != null) {
           responderBuilder_.dispose();
@@ -4185,15 +5295,15 @@ public final class Protobufs {
         return this;
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       public dot.help.networking.Protobufs.User.Builder getResponderBuilder() {
-        bitField0_ |= 0x00000002;
+        bitField0_ |= 0x00000004;
         onChanged();
         return getResponderFieldBuilder().getBuilder();
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       public dot.help.networking.Protobufs.UserOrBuilder getResponderOrBuilder() {
         if (responderBuilder_ != null) {
@@ -4204,7 +5314,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.User responder = 2;</code>
+       * <code>.User responder = 3;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.User, dot.help.networking.Protobufs.User.Builder, dot.help.networking.Protobufs.UserOrBuilder> 
@@ -4222,25 +5332,25 @@ public final class Protobufs {
 
       private int status_ = 0;
       /**
-       * <code>.Emergency.Status status = 3;</code>
+       * <code>.Emergency.Status status = 4;</code>
        * @return The enum numeric value on the wire for status.
        */
       @java.lang.Override public int getStatusValue() {
         return status_;
       }
       /**
-       * <code>.Emergency.Status status = 3;</code>
+       * <code>.Emergency.Status status = 4;</code>
        * @param value The enum numeric value on the wire for status to set.
        * @return This builder for chaining.
        */
       public Builder setStatusValue(int value) {
         status_ = value;
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         onChanged();
         return this;
       }
       /**
-       * <code>.Emergency.Status status = 3;</code>
+       * <code>.Emergency.Status status = 4;</code>
        * @return The status.
        */
       @java.lang.Override
@@ -4249,7 +5359,7 @@ public final class Protobufs {
         return result == null ? dot.help.networking.Protobufs.Emergency.Status.UNRECOGNIZED : result;
       }
       /**
-       * <code>.Emergency.Status status = 3;</code>
+       * <code>.Emergency.Status status = 4;</code>
        * @param value The status to set.
        * @return This builder for chaining.
        */
@@ -4257,17 +5367,17 @@ public final class Protobufs {
         if (value == null) {
           throw new NullPointerException();
         }
-        bitField0_ |= 0x00000004;
+        bitField0_ |= 0x00000008;
         status_ = value.getNumber();
         onChanged();
         return this;
       }
       /**
-       * <code>.Emergency.Status status = 3;</code>
+       * <code>.Emergency.Status status = 4;</code>
        * @return This builder for chaining.
        */
       public Builder clearStatus() {
-        bitField0_ = (bitField0_ & ~0x00000004);
+        bitField0_ = (bitField0_ & ~0x00000008);
         status_ = 0;
         onChanged();
         return this;
@@ -4275,7 +5385,7 @@ public final class Protobufs {
 
       private java.lang.Object date_ = "";
       /**
-       * <code>string date = 4;</code>
+       * <code>string date = 5;</code>
        * @return The date.
        */
       public java.lang.String getDate() {
@@ -4291,7 +5401,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string date = 4;</code>
+       * <code>string date = 5;</code>
        * @return The bytes for date.
        */
       public com.google.protobuf.ByteString
@@ -4308,7 +5418,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string date = 4;</code>
+       * <code>string date = 5;</code>
        * @param value The date to set.
        * @return This builder for chaining.
        */
@@ -4316,22 +5426,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         date_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
       /**
-       * <code>string date = 4;</code>
+       * <code>string date = 5;</code>
        * @return This builder for chaining.
        */
       public Builder clearDate() {
         date_ = getDefaultInstance().getDate();
-        bitField0_ = (bitField0_ & ~0x00000008);
+        bitField0_ = (bitField0_ & ~0x00000010);
         onChanged();
         return this;
       }
       /**
-       * <code>string date = 4;</code>
+       * <code>string date = 5;</code>
        * @param value The bytes for date to set.
        * @return This builder for chaining.
        */
@@ -4340,14 +5450,14 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         date_ = value;
-        bitField0_ |= 0x00000008;
+        bitField0_ |= 0x00000010;
         onChanged();
         return this;
       }
 
       private java.lang.Object description_ = "";
       /**
-       * <code>string description = 5;</code>
+       * <code>string description = 6;</code>
        * @return The description.
        */
       public java.lang.String getDescription() {
@@ -4363,7 +5473,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string description = 5;</code>
+       * <code>string description = 6;</code>
        * @return The bytes for description.
        */
       public com.google.protobuf.ByteString
@@ -4380,7 +5490,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string description = 5;</code>
+       * <code>string description = 6;</code>
        * @param value The description to set.
        * @return This builder for chaining.
        */
@@ -4388,22 +5498,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         description_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
       /**
-       * <code>string description = 5;</code>
+       * <code>string description = 6;</code>
        * @return This builder for chaining.
        */
       public Builder clearDescription() {
         description_ = getDefaultInstance().getDescription();
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         onChanged();
         return this;
       }
       /**
-       * <code>string description = 5;</code>
+       * <code>string description = 6;</code>
        * @param value The bytes for description to set.
        * @return This builder for chaining.
        */
@@ -4412,14 +5522,14 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         description_ = value;
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
 
       private java.lang.Object location_ = "";
       /**
-       * <code>string location = 6;</code>
+       * <code>string location = 7;</code>
        * @return The location.
        */
       public java.lang.String getLocation() {
@@ -4435,7 +5545,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string location = 6;</code>
+       * <code>string location = 7;</code>
        * @return The bytes for location.
        */
       public com.google.protobuf.ByteString
@@ -4452,7 +5562,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>string location = 6;</code>
+       * <code>string location = 7;</code>
        * @param value The location to set.
        * @return This builder for chaining.
        */
@@ -4460,22 +5570,22 @@ public final class Protobufs {
           java.lang.String value) {
         if (value == null) { throw new NullPointerException(); }
         location_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
       /**
-       * <code>string location = 6;</code>
+       * <code>string location = 7;</code>
        * @return This builder for chaining.
        */
       public Builder clearLocation() {
         location_ = getDefaultInstance().getLocation();
-        bitField0_ = (bitField0_ & ~0x00000020);
+        bitField0_ = (bitField0_ & ~0x00000040);
         onChanged();
         return this;
       }
       /**
-       * <code>string location = 6;</code>
+       * <code>string location = 7;</code>
        * @param value The bytes for location to set.
        * @return This builder for chaining.
        */
@@ -4484,7 +5594,7 @@ public final class Protobufs {
         if (value == null) { throw new NullPointerException(); }
         checkByteStringIsUtf8(value);
         location_ = value;
-        bitField0_ |= 0x00000020;
+        bitField0_ |= 0x00000040;
         onChanged();
         return this;
       }
@@ -4570,15 +5680,54 @@ public final class Protobufs {
      */
     dot.help.networking.Protobufs.UserOrBuilder getUserOrBuilder();
 
+    /**
+     * <code>.Profile profile = 3;</code>
+     * @return Whether the profile field is set.
+     */
+    boolean hasProfile();
+    /**
+     * <code>.Profile profile = 3;</code>
+     * @return The profile.
+     */
+    dot.help.networking.Protobufs.Profile getProfile();
+    /**
+     * <code>.Profile profile = 3;</code>
+     */
+    dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder();
+
+    /**
+     * <code>.Emergency emergency = 4;</code>
+     * @return Whether the emergency field is set.
+     */
+    boolean hasEmergency();
+    /**
+     * <code>.Emergency emergency = 4;</code>
+     * @return The emergency.
+     */
+    dot.help.networking.Protobufs.Emergency getEmergency();
+    /**
+     * <code>.Emergency emergency = 4;</code>
+     */
+    dot.help.networking.Protobufs.EmergencyOrBuilder getEmergencyOrBuilder();
+
+    /**
+     * <code>.FirstResponder firstResponder = 5;</code>
+     * @return Whether the firstResponder field is set.
+     */
+    boolean hasFirstResponder();
+    /**
+     * <code>.FirstResponder firstResponder = 5;</code>
+     * @return The firstResponder.
+     */
+    dot.help.networking.Protobufs.FirstResponder getFirstResponder();
+    /**
+     * <code>.FirstResponder firstResponder = 5;</code>
+     */
+    dot.help.networking.Protobufs.FirstResponderOrBuilder getFirstResponderOrBuilder();
+
     dot.help.networking.Protobufs.Request.PayloadCase getPayloadCase();
   }
   /**
-   * <pre>
-   * E nevoie de request type-uri noi: REPORT_EMERGENCY, UPDATE_EMERGENCY, RESPOND_EMERGENCY(asta o sa vad daca e necesar, deocamdata pune-o),
-   * SAVE_PROFILE, UPDATE_PROFILE, GET_PROFILE, GET_EMERGENCY,
-   * tipuri noi de date care pot aparea pe request: Profile, Emergency, (cred ca si FirstResponder putem deocamdata)
-   * </pre>
-   *
    * Protobuf type {@code Request}
    */
   public static final class Request extends
@@ -4622,13 +5771,49 @@ public final class Protobufs {
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>Login = 0;</code>
+       * <code>LOGIN = 0;</code>
        */
-      Login(0),
+      LOGIN(0),
       /**
-       * <code>Logout = 1;</code>
+       * <code>LOGOUT = 1;</code>
        */
-      Logout(1),
+      LOGOUT(1),
+      /**
+       * <code>GET_USER = 2;</code>
+       */
+      GET_USER(2),
+      /**
+       * <code>GET_PROFILE = 3;</code>
+       */
+      GET_PROFILE(3),
+      /**
+       * <code>SAVE_PROFILE = 4;</code>
+       */
+      SAVE_PROFILE(4),
+      /**
+       * <code>UPDATE_PROFILE = 5;</code>
+       */
+      UPDATE_PROFILE(5),
+      /**
+       * <code>GET_EMERGENCY = 6;</code>
+       */
+      GET_EMERGENCY(6),
+      /**
+       * <code>UPDATE_EMERGENCY = 7;</code>
+       */
+      UPDATE_EMERGENCY(7),
+      /**
+       * <code>REPORT_EMERGENCY = 8;</code>
+       */
+      REPORT_EMERGENCY(8),
+      /**
+       * <code>RESPOND_EMERGENCY = 9;</code>
+       */
+      RESPOND_EMERGENCY(9),
+      /**
+       * <code>GET_EMERGENCIES = 10;</code>
+       */
+      GET_EMERGENCIES(10),
       UNRECOGNIZED(-1),
       ;
 
@@ -4642,13 +5827,49 @@ public final class Protobufs {
           Type.class.getName());
       }
       /**
-       * <code>Login = 0;</code>
+       * <code>LOGIN = 0;</code>
        */
-      public static final int Login_VALUE = 0;
+      public static final int LOGIN_VALUE = 0;
       /**
-       * <code>Logout = 1;</code>
+       * <code>LOGOUT = 1;</code>
        */
-      public static final int Logout_VALUE = 1;
+      public static final int LOGOUT_VALUE = 1;
+      /**
+       * <code>GET_USER = 2;</code>
+       */
+      public static final int GET_USER_VALUE = 2;
+      /**
+       * <code>GET_PROFILE = 3;</code>
+       */
+      public static final int GET_PROFILE_VALUE = 3;
+      /**
+       * <code>SAVE_PROFILE = 4;</code>
+       */
+      public static final int SAVE_PROFILE_VALUE = 4;
+      /**
+       * <code>UPDATE_PROFILE = 5;</code>
+       */
+      public static final int UPDATE_PROFILE_VALUE = 5;
+      /**
+       * <code>GET_EMERGENCY = 6;</code>
+       */
+      public static final int GET_EMERGENCY_VALUE = 6;
+      /**
+       * <code>UPDATE_EMERGENCY = 7;</code>
+       */
+      public static final int UPDATE_EMERGENCY_VALUE = 7;
+      /**
+       * <code>REPORT_EMERGENCY = 8;</code>
+       */
+      public static final int REPORT_EMERGENCY_VALUE = 8;
+      /**
+       * <code>RESPOND_EMERGENCY = 9;</code>
+       */
+      public static final int RESPOND_EMERGENCY_VALUE = 9;
+      /**
+       * <code>GET_EMERGENCIES = 10;</code>
+       */
+      public static final int GET_EMERGENCIES_VALUE = 10;
 
 
       public final int getNumber() {
@@ -4675,8 +5896,17 @@ public final class Protobufs {
        */
       public static Type forNumber(int value) {
         switch (value) {
-          case 0: return Login;
-          case 1: return Logout;
+          case 0: return LOGIN;
+          case 1: return LOGOUT;
+          case 2: return GET_USER;
+          case 3: return GET_PROFILE;
+          case 4: return SAVE_PROFILE;
+          case 5: return UPDATE_PROFILE;
+          case 6: return GET_EMERGENCY;
+          case 7: return UPDATE_EMERGENCY;
+          case 8: return REPORT_EMERGENCY;
+          case 9: return RESPOND_EMERGENCY;
+          case 10: return GET_EMERGENCIES;
           default: return null;
         }
       }
@@ -4740,6 +5970,9 @@ public final class Protobufs {
         implements com.google.protobuf.Internal.EnumLite,
             com.google.protobuf.AbstractMessage.InternalOneOfEnum {
       USER(2),
+      PROFILE(3),
+      EMERGENCY(4),
+      FIRSTRESPONDER(5),
       PAYLOAD_NOT_SET(0);
       private final int value;
       private PayloadCase(int value) {
@@ -4758,6 +5991,9 @@ public final class Protobufs {
       public static PayloadCase forNumber(int value) {
         switch (value) {
           case 2: return USER;
+          case 3: return PROFILE;
+          case 4: return EMERGENCY;
+          case 5: return FIRSTRESPONDER;
           case 0: return PAYLOAD_NOT_SET;
           default: return null;
         }
@@ -4822,6 +6058,99 @@ public final class Protobufs {
       return dot.help.networking.Protobufs.User.getDefaultInstance();
     }
 
+    public static final int PROFILE_FIELD_NUMBER = 3;
+    /**
+     * <code>.Profile profile = 3;</code>
+     * @return Whether the profile field is set.
+     */
+    @java.lang.Override
+    public boolean hasProfile() {
+      return payloadCase_ == 3;
+    }
+    /**
+     * <code>.Profile profile = 3;</code>
+     * @return The profile.
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.Profile getProfile() {
+      if (payloadCase_ == 3) {
+         return (dot.help.networking.Protobufs.Profile) payload_;
+      }
+      return dot.help.networking.Protobufs.Profile.getDefaultInstance();
+    }
+    /**
+     * <code>.Profile profile = 3;</code>
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder() {
+      if (payloadCase_ == 3) {
+         return (dot.help.networking.Protobufs.Profile) payload_;
+      }
+      return dot.help.networking.Protobufs.Profile.getDefaultInstance();
+    }
+
+    public static final int EMERGENCY_FIELD_NUMBER = 4;
+    /**
+     * <code>.Emergency emergency = 4;</code>
+     * @return Whether the emergency field is set.
+     */
+    @java.lang.Override
+    public boolean hasEmergency() {
+      return payloadCase_ == 4;
+    }
+    /**
+     * <code>.Emergency emergency = 4;</code>
+     * @return The emergency.
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.Emergency getEmergency() {
+      if (payloadCase_ == 4) {
+         return (dot.help.networking.Protobufs.Emergency) payload_;
+      }
+      return dot.help.networking.Protobufs.Emergency.getDefaultInstance();
+    }
+    /**
+     * <code>.Emergency emergency = 4;</code>
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.EmergencyOrBuilder getEmergencyOrBuilder() {
+      if (payloadCase_ == 4) {
+         return (dot.help.networking.Protobufs.Emergency) payload_;
+      }
+      return dot.help.networking.Protobufs.Emergency.getDefaultInstance();
+    }
+
+    public static final int FIRSTRESPONDER_FIELD_NUMBER = 5;
+    /**
+     * <code>.FirstResponder firstResponder = 5;</code>
+     * @return Whether the firstResponder field is set.
+     */
+    @java.lang.Override
+    public boolean hasFirstResponder() {
+      return payloadCase_ == 5;
+    }
+    /**
+     * <code>.FirstResponder firstResponder = 5;</code>
+     * @return The firstResponder.
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.FirstResponder getFirstResponder() {
+      if (payloadCase_ == 5) {
+         return (dot.help.networking.Protobufs.FirstResponder) payload_;
+      }
+      return dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+    }
+    /**
+     * <code>.FirstResponder firstResponder = 5;</code>
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.FirstResponderOrBuilder getFirstResponderOrBuilder() {
+      if (payloadCase_ == 5) {
+         return (dot.help.networking.Protobufs.FirstResponder) payload_;
+      }
+      return dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+    }
+
     private byte memoizedIsInitialized = -1;
     @java.lang.Override
     public final boolean isInitialized() {
@@ -4836,11 +6165,20 @@ public final class Protobufs {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (type_ != dot.help.networking.Protobufs.Request.Type.Login.getNumber()) {
+      if (type_ != dot.help.networking.Protobufs.Request.Type.LOGIN.getNumber()) {
         output.writeEnum(1, type_);
       }
       if (payloadCase_ == 2) {
         output.writeMessage(2, (dot.help.networking.Protobufs.User) payload_);
+      }
+      if (payloadCase_ == 3) {
+        output.writeMessage(3, (dot.help.networking.Protobufs.Profile) payload_);
+      }
+      if (payloadCase_ == 4) {
+        output.writeMessage(4, (dot.help.networking.Protobufs.Emergency) payload_);
+      }
+      if (payloadCase_ == 5) {
+        output.writeMessage(5, (dot.help.networking.Protobufs.FirstResponder) payload_);
       }
       getUnknownFields().writeTo(output);
     }
@@ -4851,13 +6189,25 @@ public final class Protobufs {
       if (size != -1) return size;
 
       size = 0;
-      if (type_ != dot.help.networking.Protobufs.Request.Type.Login.getNumber()) {
+      if (type_ != dot.help.networking.Protobufs.Request.Type.LOGIN.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, type_);
       }
       if (payloadCase_ == 2) {
         size += com.google.protobuf.CodedOutputStream
           .computeMessageSize(2, (dot.help.networking.Protobufs.User) payload_);
+      }
+      if (payloadCase_ == 3) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(3, (dot.help.networking.Protobufs.Profile) payload_);
+      }
+      if (payloadCase_ == 4) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(4, (dot.help.networking.Protobufs.Emergency) payload_);
+      }
+      if (payloadCase_ == 5) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(5, (dot.help.networking.Protobufs.FirstResponder) payload_);
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -4881,6 +6231,18 @@ public final class Protobufs {
           if (!getUser()
               .equals(other.getUser())) return false;
           break;
+        case 3:
+          if (!getProfile()
+              .equals(other.getProfile())) return false;
+          break;
+        case 4:
+          if (!getEmergency()
+              .equals(other.getEmergency())) return false;
+          break;
+        case 5:
+          if (!getFirstResponder()
+              .equals(other.getFirstResponder())) return false;
+          break;
         case 0:
         default:
       }
@@ -4901,6 +6263,18 @@ public final class Protobufs {
         case 2:
           hash = (37 * hash) + USER_FIELD_NUMBER;
           hash = (53 * hash) + getUser().hashCode();
+          break;
+        case 3:
+          hash = (37 * hash) + PROFILE_FIELD_NUMBER;
+          hash = (53 * hash) + getProfile().hashCode();
+          break;
+        case 4:
+          hash = (37 * hash) + EMERGENCY_FIELD_NUMBER;
+          hash = (53 * hash) + getEmergency().hashCode();
+          break;
+        case 5:
+          hash = (37 * hash) + FIRSTRESPONDER_FIELD_NUMBER;
+          hash = (53 * hash) + getFirstResponder().hashCode();
           break;
         case 0:
         default:
@@ -5003,12 +6377,6 @@ public final class Protobufs {
       return builder;
     }
     /**
-     * <pre>
-     * E nevoie de request type-uri noi: REPORT_EMERGENCY, UPDATE_EMERGENCY, RESPOND_EMERGENCY(asta o sa vad daca e necesar, deocamdata pune-o),
-     * SAVE_PROFILE, UPDATE_PROFILE, GET_PROFILE, GET_EMERGENCY,
-     * tipuri noi de date care pot aparea pe request: Profile, Emergency, (cred ca si FirstResponder putem deocamdata)
-     * </pre>
-     *
      * Protobuf type {@code Request}
      */
     public static final class Builder extends
@@ -5045,6 +6413,15 @@ public final class Protobufs {
         type_ = 0;
         if (userBuilder_ != null) {
           userBuilder_.clear();
+        }
+        if (profileBuilder_ != null) {
+          profileBuilder_.clear();
+        }
+        if (emergencyBuilder_ != null) {
+          emergencyBuilder_.clear();
+        }
+        if (firstResponderBuilder_ != null) {
+          firstResponderBuilder_.clear();
         }
         payloadCase_ = 0;
         payload_ = null;
@@ -5094,6 +6471,18 @@ public final class Protobufs {
             userBuilder_ != null) {
           result.payload_ = userBuilder_.build();
         }
+        if (payloadCase_ == 3 &&
+            profileBuilder_ != null) {
+          result.payload_ = profileBuilder_.build();
+        }
+        if (payloadCase_ == 4 &&
+            emergencyBuilder_ != null) {
+          result.payload_ = emergencyBuilder_.build();
+        }
+        if (payloadCase_ == 5 &&
+            firstResponderBuilder_ != null) {
+          result.payload_ = firstResponderBuilder_.build();
+        }
       }
 
       @java.lang.Override
@@ -5114,6 +6503,18 @@ public final class Protobufs {
         switch (other.getPayloadCase()) {
           case USER: {
             mergeUser(other.getUser());
+            break;
+          }
+          case PROFILE: {
+            mergeProfile(other.getProfile());
+            break;
+          }
+          case EMERGENCY: {
+            mergeEmergency(other.getEmergency());
+            break;
+          }
+          case FIRSTRESPONDER: {
+            mergeFirstResponder(other.getFirstResponder());
             break;
           }
           case PAYLOAD_NOT_SET: {
@@ -5158,6 +6559,27 @@ public final class Protobufs {
                 payloadCase_ = 2;
                 break;
               } // case 18
+              case 26: {
+                input.readMessage(
+                    getProfileFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                payloadCase_ = 3;
+                break;
+              } // case 26
+              case 34: {
+                input.readMessage(
+                    getEmergencyFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                payloadCase_ = 4;
+                break;
+              } // case 34
+              case 42: {
+                input.readMessage(
+                    getFirstResponderFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                payloadCase_ = 5;
+                break;
+              } // case 42
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -5385,6 +6807,432 @@ public final class Protobufs {
         return userBuilder_;
       }
 
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder> profileBuilder_;
+      /**
+       * <code>.Profile profile = 3;</code>
+       * @return Whether the profile field is set.
+       */
+      @java.lang.Override
+      public boolean hasProfile() {
+        return payloadCase_ == 3;
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       * @return The profile.
+       */
+      @java.lang.Override
+      public dot.help.networking.Protobufs.Profile getProfile() {
+        if (profileBuilder_ == null) {
+          if (payloadCase_ == 3) {
+            return (dot.help.networking.Protobufs.Profile) payload_;
+          }
+          return dot.help.networking.Protobufs.Profile.getDefaultInstance();
+        } else {
+          if (payloadCase_ == 3) {
+            return profileBuilder_.getMessage();
+          }
+          return dot.help.networking.Protobufs.Profile.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      public Builder setProfile(dot.help.networking.Protobufs.Profile value) {
+        if (profileBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          payload_ = value;
+          onChanged();
+        } else {
+          profileBuilder_.setMessage(value);
+        }
+        payloadCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      public Builder setProfile(
+          dot.help.networking.Protobufs.Profile.Builder builderForValue) {
+        if (profileBuilder_ == null) {
+          payload_ = builderForValue.build();
+          onChanged();
+        } else {
+          profileBuilder_.setMessage(builderForValue.build());
+        }
+        payloadCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      public Builder mergeProfile(dot.help.networking.Protobufs.Profile value) {
+        if (profileBuilder_ == null) {
+          if (payloadCase_ == 3 &&
+              payload_ != dot.help.networking.Protobufs.Profile.getDefaultInstance()) {
+            payload_ = dot.help.networking.Protobufs.Profile.newBuilder((dot.help.networking.Protobufs.Profile) payload_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            payload_ = value;
+          }
+          onChanged();
+        } else {
+          if (payloadCase_ == 3) {
+            profileBuilder_.mergeFrom(value);
+          } else {
+            profileBuilder_.setMessage(value);
+          }
+        }
+        payloadCase_ = 3;
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      public Builder clearProfile() {
+        if (profileBuilder_ == null) {
+          if (payloadCase_ == 3) {
+            payloadCase_ = 0;
+            payload_ = null;
+            onChanged();
+          }
+        } else {
+          if (payloadCase_ == 3) {
+            payloadCase_ = 0;
+            payload_ = null;
+          }
+          profileBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      public dot.help.networking.Protobufs.Profile.Builder getProfileBuilder() {
+        return getProfileFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      @java.lang.Override
+      public dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder() {
+        if ((payloadCase_ == 3) && (profileBuilder_ != null)) {
+          return profileBuilder_.getMessageOrBuilder();
+        } else {
+          if (payloadCase_ == 3) {
+            return (dot.help.networking.Protobufs.Profile) payload_;
+          }
+          return dot.help.networking.Protobufs.Profile.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.Profile profile = 3;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder> 
+          getProfileFieldBuilder() {
+        if (profileBuilder_ == null) {
+          if (!(payloadCase_ == 3)) {
+            payload_ = dot.help.networking.Protobufs.Profile.getDefaultInstance();
+          }
+          profileBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder>(
+                  (dot.help.networking.Protobufs.Profile) payload_,
+                  getParentForChildren(),
+                  isClean());
+          payload_ = null;
+        }
+        payloadCase_ = 3;
+        onChanged();
+        return profileBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder> emergencyBuilder_;
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       * @return Whether the emergency field is set.
+       */
+      @java.lang.Override
+      public boolean hasEmergency() {
+        return payloadCase_ == 4;
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       * @return The emergency.
+       */
+      @java.lang.Override
+      public dot.help.networking.Protobufs.Emergency getEmergency() {
+        if (emergencyBuilder_ == null) {
+          if (payloadCase_ == 4) {
+            return (dot.help.networking.Protobufs.Emergency) payload_;
+          }
+          return dot.help.networking.Protobufs.Emergency.getDefaultInstance();
+        } else {
+          if (payloadCase_ == 4) {
+            return emergencyBuilder_.getMessage();
+          }
+          return dot.help.networking.Protobufs.Emergency.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      public Builder setEmergency(dot.help.networking.Protobufs.Emergency value) {
+        if (emergencyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          payload_ = value;
+          onChanged();
+        } else {
+          emergencyBuilder_.setMessage(value);
+        }
+        payloadCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      public Builder setEmergency(
+          dot.help.networking.Protobufs.Emergency.Builder builderForValue) {
+        if (emergencyBuilder_ == null) {
+          payload_ = builderForValue.build();
+          onChanged();
+        } else {
+          emergencyBuilder_.setMessage(builderForValue.build());
+        }
+        payloadCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      public Builder mergeEmergency(dot.help.networking.Protobufs.Emergency value) {
+        if (emergencyBuilder_ == null) {
+          if (payloadCase_ == 4 &&
+              payload_ != dot.help.networking.Protobufs.Emergency.getDefaultInstance()) {
+            payload_ = dot.help.networking.Protobufs.Emergency.newBuilder((dot.help.networking.Protobufs.Emergency) payload_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            payload_ = value;
+          }
+          onChanged();
+        } else {
+          if (payloadCase_ == 4) {
+            emergencyBuilder_.mergeFrom(value);
+          } else {
+            emergencyBuilder_.setMessage(value);
+          }
+        }
+        payloadCase_ = 4;
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      public Builder clearEmergency() {
+        if (emergencyBuilder_ == null) {
+          if (payloadCase_ == 4) {
+            payloadCase_ = 0;
+            payload_ = null;
+            onChanged();
+          }
+        } else {
+          if (payloadCase_ == 4) {
+            payloadCase_ = 0;
+            payload_ = null;
+          }
+          emergencyBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      public dot.help.networking.Protobufs.Emergency.Builder getEmergencyBuilder() {
+        return getEmergencyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      @java.lang.Override
+      public dot.help.networking.Protobufs.EmergencyOrBuilder getEmergencyOrBuilder() {
+        if ((payloadCase_ == 4) && (emergencyBuilder_ != null)) {
+          return emergencyBuilder_.getMessageOrBuilder();
+        } else {
+          if (payloadCase_ == 4) {
+            return (dot.help.networking.Protobufs.Emergency) payload_;
+          }
+          return dot.help.networking.Protobufs.Emergency.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.Emergency emergency = 4;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder> 
+          getEmergencyFieldBuilder() {
+        if (emergencyBuilder_ == null) {
+          if (!(payloadCase_ == 4)) {
+            payload_ = dot.help.networking.Protobufs.Emergency.getDefaultInstance();
+          }
+          emergencyBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder>(
+                  (dot.help.networking.Protobufs.Emergency) payload_,
+                  getParentForChildren(),
+                  isClean());
+          payload_ = null;
+        }
+        payloadCase_ = 4;
+        onChanged();
+        return emergencyBuilder_;
+      }
+
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.FirstResponder, dot.help.networking.Protobufs.FirstResponder.Builder, dot.help.networking.Protobufs.FirstResponderOrBuilder> firstResponderBuilder_;
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       * @return Whether the firstResponder field is set.
+       */
+      @java.lang.Override
+      public boolean hasFirstResponder() {
+        return payloadCase_ == 5;
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       * @return The firstResponder.
+       */
+      @java.lang.Override
+      public dot.help.networking.Protobufs.FirstResponder getFirstResponder() {
+        if (firstResponderBuilder_ == null) {
+          if (payloadCase_ == 5) {
+            return (dot.help.networking.Protobufs.FirstResponder) payload_;
+          }
+          return dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+        } else {
+          if (payloadCase_ == 5) {
+            return firstResponderBuilder_.getMessage();
+          }
+          return dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      public Builder setFirstResponder(dot.help.networking.Protobufs.FirstResponder value) {
+        if (firstResponderBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          payload_ = value;
+          onChanged();
+        } else {
+          firstResponderBuilder_.setMessage(value);
+        }
+        payloadCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      public Builder setFirstResponder(
+          dot.help.networking.Protobufs.FirstResponder.Builder builderForValue) {
+        if (firstResponderBuilder_ == null) {
+          payload_ = builderForValue.build();
+          onChanged();
+        } else {
+          firstResponderBuilder_.setMessage(builderForValue.build());
+        }
+        payloadCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      public Builder mergeFirstResponder(dot.help.networking.Protobufs.FirstResponder value) {
+        if (firstResponderBuilder_ == null) {
+          if (payloadCase_ == 5 &&
+              payload_ != dot.help.networking.Protobufs.FirstResponder.getDefaultInstance()) {
+            payload_ = dot.help.networking.Protobufs.FirstResponder.newBuilder((dot.help.networking.Protobufs.FirstResponder) payload_)
+                .mergeFrom(value).buildPartial();
+          } else {
+            payload_ = value;
+          }
+          onChanged();
+        } else {
+          if (payloadCase_ == 5) {
+            firstResponderBuilder_.mergeFrom(value);
+          } else {
+            firstResponderBuilder_.setMessage(value);
+          }
+        }
+        payloadCase_ = 5;
+        return this;
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      public Builder clearFirstResponder() {
+        if (firstResponderBuilder_ == null) {
+          if (payloadCase_ == 5) {
+            payloadCase_ = 0;
+            payload_ = null;
+            onChanged();
+          }
+        } else {
+          if (payloadCase_ == 5) {
+            payloadCase_ = 0;
+            payload_ = null;
+          }
+          firstResponderBuilder_.clear();
+        }
+        return this;
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      public dot.help.networking.Protobufs.FirstResponder.Builder getFirstResponderBuilder() {
+        return getFirstResponderFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      @java.lang.Override
+      public dot.help.networking.Protobufs.FirstResponderOrBuilder getFirstResponderOrBuilder() {
+        if ((payloadCase_ == 5) && (firstResponderBuilder_ != null)) {
+          return firstResponderBuilder_.getMessageOrBuilder();
+        } else {
+          if (payloadCase_ == 5) {
+            return (dot.help.networking.Protobufs.FirstResponder) payload_;
+          }
+          return dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+        }
+      }
+      /**
+       * <code>.FirstResponder firstResponder = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.FirstResponder, dot.help.networking.Protobufs.FirstResponder.Builder, dot.help.networking.Protobufs.FirstResponderOrBuilder> 
+          getFirstResponderFieldBuilder() {
+        if (firstResponderBuilder_ == null) {
+          if (!(payloadCase_ == 5)) {
+            payload_ = dot.help.networking.Protobufs.FirstResponder.getDefaultInstance();
+          }
+          firstResponderBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              dot.help.networking.Protobufs.FirstResponder, dot.help.networking.Protobufs.FirstResponder.Builder, dot.help.networking.Protobufs.FirstResponderOrBuilder>(
+                  (dot.help.networking.Protobufs.FirstResponder) payload_,
+                  getParentForChildren(),
+                  isClean());
+          payload_ = null;
+        }
+        payloadCase_ = 5;
+        onChanged();
+        return firstResponderBuilder_;
+      }
+
       // @@protoc_insertion_point(builder_scope:Request)
     }
 
@@ -5503,30 +7351,36 @@ public final class Protobufs {
         int index);
 
     /**
-     * <code>.Profile profile = 5;</code>
+     * <code>.Emergency emergency = 5;</code>
+     * @return Whether the emergency field is set.
+     */
+    boolean hasEmergency();
+    /**
+     * <code>.Emergency emergency = 5;</code>
+     * @return The emergency.
+     */
+    dot.help.networking.Protobufs.Emergency getEmergency();
+    /**
+     * <code>.Emergency emergency = 5;</code>
+     */
+    dot.help.networking.Protobufs.EmergencyOrBuilder getEmergencyOrBuilder();
+
+    /**
+     * <code>.Profile profile = 6;</code>
      * @return Whether the profile field is set.
      */
     boolean hasProfile();
     /**
-     * <code>.Profile profile = 5;</code>
+     * <code>.Profile profile = 6;</code>
      * @return The profile.
      */
     dot.help.networking.Protobufs.Profile getProfile();
     /**
-     * <code>.Profile profile = 5;</code>
+     * <code>.Profile profile = 6;</code>
      */
     dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder();
   }
   /**
-   * <pre>
-   * Si aici e nevoie de tipuri de date noi ca la request-uri
-   * pentru tipuri, sigur trebuie EMERGENCY_RESPONDED, EMERGENCY_REPORTED
-   * aici e decizia ta daca crezi ca trb sa fie tip de raspuns care sa corespunda la fiecare request
-   * ma gandesc ca putem folosi OK pentru majoritatea si doar facem functie in ProtoUtils cu response de tip OK care primeste tipu de date asteptat
-   * de aia cred ca merge scos si Login sau Logout de la response
-   * iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
-   * </pre>
-   *
    * Protobuf type {@code Response}
    */
   public static final class Response extends
@@ -5572,21 +7426,21 @@ public final class Protobufs {
     public enum Type
         implements com.google.protobuf.ProtocolMessageEnum {
       /**
-       * <code>Ok = 0;</code>
+       * <code>OK = 0;</code>
        */
-      Ok(0),
+      OK(0),
       /**
-       * <code>Error = 1;</code>
+       * <code>ERROR = 1;</code>
        */
-      Error(1),
+      ERROR(1),
       /**
-       * <code>Emergency_Responded = 2;</code>
+       * <code>EMERGENCY_RESPONDED = 2;</code>
        */
-      Emergency_Responded(2),
+      EMERGENCY_RESPONDED(2),
       /**
-       * <code>Emergency_Reported = 3;</code>
+       * <code>EMERGENCY_REPORTED = 3;</code>
        */
-      Emergency_Reported(3),
+      EMERGENCY_REPORTED(3),
       UNRECOGNIZED(-1),
       ;
 
@@ -5600,21 +7454,21 @@ public final class Protobufs {
           Type.class.getName());
       }
       /**
-       * <code>Ok = 0;</code>
+       * <code>OK = 0;</code>
        */
-      public static final int Ok_VALUE = 0;
+      public static final int OK_VALUE = 0;
       /**
-       * <code>Error = 1;</code>
+       * <code>ERROR = 1;</code>
        */
-      public static final int Error_VALUE = 1;
+      public static final int ERROR_VALUE = 1;
       /**
-       * <code>Emergency_Responded = 2;</code>
+       * <code>EMERGENCY_RESPONDED = 2;</code>
        */
-      public static final int Emergency_Responded_VALUE = 2;
+      public static final int EMERGENCY_RESPONDED_VALUE = 2;
       /**
-       * <code>Emergency_Reported = 3;</code>
+       * <code>EMERGENCY_REPORTED = 3;</code>
        */
-      public static final int Emergency_Reported_VALUE = 3;
+      public static final int EMERGENCY_REPORTED_VALUE = 3;
 
 
       public final int getNumber() {
@@ -5641,10 +7495,10 @@ public final class Protobufs {
        */
       public static Type forNumber(int value) {
         switch (value) {
-          case 0: return Ok;
-          case 1: return Error;
-          case 2: return Emergency_Responded;
-          case 3: return Emergency_Reported;
+          case 0: return OK;
+          case 1: return ERROR;
+          case 2: return EMERGENCY_RESPONDED;
+          case 3: return EMERGENCY_REPORTED;
           default: return null;
         }
       }
@@ -5826,18 +7680,44 @@ public final class Protobufs {
       return emergencies_.get(index);
     }
 
-    public static final int PROFILE_FIELD_NUMBER = 5;
+    public static final int EMERGENCY_FIELD_NUMBER = 5;
+    private dot.help.networking.Protobufs.Emergency emergency_;
+    /**
+     * <code>.Emergency emergency = 5;</code>
+     * @return Whether the emergency field is set.
+     */
+    @java.lang.Override
+    public boolean hasEmergency() {
+      return ((bitField0_ & 0x00000002) != 0);
+    }
+    /**
+     * <code>.Emergency emergency = 5;</code>
+     * @return The emergency.
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.Emergency getEmergency() {
+      return emergency_ == null ? dot.help.networking.Protobufs.Emergency.getDefaultInstance() : emergency_;
+    }
+    /**
+     * <code>.Emergency emergency = 5;</code>
+     */
+    @java.lang.Override
+    public dot.help.networking.Protobufs.EmergencyOrBuilder getEmergencyOrBuilder() {
+      return emergency_ == null ? dot.help.networking.Protobufs.Emergency.getDefaultInstance() : emergency_;
+    }
+
+    public static final int PROFILE_FIELD_NUMBER = 6;
     private dot.help.networking.Protobufs.Profile profile_;
     /**
-     * <code>.Profile profile = 5;</code>
+     * <code>.Profile profile = 6;</code>
      * @return Whether the profile field is set.
      */
     @java.lang.Override
     public boolean hasProfile() {
-      return ((bitField0_ & 0x00000002) != 0);
+      return ((bitField0_ & 0x00000004) != 0);
     }
     /**
-     * <code>.Profile profile = 5;</code>
+     * <code>.Profile profile = 6;</code>
      * @return The profile.
      */
     @java.lang.Override
@@ -5845,7 +7725,7 @@ public final class Protobufs {
       return profile_ == null ? dot.help.networking.Protobufs.Profile.getDefaultInstance() : profile_;
     }
     /**
-     * <code>.Profile profile = 5;</code>
+     * <code>.Profile profile = 6;</code>
      */
     @java.lang.Override
     public dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder() {
@@ -5866,7 +7746,7 @@ public final class Protobufs {
     @java.lang.Override
     public void writeTo(com.google.protobuf.CodedOutputStream output)
                         throws java.io.IOException {
-      if (type_ != dot.help.networking.Protobufs.Response.Type.Ok.getNumber()) {
+      if (type_ != dot.help.networking.Protobufs.Response.Type.OK.getNumber()) {
         output.writeEnum(1, type_);
       }
       if (!com.google.protobuf.GeneratedMessage.isStringEmpty(error_)) {
@@ -5879,7 +7759,10 @@ public final class Protobufs {
         output.writeMessage(4, emergencies_.get(i));
       }
       if (((bitField0_ & 0x00000002) != 0)) {
-        output.writeMessage(5, getProfile());
+        output.writeMessage(5, getEmergency());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        output.writeMessage(6, getProfile());
       }
       getUnknownFields().writeTo(output);
     }
@@ -5890,7 +7773,7 @@ public final class Protobufs {
       if (size != -1) return size;
 
       size = 0;
-      if (type_ != dot.help.networking.Protobufs.Response.Type.Ok.getNumber()) {
+      if (type_ != dot.help.networking.Protobufs.Response.Type.OK.getNumber()) {
         size += com.google.protobuf.CodedOutputStream
           .computeEnumSize(1, type_);
       }
@@ -5907,7 +7790,11 @@ public final class Protobufs {
       }
       if (((bitField0_ & 0x00000002) != 0)) {
         size += com.google.protobuf.CodedOutputStream
-          .computeMessageSize(5, getProfile());
+          .computeMessageSize(5, getEmergency());
+      }
+      if (((bitField0_ & 0x00000004) != 0)) {
+        size += com.google.protobuf.CodedOutputStream
+          .computeMessageSize(6, getProfile());
       }
       size += getUnknownFields().getSerializedSize();
       memoizedSize = size;
@@ -5934,6 +7821,11 @@ public final class Protobufs {
       }
       if (!getEmergenciesList()
           .equals(other.getEmergenciesList())) return false;
+      if (hasEmergency() != other.hasEmergency()) return false;
+      if (hasEmergency()) {
+        if (!getEmergency()
+            .equals(other.getEmergency())) return false;
+      }
       if (hasProfile() != other.hasProfile()) return false;
       if (hasProfile()) {
         if (!getProfile()
@@ -5961,6 +7853,10 @@ public final class Protobufs {
       if (getEmergenciesCount() > 0) {
         hash = (37 * hash) + EMERGENCIES_FIELD_NUMBER;
         hash = (53 * hash) + getEmergenciesList().hashCode();
+      }
+      if (hasEmergency()) {
+        hash = (37 * hash) + EMERGENCY_FIELD_NUMBER;
+        hash = (53 * hash) + getEmergency().hashCode();
       }
       if (hasProfile()) {
         hash = (37 * hash) + PROFILE_FIELD_NUMBER;
@@ -6064,15 +7960,6 @@ public final class Protobufs {
       return builder;
     }
     /**
-     * <pre>
-     * Si aici e nevoie de tipuri de date noi ca la request-uri
-     * pentru tipuri, sigur trebuie EMERGENCY_RESPONDED, EMERGENCY_REPORTED
-     * aici e decizia ta daca crezi ca trb sa fie tip de raspuns care sa corespunda la fiecare request
-     * ma gandesc ca putem folosi OK pentru majoritatea si doar facem functie in ProtoUtils cu response de tip OK care primeste tipu de date asteptat
-     * de aia cred ca merge scos si Login sau Logout de la response
-     * iar in ProtoUtils o sa avem functii de createLoginResponse, createLogoutResponse, pe care setam User ca tip de data
-     * </pre>
-     *
      * Protobuf type {@code Response}
      */
     public static final class Builder extends
@@ -6107,6 +7994,7 @@ public final class Protobufs {
                 .alwaysUseFieldBuilders) {
           getUserFieldBuilder();
           getEmergenciesFieldBuilder();
+          getEmergencyFieldBuilder();
           getProfileFieldBuilder();
         }
       }
@@ -6128,6 +8016,11 @@ public final class Protobufs {
           emergenciesBuilder_.clear();
         }
         bitField0_ = (bitField0_ & ~0x00000008);
+        emergency_ = null;
+        if (emergencyBuilder_ != null) {
+          emergencyBuilder_.dispose();
+          emergencyBuilder_ = null;
+        }
         profile_ = null;
         if (profileBuilder_ != null) {
           profileBuilder_.dispose();
@@ -6193,10 +8086,16 @@ public final class Protobufs {
           to_bitField0_ |= 0x00000001;
         }
         if (((from_bitField0_ & 0x00000010) != 0)) {
+          result.emergency_ = emergencyBuilder_ == null
+              ? emergency_
+              : emergencyBuilder_.build();
+          to_bitField0_ |= 0x00000002;
+        }
+        if (((from_bitField0_ & 0x00000020) != 0)) {
           result.profile_ = profileBuilder_ == null
               ? profile_
               : profileBuilder_.build();
-          to_bitField0_ |= 0x00000002;
+          to_bitField0_ |= 0x00000004;
         }
         result.bitField0_ |= to_bitField0_;
       }
@@ -6249,6 +8148,9 @@ public final class Protobufs {
               emergenciesBuilder_.addAllMessages(other.emergencies_);
             }
           }
+        }
+        if (other.hasEmergency()) {
+          mergeEmergency(other.getEmergency());
         }
         if (other.hasProfile()) {
           mergeProfile(other.getProfile());
@@ -6311,11 +8213,18 @@ public final class Protobufs {
               } // case 34
               case 42: {
                 input.readMessage(
-                    getProfileFieldBuilder().getBuilder(),
+                    getEmergencyFieldBuilder().getBuilder(),
                     extensionRegistry);
                 bitField0_ |= 0x00000010;
                 break;
               } // case 42
+              case 50: {
+                input.readMessage(
+                    getProfileFieldBuilder().getBuilder(),
+                    extensionRegistry);
+                bitField0_ |= 0x00000020;
+                break;
+              } // case 50
               default: {
                 if (!super.parseUnknownField(input, extensionRegistry, tag)) {
                   done = true; // was an endgroup tag
@@ -6819,18 +8728,139 @@ public final class Protobufs {
         return emergenciesBuilder_;
       }
 
+      private dot.help.networking.Protobufs.Emergency emergency_;
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder> emergencyBuilder_;
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       * @return Whether the emergency field is set.
+       */
+      public boolean hasEmergency() {
+        return ((bitField0_ & 0x00000010) != 0);
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       * @return The emergency.
+       */
+      public dot.help.networking.Protobufs.Emergency getEmergency() {
+        if (emergencyBuilder_ == null) {
+          return emergency_ == null ? dot.help.networking.Protobufs.Emergency.getDefaultInstance() : emergency_;
+        } else {
+          return emergencyBuilder_.getMessage();
+        }
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      public Builder setEmergency(dot.help.networking.Protobufs.Emergency value) {
+        if (emergencyBuilder_ == null) {
+          if (value == null) {
+            throw new NullPointerException();
+          }
+          emergency_ = value;
+        } else {
+          emergencyBuilder_.setMessage(value);
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      public Builder setEmergency(
+          dot.help.networking.Protobufs.Emergency.Builder builderForValue) {
+        if (emergencyBuilder_ == null) {
+          emergency_ = builderForValue.build();
+        } else {
+          emergencyBuilder_.setMessage(builderForValue.build());
+        }
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      public Builder mergeEmergency(dot.help.networking.Protobufs.Emergency value) {
+        if (emergencyBuilder_ == null) {
+          if (((bitField0_ & 0x00000010) != 0) &&
+            emergency_ != null &&
+            emergency_ != dot.help.networking.Protobufs.Emergency.getDefaultInstance()) {
+            getEmergencyBuilder().mergeFrom(value);
+          } else {
+            emergency_ = value;
+          }
+        } else {
+          emergencyBuilder_.mergeFrom(value);
+        }
+        if (emergency_ != null) {
+          bitField0_ |= 0x00000010;
+          onChanged();
+        }
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      public Builder clearEmergency() {
+        bitField0_ = (bitField0_ & ~0x00000010);
+        emergency_ = null;
+        if (emergencyBuilder_ != null) {
+          emergencyBuilder_.dispose();
+          emergencyBuilder_ = null;
+        }
+        onChanged();
+        return this;
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      public dot.help.networking.Protobufs.Emergency.Builder getEmergencyBuilder() {
+        bitField0_ |= 0x00000010;
+        onChanged();
+        return getEmergencyFieldBuilder().getBuilder();
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      public dot.help.networking.Protobufs.EmergencyOrBuilder getEmergencyOrBuilder() {
+        if (emergencyBuilder_ != null) {
+          return emergencyBuilder_.getMessageOrBuilder();
+        } else {
+          return emergency_ == null ?
+              dot.help.networking.Protobufs.Emergency.getDefaultInstance() : emergency_;
+        }
+      }
+      /**
+       * <code>.Emergency emergency = 5;</code>
+       */
+      private com.google.protobuf.SingleFieldBuilder<
+          dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder> 
+          getEmergencyFieldBuilder() {
+        if (emergencyBuilder_ == null) {
+          emergencyBuilder_ = new com.google.protobuf.SingleFieldBuilder<
+              dot.help.networking.Protobufs.Emergency, dot.help.networking.Protobufs.Emergency.Builder, dot.help.networking.Protobufs.EmergencyOrBuilder>(
+                  getEmergency(),
+                  getParentForChildren(),
+                  isClean());
+          emergency_ = null;
+        }
+        return emergencyBuilder_;
+      }
+
       private dot.help.networking.Protobufs.Profile profile_;
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder> profileBuilder_;
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        * @return Whether the profile field is set.
        */
       public boolean hasProfile() {
-        return ((bitField0_ & 0x00000010) != 0);
+        return ((bitField0_ & 0x00000020) != 0);
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        * @return The profile.
        */
       public dot.help.networking.Protobufs.Profile getProfile() {
@@ -6841,7 +8871,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       public Builder setProfile(dot.help.networking.Protobufs.Profile value) {
         if (profileBuilder_ == null) {
@@ -6852,12 +8882,12 @@ public final class Protobufs {
         } else {
           profileBuilder_.setMessage(value);
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       public Builder setProfile(
           dot.help.networking.Protobufs.Profile.Builder builderForValue) {
@@ -6866,16 +8896,16 @@ public final class Protobufs {
         } else {
           profileBuilder_.setMessage(builderForValue.build());
         }
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return this;
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       public Builder mergeProfile(dot.help.networking.Protobufs.Profile value) {
         if (profileBuilder_ == null) {
-          if (((bitField0_ & 0x00000010) != 0) &&
+          if (((bitField0_ & 0x00000020) != 0) &&
             profile_ != null &&
             profile_ != dot.help.networking.Protobufs.Profile.getDefaultInstance()) {
             getProfileBuilder().mergeFrom(value);
@@ -6886,16 +8916,16 @@ public final class Protobufs {
           profileBuilder_.mergeFrom(value);
         }
         if (profile_ != null) {
-          bitField0_ |= 0x00000010;
+          bitField0_ |= 0x00000020;
           onChanged();
         }
         return this;
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       public Builder clearProfile() {
-        bitField0_ = (bitField0_ & ~0x00000010);
+        bitField0_ = (bitField0_ & ~0x00000020);
         profile_ = null;
         if (profileBuilder_ != null) {
           profileBuilder_.dispose();
@@ -6905,15 +8935,15 @@ public final class Protobufs {
         return this;
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       public dot.help.networking.Protobufs.Profile.Builder getProfileBuilder() {
-        bitField0_ |= 0x00000010;
+        bitField0_ |= 0x00000020;
         onChanged();
         return getProfileFieldBuilder().getBuilder();
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       public dot.help.networking.Protobufs.ProfileOrBuilder getProfileOrBuilder() {
         if (profileBuilder_ != null) {
@@ -6924,7 +8954,7 @@ public final class Protobufs {
         }
       }
       /**
-       * <code>.Profile profile = 5;</code>
+       * <code>.Profile profile = 6;</code>
        */
       private com.google.protobuf.SingleFieldBuilder<
           dot.help.networking.Protobufs.Profile, dot.help.networking.Protobufs.Profile.Builder, dot.help.networking.Protobufs.ProfileOrBuilder> 
@@ -6997,6 +9027,11 @@ public final class Protobufs {
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
       internal_static_User_fieldAccessorTable;
   private static final com.google.protobuf.Descriptors.Descriptor
+    internal_static_FirstResponder_descriptor;
+  private static final 
+    com.google.protobuf.GeneratedMessage.FieldAccessorTable
+      internal_static_FirstResponder_fieldAccessorTable;
+  private static final com.google.protobuf.Descriptors.Descriptor
     internal_static_Profile_descriptor;
   private static final 
     com.google.protobuf.GeneratedMessage.FieldAccessorTable
@@ -7025,36 +9060,47 @@ public final class Protobufs {
       descriptor;
   static {
     java.lang.String[] descriptorData = {
-      "\n\021AidGuardian.proto\"\240\001\n\004User\022\n\n\002id\030\001 \001(\005" +
+      "\n\021AidGuardian.proto\"\261\001\n\004User\022\n\n\002id\030\001 \001(\003" +
       "\022\r\n\005email\030\002 \001(\t\022\020\n\010username\030\003 \001(\t\022\020\n\010pas" +
       "sword\030\004 \001(\t\022\030\n\004type\030\005 \001(\0162\n.User.Type\022\016\n" +
-      "\006onDuty\030\006 \001(\010\"/\n\004Type\022\023\n\017CommunityHelper" +
-      "\020\000\022\022\n\016FirstResponder\020\001\"\246\003\n\007Profile\022\023\n\004us" +
-      "er\030\001 \001(\0132\005.User\022\021\n\tfirstName\030\002 \001(\t\022\020\n\010la" +
-      "stName\030\003 \001(\t\022\037\n\006gender\030\004 \001(\0162\017.Profile.G" +
-      "ender\022\021\n\tbirthDate\030\005 \001(\t\022\'\n\nbloodGroup\030\006" +
-      " \001(\0162\023.Profile.BloodGroup\022\016\n\006height\030\007 \001(" +
-      "\002\022\016\n\006weight\030\010 \001(\002\022\031\n\021medicalConditions\030\t" +
-      " \001(\t\022\r\n\005score\030\n \001(\005\")\n\006Gender\022\010\n\004Male\020\000\022" +
-      "\n\n\006Female\020\001\022\t\n\005Other\020\002\"\216\001\n\nBloodGroup\022\016\n" +
-      "\nA_POSITIVE\020\000\022\016\n\nA_NEGATIVE\020\001\022\016\n\nB_POSIT" +
-      "IVE\020\002\022\016\n\nB_NEGATIVE\020\003\022\016\n\nO_POSITIVE\020\004\022\016\n" +
-      "\nO_NEGATIVE\020\005\022\017\n\013AB_POSITIVE\020\006\022\017\n\013AB_NEG" +
-      "ATIVE\020\007\"\327\001\n\tEmergency\022\027\n\010reporter\030\001 \001(\0132" +
-      "\005.User\022\030\n\tresponder\030\002 \001(\0132\005.User\022!\n\006stat" +
-      "us\030\003 \001(\0162\021.Emergency.Status\022\014\n\004date\030\004 \001(" +
-      "\t\022\023\n\013description\030\005 \001(\t\022\020\n\010location\030\006 \001(\t" +
-      "\"?\n\006Status\022\014\n\010Reported\020\000\022\r\n\tResponded\020\001\022" +
-      "\n\n\006OnSite\020\002\022\014\n\010Resolved\020\003\"g\n\007Request\022\033\n\004" +
-      "type\030\001 \001(\0162\r.Request.Type\022\025\n\004user\030\002 \001(\0132" +
-      "\005.UserH\000\"\035\n\004Type\022\t\n\005Login\020\000\022\n\n\006Logout\020\001B" +
-      "\t\n\007payload\"\324\001\n\010Response\022\034\n\004type\030\001 \001(\0162\016." +
-      "Response.Type\022\r\n\005error\030\002 \001(\t\022\023\n\004user\030\003 \001" +
-      "(\0132\005.User\022\037\n\013emergencies\030\004 \003(\0132\n.Emergen" +
-      "cy\022\031\n\007profile\030\005 \001(\0132\010.Profile\"J\n\004Type\022\006\n" +
-      "\002Ok\020\000\022\t\n\005Error\020\001\022\027\n\023Emergency_Responded\020" +
-      "\002\022\026\n\022Emergency_Reported\020\003B \n\023dot.help.ne" +
-      "tworkingB\tProtobufsb\006proto3"
+      "\006onDuty\030\006 \001(\010\"@\n\004Type\022\030\n\024COMMUNITY_DISPA" +
+      "TCHER\020\000\022\023\n\017FIRST_RESPONDER\020\001\022\t\n\005ADMIN\020\002\"" +
+      "_\n\016FirstResponder\022\n\n\002id\030\001 \001(\003\022\r\n\005email\030\002" +
+      " \001(\t\022\020\n\010username\030\003 \001(\t\022\020\n\010password\030\004 \001(\t" +
+      "\022\016\n\006onDuty\030\005 \001(\010\"\262\003\n\007Profile\022\n\n\002id\030\001 \001(\003" +
+      "\022\023\n\004user\030\002 \001(\0132\005.User\022\021\n\tfirstName\030\003 \001(\t" +
+      "\022\020\n\010lastName\030\004 \001(\t\022\037\n\006gender\030\005 \001(\0162\017.Pro" +
+      "file.Gender\022\021\n\tbirthDate\030\006 \001(\t\022\'\n\nbloodG" +
+      "roup\030\007 \001(\0162\023.Profile.BloodGroup\022\016\n\006heigh" +
+      "t\030\010 \001(\001\022\016\n\006weight\030\t \001(\001\022\031\n\021medicalCondit" +
+      "ions\030\n \001(\t\022\r\n\005score\030\013 \001(\001\")\n\006Gender\022\010\n\004M" +
+      "ale\020\000\022\n\n\006Female\020\001\022\t\n\005Other\020\002\"\216\001\n\nBloodGr" +
+      "oup\022\016\n\nA_POSITIVE\020\000\022\016\n\nA_NEGATIVE\020\001\022\016\n\nB" +
+      "_POSITIVE\020\002\022\016\n\nB_NEGATIVE\020\003\022\016\n\nO_POSITIV" +
+      "E\020\004\022\016\n\nO_NEGATIVE\020\005\022\017\n\013AB_POSITIVE\020\006\022\017\n\013" +
+      "AB_NEGATIVE\020\007\"\343\001\n\tEmergency\022\n\n\002id\030\001 \001(\003\022" +
+      "\027\n\010reporter\030\002 \001(\0132\005.User\022\030\n\tresponder\030\003 " +
+      "\001(\0132\005.User\022!\n\006status\030\004 \001(\0162\021.Emergency.S" +
+      "tatus\022\014\n\004date\030\005 \001(\t\022\023\n\013description\030\006 \001(\t" +
+      "\022\020\n\010location\030\007 \001(\t\"?\n\006Status\022\014\n\010Reported" +
+      "\020\000\022\r\n\tResponded\020\001\022\n\n\006OnSite\020\002\022\014\n\010Resolve" +
+      "d\020\003\"\201\003\n\007Request\022\033\n\004type\030\001 \001(\0162\r.Request." +
+      "Type\022\025\n\004user\030\002 \001(\0132\005.UserH\000\022\033\n\007profile\030\003" +
+      " \001(\0132\010.ProfileH\000\022\037\n\temergency\030\004 \001(\0132\n.Em" +
+      "ergencyH\000\022)\n\016firstResponder\030\005 \001(\0132\017.Firs" +
+      "tResponderH\000\"\315\001\n\004Type\022\t\n\005LOGIN\020\000\022\n\n\006LOGO" +
+      "UT\020\001\022\014\n\010GET_USER\020\002\022\017\n\013GET_PROFILE\020\003\022\020\n\014S" +
+      "AVE_PROFILE\020\004\022\022\n\016UPDATE_PROFILE\020\005\022\021\n\rGET" +
+      "_EMERGENCY\020\006\022\024\n\020UPDATE_EMERGENCY\020\007\022\024\n\020RE" +
+      "PORT_EMERGENCY\020\010\022\025\n\021RESPOND_EMERGENCY\020\t\022" +
+      "\023\n\017GET_EMERGENCIES\020\nB\t\n\007payload\"\363\001\n\010Resp" +
+      "onse\022\034\n\004type\030\001 \001(\0162\016.Response.Type\022\r\n\005er" +
+      "ror\030\002 \001(\t\022\023\n\004user\030\003 \001(\0132\005.User\022\037\n\013emerge" +
+      "ncies\030\004 \003(\0132\n.Emergency\022\035\n\temergency\030\005 \001" +
+      "(\0132\n.Emergency\022\031\n\007profile\030\006 \001(\0132\010.Profil" +
+      "e\"J\n\004Type\022\006\n\002OK\020\000\022\t\n\005ERROR\020\001\022\027\n\023EMERGENC" +
+      "Y_RESPONDED\020\002\022\026\n\022EMERGENCY_REPORTED\020\003B \n" +
+      "\023dot.help.networkingB\tProtobufsb\006proto3"
     };
     descriptor = com.google.protobuf.Descriptors.FileDescriptor
       .internalBuildGeneratedFileFrom(descriptorData,
@@ -7066,30 +9112,36 @@ public final class Protobufs {
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_User_descriptor,
         new java.lang.String[] { "Id", "Email", "Username", "Password", "Type", "OnDuty", });
-    internal_static_Profile_descriptor =
+    internal_static_FirstResponder_descriptor =
       getDescriptor().getMessageTypes().get(1);
+    internal_static_FirstResponder_fieldAccessorTable = new
+      com.google.protobuf.GeneratedMessage.FieldAccessorTable(
+        internal_static_FirstResponder_descriptor,
+        new java.lang.String[] { "Id", "Email", "Username", "Password", "OnDuty", });
+    internal_static_Profile_descriptor =
+      getDescriptor().getMessageTypes().get(2);
     internal_static_Profile_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Profile_descriptor,
-        new java.lang.String[] { "User", "FirstName", "LastName", "Gender", "BirthDate", "BloodGroup", "Height", "Weight", "MedicalConditions", "Score", });
+        new java.lang.String[] { "Id", "User", "FirstName", "LastName", "Gender", "BirthDate", "BloodGroup", "Height", "Weight", "MedicalConditions", "Score", });
     internal_static_Emergency_descriptor =
-      getDescriptor().getMessageTypes().get(2);
+      getDescriptor().getMessageTypes().get(3);
     internal_static_Emergency_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Emergency_descriptor,
-        new java.lang.String[] { "Reporter", "Responder", "Status", "Date", "Description", "Location", });
+        new java.lang.String[] { "Id", "Reporter", "Responder", "Status", "Date", "Description", "Location", });
     internal_static_Request_descriptor =
-      getDescriptor().getMessageTypes().get(3);
+      getDescriptor().getMessageTypes().get(4);
     internal_static_Request_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Request_descriptor,
-        new java.lang.String[] { "Type", "User", "Payload", });
+        new java.lang.String[] { "Type", "User", "Profile", "Emergency", "FirstResponder", "Payload", });
     internal_static_Response_descriptor =
-      getDescriptor().getMessageTypes().get(4);
+      getDescriptor().getMessageTypes().get(5);
     internal_static_Response_fieldAccessorTable = new
       com.google.protobuf.GeneratedMessage.FieldAccessorTable(
         internal_static_Response_descriptor,
-        new java.lang.String[] { "Type", "Error", "User", "Emergencies", "Profile", });
+        new java.lang.String[] { "Type", "Error", "User", "Emergencies", "Emergency", "Profile", });
     descriptor.resolveAllFeaturesImmutable();
   }
 
