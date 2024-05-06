@@ -105,6 +105,18 @@ public class ProtobufWorker implements Runnable, IObserver {
                 return ProtoUtils.createErrorResponse(e.getMessage());
             }
         }
+        if(request.getType() == Protobufs.Request.Type.SAVE_PROFILE)
+        {
+            log.info("Save profile request " + request.getType());
+
+            Profile profile = ProtoUtils.getProfile(request);
+            try {
+                service.registerUser(profile,this);
+                return ProtoUtils.createProfileResponse(profile);
+            } catch (Exception e) {
+                return ProtoUtils.createErrorResponse(e.getMessage());
+            }
+        }
         if(request.getType() == Protobufs.Request.Type.GET_PROFILE)
         {
             log.info("Get profile request " + request.getType());

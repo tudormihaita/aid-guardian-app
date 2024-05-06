@@ -71,7 +71,19 @@ public class ProtobufProxy implements IServices {
 
     @Override
     public void registerUser(Profile profile, IObserver client) {
+        log.info("Sending register user request...");
 
+        try {
+            sendRequest(ProtoUtils.createSaveProfileRequest(profile));
+            Protobufs.Response response = readResponse();
+
+            if (response.getType() == Protobufs.Response.Type.ERROR) {
+                String err = response.getError();
+                throw new Exception(err);
+            }
+        } catch (Exception exception) {
+            log.error(exception);
+        }
     }
 
     @Override

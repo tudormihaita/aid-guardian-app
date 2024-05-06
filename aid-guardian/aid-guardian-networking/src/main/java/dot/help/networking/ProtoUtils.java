@@ -23,6 +23,52 @@ public class ProtoUtils {
                 .setUser(userProto).build();
     }
 
+
+    public static Protobufs.Request createSaveProfileRequest(Profile profile) {
+        User user = profile.getUser();
+        Protobufs.User userProto = Protobufs.User.newBuilder().setId(user.getId()).setEmail(user.getEmail()).setUsername(user.getUsername()).setPassword(user.getPassword()).build();
+
+        Protobufs.Profile.Builder profileProto = Protobufs.Profile.newBuilder().setUser(userProto)
+                .setFirstName(profile.getFirstName())
+                .setLastName(profile.getLastName())
+                .setBirthDate(profile.getBirthDate().toString())
+                .setHeight(profile.getHeight())
+                .setWeight(profile.getWeight())
+                .setMedicalConditions(profile.getMedicalHistory())
+                .setScore(profile.getScore());
+
+        profileProto.setGender(getProtoGender(profile.getGender()));
+        profileProto.setBloodGroup(getProtoBloodGroup(profile.getBloodGroup()));
+        return Protobufs.Request.newBuilder().setType(Protobufs.Request.Type.SAVE_PROFILE).setProfile(profileProto).build();
+
+
+    }
+
+    private static Protobufs.Profile.BloodGroup getProtoBloodGroup(BloodGroupType bloodGroup) {
+        switch (bloodGroup)
+        {
+            case A_NEGATIVE:return Protobufs.Profile.BloodGroup.A_NEGATIVE;
+            case A_POSITIVE:return Protobufs.Profile.BloodGroup.A_POSITIVE;
+            case B_NEGATIVE:return Protobufs.Profile.BloodGroup.B_NEGATIVE;
+            case B_POSITIVE:return Protobufs.Profile.BloodGroup.B_POSITIVE;
+            case AB_NEGATIVE:return Protobufs.Profile.BloodGroup.AB_NEGATIVE;
+            case AB_POSITIVE:return Protobufs.Profile.BloodGroup.AB_POSITIVE;
+            case O_NEGATIVE:return Protobufs.Profile.BloodGroup.O_NEGATIVE;
+            case O_POSITIVE:return Protobufs.Profile.BloodGroup.O_POSITIVE;
+            default:return Protobufs.Profile.BloodGroup.UNRECOGNIZED;
+        }
+    }
+
+    private static Protobufs.Profile.Gender getProtoGender(GenderType gender) {
+        switch (gender)
+        {
+            case Male:return Protobufs.Profile.Gender.Male;
+            case Female:return Protobufs.Profile.Gender.Female;
+            case Other:return Protobufs.Profile.Gender.Other;
+            default: return Protobufs.Profile.Gender.UNRECOGNIZED;
+        }
+    }
+
     public static Protobufs.Request createGetProfileRequest(User user) {
         Protobufs.User userProto = Protobufs.User.newBuilder().setId(user.getId()).setEmail(user.getEmail()).setUsername(user.getUsername()).setPassword(user.getPassword()).build();
 
@@ -140,6 +186,11 @@ public class ProtoUtils {
 
         return getProfile(profileProto);
     }
+    public static Profile getProfile(Protobufs.Request request) {
+        Protobufs.Profile profileProto = request.getProfile();
+
+        return getProfile(profileProto);
+    }
 
     public static Emergency getEmergency(Protobufs.Response response) {
         Protobufs.Emergency emergencyProto = response.getEmergency();
@@ -235,4 +286,6 @@ public class ProtoUtils {
         profile.setId(profileProto.getId());
         return profile;
     }
+
+
 }
