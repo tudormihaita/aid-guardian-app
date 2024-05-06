@@ -24,7 +24,7 @@ public class ServicesImpl implements IServices {
     private final ProfileRepository profileRepository;
     private final EmergencyRepository emergencyRepository;
 
-    private final int DEFAULT_THREADS_POOL = 5;
+    private final int DEFAULT_THREADS_POOL = 1;
     private final Map<String, IObserver> loggedClients;
     private final Logger log = LogManager.getLogger(ServicesImpl.class);
 
@@ -133,11 +133,9 @@ public class ServicesImpl implements IServices {
         log.traceExit("Emergency responded successfully: " + updatedEmergency.get());
     }
 
-    private int defaultThreadsNo = 1;
     private void notifyReportedEmergency(Emergency emergency) {
         log.info("Notifying all clients about the reported emergency...");
-//        loggedClients.values().forEach(client -> client.emergencyReported(emergency));
-        ExecutorService executor = Executors.newFixedThreadPool(defaultThreadsNo);
+        ExecutorService executor = Executors.newFixedThreadPool(DEFAULT_THREADS_POOL);
         for(var client:loggedClients.values())
         {
             executor.execute(()->{
@@ -149,8 +147,7 @@ public class ServicesImpl implements IServices {
 
     private void notifyRespondedEmergency(Emergency emergency) {
         log.info("Notifying all clients about the responded emergency...");
-//        loggedClients.values().forEach(client -> client.emergencyResponded(emergency));
-        ExecutorService executor = Executors.newFixedThreadPool(defaultThreadsNo);
+        ExecutorService executor = Executors.newFixedThreadPool(DEFAULT_THREADS_POOL);
         for(var client:loggedClients.values())
         {
             executor.execute(()->{
