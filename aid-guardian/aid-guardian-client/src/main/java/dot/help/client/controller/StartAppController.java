@@ -72,7 +72,7 @@ public class StartAppController {
         logger.traceEntry("Entering handleSignUp");
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(StartProtobufClient.class.getResource("dot/help/client/SignUp-view.fxml"));
+            loader.setLocation(StartProtobufClient.class.getResource("SignUp-view.fxml"));
             AnchorPane root = loader.load();
 
             Tab signInTab = new Tab("Sign Up");

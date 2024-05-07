@@ -1,6 +1,9 @@
 plugins {
+    id 'org.springframework.boot' version '3.2.5'
     id 'java'
     id 'application'
+
+
 }
 
 group = 'dot.help.server'
@@ -24,16 +27,25 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
     implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+
+    //pt spring
+
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // If you need Spring MVC or REST
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.7.8')
+
+
 }
 
 application {
-    mainClass = 'dot.help.server.StartProtobufServer'
+    mainClass = 'dot.help.server.StartRESTServer'
 }
 
 jar{
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
     manifest {
-        attributes('Main-Class': 'dot.help.server.StartProtobufServer')
+        attributes('Main-Class': 'dot.help.server.StartRESTServer')
     }
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }

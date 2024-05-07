@@ -8,6 +8,9 @@ public class User extends Entity<Long>{
     private String password;
     private UserRole role;
 
+    public User() {
+    }
+
     public User(String username, String password) {
         this.username = username;
         this.password = password;

@@ -1,22 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.ChoiceBox?>
-<?import javafx.scene.control.DatePicker?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.ColumnConstraints?>
-<?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.RowConstraints?>
-<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane cache="true" maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.controller.SignUpController">
+<AnchorPane cache="true" maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.controller.SignUpController">
    <children>
       <Pane layoutX="116.0" layoutY="46.0" prefHeight="458.0" prefWidth="627.0" style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 2; -fx-background-color: RGB(250, 250, 250);">
          <children>
@@ -35,11 +24,11 @@
                   <Font name="Avenir Light" size="32.0" />
                </font>
             </Label>
-            <GridPane layoutX="31.0" layoutY="98.0" prefHeight="254.0" prefWidth="567.0">
+            <GridPane layoutX="31.0" layoutY="104.0" prefHeight="248.0" prefWidth="567.0">
               <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="143.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="29.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="132.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="117.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="46.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="117.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="143.0" />
               </columnConstraints>
@@ -126,7 +115,7 @@
                   <ChoiceBox fx:id="bloodGroupChoiceBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                </children>
             </GridPane>
-            <Button fx:id="signUUpButton" layoutX="250.0" layoutY="396.0" mnemonicParsing="false" onAction="#signUpHandler" prefHeight="35.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-background-color: RGB(200, 200, 200); -fx-border-color: black;" text="Sign up">
+            <Button fx:id="signUUpButton" layoutX="250.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="35.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-background-color: RGB(200, 200, 200); -fx-border-color: black;" text="Sign up">
                <font>
                   <Font name="Avenir Heavy Oblique" size="18.0" />
                </font>

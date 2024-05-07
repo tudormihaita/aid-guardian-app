@@ -1,6 +1,7 @@
 package dot.help.client.controller;
 
 import dot.help.client.StartProtobufClient;
+import dot.help.client.controller.validation.ValidateFields;
 import dot.help.client.events.MessageAlert;
 import dot.help.model.*;
 import dot.help.services.IServices;
@@ -80,17 +81,25 @@ public class SignUpController {
 
     public void handleSignUp() {
         logger.traceEntry("Entering handleSignUp");
+        ValidateFields validator = new ValidateFields();
         //Save the user
         String email = emailTextField.getText();
+        validator.validate(email,"Error! Email can't be null!");
         String username = usernameTextField.getText();
+        validator.validate(username,"Error! Username can't be null!");
         String password = passwordTextField.getText();
+        validator.validate(password,"Error! Password can't be null!");
         String confirmPassword = confirmPasswordTextField.getText();
+        validator.validate(confirmPassword,"Error! Confirm password can't be null!");
         String firstName = firstNameTextField.getText();
+        validator.validate(firstName, "Error! First Name can't be null!");
         String lastName = lastNameTextField.getText();
+        validator.validate(lastName, "Error! Last Name can't be null!");
         boolean certified = certiifiedCheckBox.isSelected();
         GenderType gender = GenderType.valueOf(genderChoiceBox.getValue());
         BloodGroupType bloodGroup = bloodGroupChoiceBox.getValue();
         LocalDate dateOfBirth = dateOfBirthDatePicker.getValue();
+        validator.validateDate(dateOfBirth, "Error! Date of Birth can't be null!");
         Double height = Double.parseDouble(heightTextField.getText());
         Double weight = Double.parseDouble(weeightTextField.getText());
         String medicalHistory = medicalHstoryTextField.getText();
