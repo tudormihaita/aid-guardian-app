@@ -2,15 +2,20 @@ package dot.help.persistence.repository.database;
 
 import dot.help.model.*;
 import dot.help.persistence.repository.ProfileRepository;
+import dot.help.persistence.repository.UserRepository;
 
+import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Optional;
 import java.util.Properties;
 
 public class ProfileDBRepository extends AbstractDBRepository<Long, Profile> implements ProfileRepository {
 
+    private UserRepository userRepository; //aici
     public ProfileDBRepository(Properties properties) {
         super(properties, "user_profiles");
+        this.userRepository = new UserDBRepository(properties);   //aici
     }
 
     @Override
@@ -19,36 +24,42 @@ public class ProfileDBRepository extends AbstractDBRepository<Long, Profile> imp
         String firstName = resultSet.getString("first_name");
         String lastName = resultSet.getString("last_name");
         GenderType gender = GenderType.valueOf(resultSet.getString("gender"));
-        BloodGroupType bloodGroup = BloodGroupType.valueOf(resultSet.getString("blood_group"));
         LocalDate birthDate = resultSet.getDate("birthdate").toLocalDate();
-        Double weight = resultSet.getDouble("weight");
+        BloodGroupType bloodGroup = BloodGroupType.valueOf(resultSet.getString("blood_group"));
         Double height = resultSet.getDouble("height");
+        Double weight = resultSet.getDouble("weight");
         String medicalHistory = resultSet.getString("medical_history");
         Double score = resultSet.getDouble("score");
 
         User user = getUserById(id, resultSet);
 
-        Profile profile = new Profile(user, firstName, lastName, gender, birthDate, bloodGroup, weight, height, medicalHistory, score);
+
+        Profile profile = new Profile(user, firstName, lastName, gender, birthDate, bloodGroup, height, weight, medicalHistory, score);
         profile.setId(id);
         return profile;
     }
 
+    //AICI
     private User getUserById(Long id, ResultSet resultSet) throws SQLException {
-        if (resultSet.next()) {
-            User user;
-            String email =  resultSet.getString("email");
-            String username = resultSet.getString("username");
-            String password = resultSet.getString("password");
-            String role = resultSet.getString("role");
-            if(role.equals("FIRST_RESPONDER")) {
-                boolean onDuty = resultSet.getBoolean("on_duty");
-                user = new FirstResponder(email, username, password, onDuty);
-            }
-            else {
-                user = new User(email, username, password);
-            }
-            user.setId(id);
-            return user;
+//        if (resultSet.next()) {
+//            User user;
+//            String email = resultSet.getString("email");
+//            String username = resultSet.getString("username");
+//            String password = resultSet.getString("password");
+//            String role = resultSet.getString("role");
+//            if (role.equals("FIRST_RESPONDER")) {
+//                boolean onDuty = resultSet.getBoolean("on_duty");
+//                user = new FirstResponder(email, username, password, onDuty);
+//            } else {
+//                user = new User(email, username, password);
+//            }
+//            user.setId(id);
+//            return user;
+//        }
+
+        Optional<User> user = userRepository.findOne(id);
+        if (user.isPresent()) {
+            return user.get();
         }
 
         return null;

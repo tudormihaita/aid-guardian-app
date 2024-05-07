@@ -14,6 +14,9 @@ public class Profile extends Entity<Long> {
     private String medicalHistory;
     private Double score;
 
+    public Profile() {
+    }
+
     public Profile(User user, String firstName, String lastName, GenderType gender, LocalDate birthDate, BloodGroupType bloodGroup, Double height, Double weight, String medicalHistory, Double score) {
         this.user = user;
         this.firstName = firstName;

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
+import dot.help.model.Profile;
 import dot.help.model.User;
 import dot.help.persistence.repository.UserRepository;
 import dot.help.persistence.repository.database.UserDBRepository;
@@ -33,10 +34,12 @@ public class UserRoute {
         }
 
 
+        //de implementat la sign in button, inca nu e facut
         @PostMapping("/users")
         Optional<User> newUser(@RequestBody User newUser) {
             return repository.save(newUser);
         }
+
 
         @PostMapping("/login")
         Optional<User> loginUser(@RequestBody User newUser) {
@@ -50,8 +53,8 @@ public class UserRoute {
             return usr;
         }
 
-        // Single item
 
+        // Single item
 //        @GetMapping("/Users/{id}")
 //        User one(@PathVariable Long id) {
 //

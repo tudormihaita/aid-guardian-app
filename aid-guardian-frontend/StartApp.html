@@ -57,6 +57,11 @@
             margin-bottom: 22px; /* Add space between buttons */
             width: 180px;
         }
+
+        .not-colored-link {
+            text-decoration: none;
+            color: inherit;
+        }
     </style>
 </head>
 <body>
@@ -67,8 +72,8 @@
     </div>
     <hr>
     <div class="button-container">
-        <button onclick="handleSignUp()"><a href="SignUp.html">Sign up</a></button>
-        <button onclick="handleLogin()"><a href="Login.html">Login</a></button>
+        <button onclick="handleSignUp()"><a href="SignUp.html" class="not-colored-link">Sign up</a></button>
+        <button onclick="handleLogin()"><a href="Login.html" class="not-colored-link">Login</a></button>
     </div>
 </div>
 </body>
