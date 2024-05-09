@@ -4,6 +4,10 @@ import java.time.LocalDateTime;
 
 public class FirstResponder extends User{
     private boolean onDuty;
+    public FirstResponder()
+    {
+
+    }
     public FirstResponder(String email, String username, String password) {
         super(email, username, password, UserRole.FIRST_RESPONDER);
     }

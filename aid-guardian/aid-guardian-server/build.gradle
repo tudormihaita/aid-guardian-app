@@ -3,7 +3,6 @@ plugins {
     id 'java'
     id 'application'
 
-
 }
 
 group = 'dot.help.server'
@@ -29,7 +28,6 @@ dependencies {
     implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
 
     //pt spring
-
     implementation 'org.springframework.boot:spring-boot-starter'
     implementation 'org.springframework.boot:spring-boot-starter-web' // If you need Spring MVC or REST
     implementation 'org.springframework.boot:spring-boot-starter-logging'

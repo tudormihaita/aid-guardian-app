@@ -6,6 +6,7 @@ import java.util.Properties;
 
 import dot.help.model.Profile;
 import dot.help.model.User;
+import dot.help.model.UserRole;
 import dot.help.persistence.repository.UserRepository;
 import dot.help.persistence.repository.database.UserDBRepository;
 import org.springframework.web.bind.annotation.*;
@@ -53,6 +54,11 @@ public class UserRoute {
             return usr;
         }
 
+        //luam UserRoles
+        @GetMapping("/roles")
+        public UserRole[] getRoles() {
+            return UserRole.values();
+        }
 
         // Single item
 //        @GetMapping("/Users/{id}")

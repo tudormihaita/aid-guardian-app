@@ -10,6 +10,10 @@ public class Emergency extends Entity<Long> {
     private FirstResponder responder;
     private String location;
 
+    public Emergency()
+    {
+
+    }
     public Emergency(User reporter, LocalDateTime reportedAt, String description, Status status, FirstResponder responder, String location) {
         this.reporter = reporter;
         this.reportedAt = reportedAt;
