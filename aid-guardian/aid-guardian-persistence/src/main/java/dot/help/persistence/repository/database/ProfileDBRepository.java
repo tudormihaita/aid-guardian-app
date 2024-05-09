@@ -41,26 +41,26 @@ public class ProfileDBRepository extends AbstractDBRepository<Long, Profile> imp
 
     //AICI
     private User getUserById(Long id, ResultSet resultSet) throws SQLException {
-//        if (resultSet.next()) {
-//            User user;
-//            String email = resultSet.getString("email");
-//            String username = resultSet.getString("username");
-//            String password = resultSet.getString("password");
-//            String role = resultSet.getString("role");
-//            if (role.equals("FIRST_RESPONDER")) {
-//                boolean onDuty = resultSet.getBoolean("on_duty");
-//                user = new FirstResponder(email, username, password, onDuty);
-//            } else {
-//                user = new User(email, username, password);
-//            }
-//            user.setId(id);
-//            return user;
-//        }
-
-        Optional<User> user = userRepository.findOne(id);
-        if (user.isPresent()) {
-            return user.get();
+        if (resultSet.next()) {
+            User user;
+            String email = resultSet.getString("email");
+            String username = resultSet.getString("username");
+            String password = resultSet.getString("password");
+            String role = resultSet.getString("role");
+            if (role.equals("FIRST_RESPONDER")) {
+                boolean onDuty = resultSet.getBoolean("on_duty");
+                user = new FirstResponder(email, username, password, onDuty);
+            } else {
+                user = new User(email, username, password);
+            }
+            user.setId(id);
+            return user;
         }
+
+//        Optional<User> user = userRepository.findOne(id);
+//        if (user.isPresent()) {
+//            return user.get();
+//        }
 
         return null;
     }
