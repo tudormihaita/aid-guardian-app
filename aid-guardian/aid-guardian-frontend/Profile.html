@@ -29,7 +29,6 @@
             flex-direction: column;
             align-items: center;
             padding-top: 20px;
-            height: 100%; /* Adjust to fill full height */
         }
         .menu-item {
             width: 100%;
@@ -40,7 +39,6 @@
             color: white;
             font-size: 16px;
             cursor: pointer;
-            margin-bottom: 50px; /* Add space between buttons */
         }
         .menu-item:hover {
             background-color: #0c4d93;
@@ -74,17 +72,15 @@
         .profile-info .user-details .user-info .user-role {
             font-size: 14px;
         }
-        .emergency-map {
+        #map {
             border: 4px solid RGB(18, 80, 151);
-            width: 650px;
-            height: 500px;
+            width: 960px;
+            height: 570px;
         }
         .buttons {
             display: flex;
-            flex-direction: column;
             justify-content: space-between;
             margin-top: 20px;
-            height: 100%; /* Adjust to fill full height */
         }
         .buttons .btn {
             border-radius: 100px;
@@ -95,6 +91,9 @@
             cursor: pointer;
         }
     </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 </head>
 <body>
 <div class="container">
@@ -119,8 +118,8 @@
                 <div class="user-role">First Responder/ Community Helper</div>
             </div>
         </div>
-        <div class="emergency-map">
-            <img src="images/map.png" alt="Emergency Map" style="width: 100%; height: 100%;">
+        <div id="map" class="emergency-map">
+
         </div>
 
         <div class="buttons">
@@ -129,5 +128,60 @@
         </div>
     </div>
 </div>
+
+<script>
+    const map = L.map('map');
+    // Initializes map
+
+    map.setView([51.505, -0.09], 13);
+    // Sets initial coordinates and zoom level
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);
+    // Sets map data source and associates with map
+
+    let marker, circle, zoomed;
+
+    navigator.geolocation.watchPosition(success, error);
+
+    function success(pos) {
+
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        //Removes old marker and circle
+        if (marker) {
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+        }
+
+        //Display the new marker and circle
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        //Initializing the zoom
+        if (!zoomed) {
+            zoomed = map.fitBounds(circle.getBounds());
+        }
+
+        //Update the map view to the current user location
+        map.setView([lat, lng]);
+
+    }
+
+    function error(err) {
+
+        if (err.code === 1) {
+            alert("Please allow geolocation access");
+        } else {
+            alert("Cannot get current location");
+        }
+
+    }
+
+</script>
 </body>
 </html>
