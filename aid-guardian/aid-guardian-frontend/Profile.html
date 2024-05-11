@@ -91,8 +91,8 @@
             cursor: pointer;
         }
     </style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
 </head>
 <body>
@@ -118,9 +118,7 @@
                 <div class="user-role">First Responder/ Community Helper</div>
             </div>
         </div>
-        <div id="map" class="emergency-map">
-
-        </div>
+        <div id="map" class="emergency-map"></div>
 
         <div class="buttons">
             <button class="btn">Report Emergency</button>
@@ -130,13 +128,13 @@
 </div>
 
 <script>
-    const map = L.map('map');
+    const map = L.map('map'); //se ia id ul elem html unde se va afisa harta, id=map
     // Initializes map
 
     map.setView([51.505, -0.09], 13);
     // Sets initial coordinates and zoom level
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', { //x y z sunt coordonatele si zoom level
         maxZoom: 19,
         attribution: '© OpenStreetMap'
     }).addTo(map);
@@ -146,7 +144,8 @@
 
     navigator.geolocation.watchPosition(success, error);
 
-    function success(pos) {
+    function success(pos) // The pos object is an instance of the Position interface provided by the Geolocation API.
+    {
 
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
