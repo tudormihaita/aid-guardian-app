@@ -32,7 +32,7 @@
         }
         .menu-item {
             width: 100%;
-            padding: 10px 0;
+            padding: 50px 0;
             text-align: center;
             background-color: RGB(18, 80, 151);
             border: none;
@@ -53,6 +53,7 @@
             display: flex;
             align-items: center;
             margin-bottom: 20px;
+            background-color: RGB(18, 80, 151);
         }
         .profile-info .user-details img {
             border-radius: 50%;
@@ -72,6 +73,10 @@
         .profile-info .user-details .user-info .user-role {
             font-size: 14px;
         }
+        .profile-image {
+            align-content:center;
+            padding: 10px;
+        }
         #map {
             border: 4px solid RGB(18, 80, 151);
             width: 960px;
@@ -79,7 +84,7 @@
         }
         .buttons {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-around;
             margin-top: 20px;
         }
         .buttons .btn {
@@ -90,10 +95,18 @@
             font-size: 14px;
             cursor: pointer;
         }
+        #map_positioning{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
     </style>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
 
     <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+     
 </head>
 <body>
 <div class="container">
@@ -118,13 +131,15 @@
                 <div class="user-role">First Responder/ Community Helper</div>
             </div>
         </div>
-        <div id="map" class="emergency-map">
+        <div id="map_positioning">
+            <div id="map" class="emergency-map">
 
-        </div>
+            </div>
 
-        <div class="buttons">
-            <button class="btn">Report Emergency</button>
-            <button class="btn">Respond to Emergency</button>
+            <div class="buttons">
+                <button class="btn">Report Emergency</button>
+                <button class="btn">Respond to Emergency</button>
+            </div>
         </div>
     </div>
 </div>
@@ -135,16 +150,25 @@
 
     map.setView([51.505, -0.09], 13);
     // Sets initial coordinates and zoom level
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', // Specify the Mapbox style ID
+        accessToken: 'pk.eyJ1Ijoicm9ja3kxMzNwYSIsImEiOiJjbHcyY3prYXEwbTVzMmxweXh2cjg1bmVtIn0.apvKY9k9AwrpEUWZ6w1sPw' // Replace with your Mapbox Access Token
+    }).addTo(map);
+    /*L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '© OpenStreetMap'
-    }).addTo(map);
+    }).addTo(map);*/
     // Sets map data source and associates with map
-
+    var options = {
+        enableHighAccuracy: true,  // Enable high accuracy mode
+        timeout: 5000,             // Maximum time (in milliseconds) allowed for the position retrieval
+        maximumAge: 0              // Maximum age (in milliseconds) of a cached position to be considered valid
+    };
     let marker, circle, zoomed;
 
-    navigator.geolocation.watchPosition(success, error);
+    navigator.geolocation.watchPosition(success, error,options);
 
     function success(pos) {
 
