@@ -1,5 +1,6 @@
 package dot.help.client.validation;
 
+import dot.help.client.events.ActionAlert;
 import javafx.scene.control.Alert;
 
 import java.time.LocalDate;
