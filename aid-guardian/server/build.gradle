@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'dot.help.server'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':model')
+    implementation project(':persistence')
+    implementation project(':networking')
+    implementation project(':services')
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+}
+
+application {
+    mainClass = 'dot.help.server.StartProtobufServer'
+}
+
+jar{
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes('Main-Class': 'dot.help.server.StartProtobufServer')
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+test {
+    useJUnitPlatform()
+}
