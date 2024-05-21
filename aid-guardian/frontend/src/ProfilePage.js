@@ -1,16 +1,18 @@
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import "./ProfilePage.css";
 import {Link, useNavigate} from "react-router-dom";
+import {UserContext} from "./Contexts";
+import UserHeader from "./UserHeader";
 
 
 const ProfilePage = () => {
     const mapRef = useRef(null);
     const [location, setLocation] = useState(null);
-    const [user, setUser] = useState(null);
+    const { user, profile } = useContext(UserContext);
     const navigate = useNavigate();
 
     const confirmLogout = (event) => {
@@ -22,8 +24,10 @@ const ProfilePage = () => {
     };
 
     useEffect(() => {
-        const userData = JSON.parse(localStorage.getItem('user'));
-        setUser(userData);
+        if(!user) {
+            navigate("/login");
+            return;
+        }
 
         if (location) return;
 
@@ -90,18 +94,11 @@ const ProfilePage = () => {
         setLocation(map);
     }, [location]);
 
+    if (!user || !profile) return null;
+
     return (
         <div>
-            <header className="user-header">
-                <div className="user-info">
-                    <img src="assets/shield.png" alt="Aid Guardian Logo" style={{ marginRight: '50px' }} />
-                    <img id="icon" src="assets/first_responder_icon.png" alt="Avatar" />
-                    <div className="user-details">
-                        <h2>John Doe</h2>
-                        <p>First Responder</p>
-                    </div>
-                </div>
-            </header>
+            <UserHeader firstName={profile["firstName"]} lastName={profile["lastName"]} role={user["role"]}/>
             <nav className="main-nav">
                 <ul className="nav-links">
                     <li><Link to="/profile">Home</Link></li>

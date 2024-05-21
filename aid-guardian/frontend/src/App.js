@@ -5,50 +5,35 @@ import SignUpPage from "./SignUpPage";
 import ProfilePage from "./ProfilePage";
 import EmergencyPage from "./EmergencyPage";
 import './App.css';
-import {Component} from "react";
+import {AuthProvider, UserProvider} from "./Contexts";
 import PrivateRoute from "./PrivateRoute";
 
-class App extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isAuthenticated: false,
-            username: '',
-            password: '',
-            target: '',
-            messages: [],
-            accessToken: ''
-        }
-    }
-
-    setAuthenticated = (isAuthenticated) => {
-        this.setState({isAuthenticated});
-    };
-
-    render() {
-        const {isAuthenticated} = this.state;
-
+const App = () => {
         return (
             <div className="App">
+                <AuthProvider>
+                    <UserProvider>
                 <Router>
                     <Routes>
                         <Route path="/" element={<HomePage/>}/>
-                        {/*<Route path="/login" element={<LoginPage setAuthenticated={this.setAuthenticated}/>}/>*/}
                         <Route path="/login" element={<LoginPage/>}/>
                         <Route path="/signup" element={<SignUpPage/>}/>
-                        <Route path="/profile" element={<ProfilePage/>}/>
-                        <Route path="/report-emergency" element={<EmergencyPage/>}/>
-                        {/*<Route path="/profile" element={*/}
-                        {/*    <PrivateRoute isAuthenticated={isAuthenticated} element={<ProfilePage />}/>*/}
-                        {/*}/>*/}
-                        {/*<Route path="/report-emergency" element={*/}
-                        {/*    <PrivateRoute isAuthenticated={isAuthenticated} element={<EmergencyPage />}/>*/}
-                        {/*}/>*/}
+                        <Route path="/profile" element={
+                            <PrivateRoute>
+                                <ProfilePage />
+                            </PrivateRoute> }/>
+                        <Route path="/report-emergency" element={
+                            <PrivateRoute>
+                                <EmergencyPage />
+                            </PrivateRoute> }/>
+                        {/*<Route path="/profile" element={<ProfilePage/>}/>*/}
+                        {/*<Route path="/report-emergency" element={<EmergencyPage/>}/>*/}
                     </Routes>
                 </Router>
+                    </UserProvider>
+                </AuthProvider>
             </div>
         );
-    }
 }
 
 export default App;

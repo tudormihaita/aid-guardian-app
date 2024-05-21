@@ -16,7 +16,6 @@ body {
 .user-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     /*background-color: #be2821; !* Red *!*/
     /*background-color: #ffd782; !*  Orange *!*/
     background-color: #55b56a; /*verde*/
@@ -54,6 +53,7 @@ body {
 .user-details p {
     font-size: 14px;
     color: #000000;
+    text-align: left;
     /*color: #CCCCCC;*/
 }
 

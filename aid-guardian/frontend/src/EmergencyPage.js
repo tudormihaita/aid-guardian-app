@@ -4,9 +4,12 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect, useRef, useContext} from "react";
+import UserHeader from "./UserHeader";
+import {UserContext} from "./Contexts";
 
 const EmergencyPage = () => {
+    const { user, profile } = useContext(UserContext);
     const navigate = useNavigate();
     const [currentLocation, setCurrentLocation] = useState(null);
     const [useCurrentLocation, setUseCurrentLocation] = useState(true);
@@ -67,18 +70,11 @@ const EmergencyPage = () => {
         // TODO: implement form submission logic here
     }
 
+    if (!user || !profile) return null;
+
     return (
         <div>
-            <header className="user-header">
-                <div className="user-info">
-                    <img src="assets/shield.png" alt="Aid Guardian Logo" style={{ marginRight: '50px' }} />
-                    <img id="icon" src="assets/first_responder_icon.png" alt="Profile Picture" />
-                    <div className="user-details">
-                        <h2>John Doe</h2>
-                        <p>First Responder</p>
-                    </div>
-                </div>
-            </header>
+            <UserHeader firstName={profile["firstName"]} lastName={profile["lastName"]} role={user["role"]}/>
             <nav className="main-nav">
                 <ul className="nav-links">
                     <li><Link to="/profile">Home</Link></li>
