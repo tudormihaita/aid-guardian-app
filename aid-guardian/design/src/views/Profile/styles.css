@@ -1,0 +1,150 @@
+/* Resetare CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stiluri Globale */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    /*background-color: #f4f4e6; !* Gri deschis *!*/
+    color: #333333;
+}
+
+.user-header {
+    /*background-color: #be2821; !* Rosu *!*/
+    /*background-color: #ffd782; !*  portocaliu *!*/
+    background-color: #55b56a; /*verde*/
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+#icon{
+    width: 60px;
+    height: 60px;
+    border: black;
+}
+
+.user-details h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    /*color: #ffffff;*/
+    color: #000000;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #000000;
+    /*color: #CCCCCC;*/
+}
+
+.main-nav {
+    /*background-color: #ffd782; !*  portocaliu *!*/
+    background-color: #be2821; /* Rosu */;
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start; /* Aliniere de la stânga la dreapta */
+    list-style-type: none;
+}
+
+.nav-links li {
+    margin-right: 10px;
+}
+
+.nav-links li:not(:last-child) {
+    border-right: 2px solid #ffffff; /* Bară între butoane */
+    padding-right: 10px; /* Spațiu între bară și buton */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.nav-links li a:hover {
+    background-color: #ff725e;
+    color: #ffffff;
+}
+
+.main-nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+main {
+    padding: 50px;
+}
+
+.map-positioning {
+    height: 450px;
+    width: 800px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    margin: 0 auto; /* Centrare orizontală folosind margin: 0 auto; */
+    display: flex; /* Folosirea flexbox pentru a centra vertical */
+    justify-content: center; /* Centrare verticală */
+    align-items: center; /* Centrare verticală */
+    margin-bottom: 20px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+
+}
+
+.emergency-buttons {
+    text-align: center;
+}
+
+.emergency-buttons button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #be2821; /* Rosu */;
+    /*background-color:  #ffd782; !*  portocaliu *!*!;*/
+    color: #ffffff;
+    font-size: 16px;
+    margin-right: 10px;
+    cursor: pointer;
+}
+
+.emergency-buttons button:last-child {
+    margin-right: 0;
+}
+
+
+
+
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #eeeeee;
+    /*background-color: #f4f4e6; !* Gri deschis *!*/
+    background-color: #55b56a; /*verde*/
+    /*background-color:  #ffd782; !*  portocaliu *!*!;*/
+}

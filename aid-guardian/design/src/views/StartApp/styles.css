@@ -1,0 +1,74 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #eeeeee;
+}
+
+.logo img {
+    width: 120px; /* Ajustați dimensiunea logo-ului după necesități */
+}
+
+.auth-buttons .button {
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    /*background-color: #ffd782; !*  portocaliu *!*/
+    /*background-color: #55b56a; !*verde*/
+    background-color: #be2821; /*rosu*/
+    color: #ffffff; /* Text alb */
+}
+
+.auth-buttons .button:hover {
+    opacity: 0.8;
+}
+
+.intro {
+    text-align: center;
+    /*padding: 50px 20px;*/
+    padding: 253px 20px;
+    background-color: #f7f7f7; /* Gri deschis */
+}
+
+.intro h1 {
+    font-size: 36px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    font-size: 18px;
+    color: #666666;
+    line-height: 1.5;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #eeeeee;
+    /*background-color: #f4f4e6; !* Gri deschis *!*/
+    background-color: #55b56a; /*verde*/
+    /*background-color:  #ffd782; !*  portocaliu *!*!;*/
+}
+
+footer p {
+    font-size: 14px;
+    color: #666666;
+}

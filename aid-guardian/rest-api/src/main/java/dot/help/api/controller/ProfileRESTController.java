@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/aid-guardian/user-profiles")
 public class ProfileRESTController {
     private final ProfileRepository profileRepository;

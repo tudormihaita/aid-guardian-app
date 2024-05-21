@@ -66,4 +66,10 @@ public class PasswordEncoder {
         return hashedPassword;
     }
 
+    public static void main(String[] args) {
+        byte[] salt = getSalt();
+        String encoded = hashPassword("");
+        System.out.println(encoded);
+        System.out.println(encoded.length());
+    }
 }

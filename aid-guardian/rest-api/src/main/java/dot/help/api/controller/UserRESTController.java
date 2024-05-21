@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.stream.StreamSupport;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/aid-guardian/users")
 public class UserRESTController {
     private final UserRepository userRepository;
@@ -75,7 +76,7 @@ public class UserRESTController {
     ResponseEntity<?> logOut(@RequestBody User user) {
         log.traceEntry("Logging out user: " + user.getUsername());
 
-        // TODO: what should happend on logout?
+        // TODO: what should happen on logout?
         throw new UnsupportedOperationException("Not implemented yet");
     }
 

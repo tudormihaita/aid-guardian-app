@@ -13,4 +13,8 @@ public class CredentialChecker {
     public static boolean isUsername(String credential) {
         return isUsername.test(credential);
     }
+
+    public static void main(String[] args) {
+        System.out.println(isEmail("tudor.mihaita"));
+    }
 }
