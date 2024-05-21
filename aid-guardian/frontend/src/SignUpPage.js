@@ -18,10 +18,44 @@ const SignUpPage = () => {
     const [bloodGroup, setBloodGroup] = useState("A_POSITIVE");
     const [medicalHistory, setMedicalHistory] = useState("");
     const [certificationFile, setCertificationFile] = useState();
+    const [isFirstResponder, setIsFirstResponder] = useState(false);
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        navigate("/profile");
+        fetch("http://localhost:8080/register", {
+            method: 'POST',
+            body: JSON.stringify({
+                email: email,
+                username: username,
+                password: password,
+                confirmPassword: confirmPassword,
+                firstName: firstName,
+                lastName: lastName,
+                gender: gender,
+                dob: dob,
+                height: height,
+                weight: weight,
+                bloodGroup: bloodGroup,
+                medicalHistory: medicalHistory,
+                certificationFile: certificationFile,
+                isFirstResponder: isFirstResponder,
+            })
+        }).then(response => {
+            navigate("/profile");
+
+        })
+    }
+
+    const validateCertificate = (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append("certificate", certificationFile);
+        formData.append("name", `${lastName} ${firstName}`);
+        fetch("http://localhost:5000/certificate-recognition", {method: 'POST', body: formData}).then(response => {
+            response.json().then(data => {
+                setIsFirstResponder(data["is_valid"]);
+            })
+        })
     }
 
 
@@ -110,10 +144,9 @@ const SignUpPage = () => {
                     <label form="certification">Medical/First-aid Certification:</label>
                     <input type="file" id="certification" name="certification"
                            onChange={(e) => setCertificationFile(e.target.files[0])}/>
-                    <button id="validate-certificate" onClick={() => {
+                    <button id="validate-certificate" onClick={(event) => {
                         if (certificationFile) {
-                            // TODO: add logic for certificate validation
-                            alert("File uploaded successfully");
+                            validateCertificate(event)
                         }
                     }}>Validate</button>
                 </div>
