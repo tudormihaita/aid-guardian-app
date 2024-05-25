@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile - Aid Guardian</title>
+    <link rel="stylesheet" href="styles.css">
+    <script>
+        function confirmLogout(event) {
+            event.preventDefault(); // Prevent default redirection
+            if (confirm("Are you sure you want to logout?")) {
+                window.location.href = "../StartApp/StartApp-index.html"; // Redirect if confirmed
+            }
+        }
+    </script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+</head>
+<body>
+<header class="user-header">
+    <div class="user-info">
+        <img src="../images/shield.png" alt="Aid Guardian Logo" style="margin-right: 50px">
+        <img id="icon" src="../images/first_responder_icon.png" alt="Profile Picture">
+        <div class="user-details">
+            <h2>John Doe</h2>
+            <p>First Responder</p>
+        </div>
+    </div>
+</header>
+<nav class="main-nav">
+    <ul class="nav-links">
+        <li><a href="Profile-index.html">Home</a></li>
+        <li><a href="../EmergencyCall/EmergencyCall.html">Call 112</a></li>
+        <li><a href="../Guides/Guides-index.html">Guides</a></li>
+        <li><a href="../Score/Score-index.html">Your Score</a></li>
+        <li><a href="../Settings/Settings-index.html">Settings</a></li>
+        <li><a href="#" onclick="confirmLogout()">Logout</a></li>
+    </ul>
+</nav>
+<main>
+    <div class="map-positioning">
+<!--        <img src="../images/map.png" alt="Emergency Map" style="width: 100%; height: 100%;">-->
+        <div id="map" class="emergency-map">
+
+        </div>
+    </div>
+    <div class="emergency-buttons">
+        <button id="report-button">Report Emergency</button>
+        <button>Respond to Emergency</button>
+    </div>
+</main>
+<footer>
+    <p>Contact | Support</p>
+</footer>
+</body>
+<script>
+    document.getElementById('report-button').addEventListener('click', function() {
+        window.location.href = '../ReportEmergency/ReportEmergency.html';
+    });
+</script>
+<script>
+    const map = L.map('map');
+    // Initializes map
+
+    map.setView([51.505, -0.09], 13);
+    // Sets initial coordinates and zoom level
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', // Specify the Mapbox style ID
+        accessToken: 'pk.eyJ1Ijoicm9ja3kxMzNwYSIsImEiOiJjbHcyY3prYXEwbTVzMmxweXh2cjg1bmVtIn0.apvKY9k9AwrpEUWZ6w1sPw' // Replace with your Mapbox Access Token
+    }).addTo(map);
+
+    /*L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);*/
+
+    // Sets map data source and associates with map
+    let options = {
+        enableHighAccuracy: true,  // Enable high accuracy mode
+        timeout: 5000,             // Maximum time (in milliseconds) allowed for the position retrieval
+        maximumAge: 0              // Maximum age (in milliseconds) of a cached position to be considered valid
+    };
+    let marker, circle, zoomed;
+
+    navigator.geolocation.watchPosition(success, error,options);
+
+    function success(pos) {
+
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        //Removes old marker and circle
+        if (marker) {
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+        }
+
+        //Display the new marker and circle
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        //Initializing the zoom
+        if (!zoomed) {
+            zoomed = map.fitBounds(circle.getBounds());
+        }
+
+        //Update the map view to the current user location
+        map.setView([lat, lng]);
+
+    }
+    function error(err) {
+
+        if (err.code === 1) {
+            alert("Please allow access to your current location:");
+        } else {
+            alert("Location access revoked, please enable location tracking to use this feature.");
+        }
+
+    }
+</script>
+</html>
