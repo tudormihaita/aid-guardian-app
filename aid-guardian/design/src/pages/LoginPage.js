@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import { useNavigate } from 'react-router-dom';
-import './LoginPage.css';
-import {AuthContext, UserContext} from "./Contexts";
+import '../../../frontend/src/pages/Login/LoginPage.css';
+import {AuthContext, UserContext} from "../../../frontend/src/Contexts";
 
 const LoginPage = () => {
     const [credential, setCredential] = useState('');

@@ -3,9 +3,9 @@ import L from "leaflet";
 import "leaflet/dist/leaflet.css";
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import "./ProfilePage.css";
+import "../../../frontend/src/pages/Profile/ProfilePage.css";
 import {Link, useNavigate} from "react-router-dom";
-import {UserContext} from "./Contexts";
+import {UserContext} from "../../../frontend/src/Contexts";
 import UserHeader from "./UserHeader";
 
 

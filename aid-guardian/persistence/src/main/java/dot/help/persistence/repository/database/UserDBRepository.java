@@ -33,7 +33,8 @@ public class UserDBRepository extends AbstractDBRepository<Long, User> implement
             return user;
         }
         else if (role == UserRole.FIRST_RESPONDER) {
-            user = new FirstResponder(email, username, password);
+            boolean onDuty = resultSet.getBoolean("on_duty");
+            user = new FirstResponder(email, username, password, onDuty);
             user.setId(id);
             return user;
         }
@@ -72,12 +73,25 @@ public class UserDBRepository extends AbstractDBRepository<Long, User> implement
 
     @Override
     protected PreparedStatement updateStatement(Connection connection, User entity) throws SQLException {
-        PreparedStatement preparedStatement = connection.prepareStatement("UPDATE users SET email = ?, username = ?, password = ?, role = ? WHERE id_user = ?");
+        String sql = "UPDATE users SET email = ?, username = ?, password = ?, role = ?";
+        if (entity.getRole() == UserRole.FIRST_RESPONDER) {
+            sql += ", on_duty = ?";
+        }
+        sql += " WHERE id_user = ?";
+
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, entity.getEmail());
         preparedStatement.setString(2, entity.getUsername());
         preparedStatement.setString(3, entity.getPassword());
         preparedStatement.setString(4, entity.getRole().toString());
-        preparedStatement.setLong(5, entity.getId());
+
+        if (entity.getRole() == UserRole.FIRST_RESPONDER) {
+            preparedStatement.setBoolean(5, ((FirstResponder) entity).isOnDuty());
+            preparedStatement.setLong(6, entity.getId());
+        }
+        else {
+            preparedStatement.setLong(5, entity.getId());
+        }
 
         return preparedStatement;
     }

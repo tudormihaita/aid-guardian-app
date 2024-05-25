@@ -1,6 +1,8 @@
 package dot.help.api.controller;
 
+import dot.help.model.FirstResponder;
 import dot.help.model.User;
+import dot.help.model.UserRole;
 import dot.help.persistence.repository.UserRepository;
 import dot.help.persistence.utils.CredentialChecker;
 import dot.help.persistence.utils.PasswordEncoder;
@@ -78,6 +80,36 @@ public class UserRESTController {
 
         // TODO: what should happen on logout?
         throw new UnsupportedOperationException("Not implemented yet");
+    }
+
+    @PutMapping("/{id}")
+    ResponseEntity<?> toggleOnDutyStatus(@PathVariable Long id, @RequestParam("isOnDuty") boolean isOnDuty) {
+        log.traceEntry("Toggling on duty status for user with id: " + id);
+
+
+        Optional<User> user = userRepository.findOne(id);
+        if (user.isEmpty()) {
+            log.error("User with id " + id  + " not found");
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
+        if (user.get().getRole() != UserRole.FIRST_RESPONDER) {
+            log.error("User is not a first responder");
+            return ResponseEntity.badRequest().body("User is not a first responder");
+        }
+
+        FirstResponder firstResponder = (FirstResponder) user.get();
+        firstResponder.setOnDuty(isOnDuty);
+
+        Optional<User> updatedUser = userRepository.update(firstResponder);
+        if (updatedUser.isEmpty()) {
+            log.error("Failed to toggle on duty status for user: " + firstResponder.getUsername());
+            return ResponseEntity.badRequest().body("Failed to toggle on duty status for user");
+        }
+        else {
+            log.traceExit("Successfully toggled on duty status for user: " + firstResponder.getUsername());
+            return ResponseEntity.ok().body(updatedUser.get());
+        }
     }
 
     @GetMapping

@@ -11,7 +11,7 @@ public class FirstResponder extends User{
     }
 
     public FirstResponder(String email, String username, String password, boolean onDuty) {
-        super(email, username, password);
+        super(email, username, password, UserRole.FIRST_RESPONDER);
         this.onDuty = onDuty;
     }
 

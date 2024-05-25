@@ -1,4 +1,4 @@
-import './EmergencyPage.css'
+import '../../../frontend/src/pages/Emergency/EmergencyPage.css'
 import {Link, useNavigate} from "react-router-dom";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -6,7 +6,7 @@ import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import React, {useState, useEffect, useRef, useContext} from "react";
 import UserHeader from "./UserHeader";
-import {UserContext} from "./Contexts";
+import {UserContext} from "../../../frontend/src/Contexts";
 
 const EmergencyPage = () => {
     const { user, profile } = useContext(UserContext);
