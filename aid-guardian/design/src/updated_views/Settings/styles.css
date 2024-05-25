@@ -1,0 +1,174 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333333;
+}
+
+.user-header {
+    background-color: #55b56a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+#icon {
+    width: 60px;
+    height: 60px;
+}
+
+.user-details h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #000000;
+}
+
+.main-nav {
+    background-color: #be2821;
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+}
+
+.nav-links li {
+    margin-right: 10px;
+}
+
+.nav-links li:not(:last-child) {
+    border-right: 2px solid #ffffff;
+    padding-right: 10px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.nav-links li a:hover {
+    background-color: #ff725e;
+    color: #ffffff;
+}
+
+.main-nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+main {
+    padding: 50px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+.form-group-checkbox {
+    margin-bottom: 20px;
+    display: flex;
+}
+input[type="checkbox"]{
+    margin-right: 10px;
+    min-height: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select,
+textarea{
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+button[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+.settings-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.settings-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.disabled {
+    background-color: #ffe5ad; /*  portocaliu */;
+}
+
+.save-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #55b56a;
+    color: #ffffff;
+    font-size: 16px;
+    cursor: pointer;
+    align-self: center;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    border-top: 2px solid #eeeeee;
+    /*background-color: #f4f4e6; !* Gri deschis *!*/
+    background-color: #55b56a; /*verde*/
+    /*background-color:  #ffd782; !*  portocaliu *!*!;*/
+}

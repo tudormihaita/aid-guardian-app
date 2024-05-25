@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aid Guardian - Settings</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="user-header">
+  <div class="user-info">
+    <img src="../images/shield.png" alt="Aid Guardian Logo" style="margin-right: 50px">
+    <img id="icon" src="../images/first_responder_icon.png" alt="Profile Picture">
+    <div class="user-details">
+      <h2>John Doe</h2>
+      <p>First Responder</p>
+    </div>
+  </div>
+</header>
+<nav class="main-nav">
+  <ul class="nav-links">
+    <li><a href="../Profile/Profile-index.html">Home</a></li>
+    <li><a href="../EmergencyCall/EmergencyCall.html">Call 112</a></li>
+    <li><a href="../Guides/Guides-index.html">Guides</a></li>
+    <li><a href="../Score/Score-index.html">Your Score</a></li>
+    <li><a href="../Settings/Settings-index.html">Settings</a></li>
+    <li><a href="../StartApp/StartApp-index.html">Logout</a></li>
+  </ul>
+</nav>
+<main>
+
+  <!-- Emergency report form -->
+  <div class="emergency-report-container">
+    <h2>Report Emergency</h2>
+    <form class="emergency-report-form">
+      <div class="form-group">
+        <label for="emergency-description">Describe the emergency:</label>
+        <textarea id="emergency-description" name="emergency-description" rows="4"></textarea>
+      </div>
+      <div class="form-group-radio">
+        <label>What is the location of the emergency?</label>
+        <div>
+          <input type="radio" id="current-location" name="location" value="current">
+          <label for="current-location">Use my current location</label>
+        </div>
+        <div>
+          <input type="radio" id="other-location" name="location" value="other">
+          <label for="other-location">Use another location</label>
+        </div>
+      </div>
+      <div class="form-group" id="other-location-details" style="display: none;">
+        <label for="emergency-location">Enter location details:</label>
+        <textarea id="emergency-location" name="emergency-location" rows="2"></textarea>
+      </div>
+      <button type="submit" class="report-button">Report</button>
+    </form>
+  </div>
+</main>
+<footer>
+  <p>Contact | Support</p>
+</footer>
+<script>
+  // Script to toggle display of location details textarea based on radio button selection
+  document.addEventListener('DOMContentLoaded', function() {
+    var otherLocationRadio = document.getElementById('other-location');
+    var locationDetails = document.getElementById('other-location-details');
+
+    otherLocationRadio.addEventListener('change', function() {
+      if (otherLocationRadio.checked) {
+        locationDetails.style.display = 'block';
+      } else {
+        locationDetails.style.display = 'none';
+      }
+    });
+  });
+</script>
+</body>
+</html>
