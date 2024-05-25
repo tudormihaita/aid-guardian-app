@@ -13,15 +13,19 @@ body {
     color: #333333;
 }
 
+
 .user-header {
+    height: 10vh;
     /*background-color: #be2821; !* Rosu *!*/
     /*background-color: #ffd782; !*  portocaliu *!*/
     background-color: #55b56a; /*verde*/
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
 }
-
+.mainClass{
+    height: 77vh;
+}
 .user-info {
     display: flex;
     align-items: center;
@@ -55,6 +59,7 @@ body {
 }
 
 .main-nav {
+    height: 4vh;
     /*background-color: #ffd782; !*  portocaliu *!*/
     background-color: #be2821; /* Rosu */;
     padding: 10px 0;
@@ -141,6 +146,7 @@ main {
 
 
 footer {
+    height: 5vh;
     text-align: center;
     padding: 20px;
     border-top: 2px solid #eeeeee;

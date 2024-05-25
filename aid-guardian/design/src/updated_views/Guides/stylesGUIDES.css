@@ -17,14 +17,35 @@ header {
 .logo {
     height: 50px;
 }
-
+button{
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    margin: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #be2821;
+    color: #ffffff;
+}
 main {
-    max-width: 800px;
+    border: 2px solid #be2821;
+
+    width: 800px;
+    height: 600px;
     margin: 20px auto;
-    padding: 20px;
+    padding: 2px;
     background-color: #fff;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+}
+main > div:first-child{
+    border: 2px solid darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 596px;
+    background-color: #fff;
+    border-radius: 25px;
 }
 
 h1 {
@@ -40,4 +61,15 @@ h2 {
 p {
     line-height: 1.6;
     margin: 10px 0;
+}
+
+.cpr-images{
+    position: relative;
+    height: 400px;
+    width: 400px;
+    margin-top: 40px;
+}
+ol.carousel{
+    display: flex;
+    justify-content: center;
 }

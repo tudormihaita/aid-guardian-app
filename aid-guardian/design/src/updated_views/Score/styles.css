@@ -16,10 +16,15 @@ body {
 .user-header {
     /*background-color: #be2821; !* Rosu *!*/
     /*background-color: #ffd782; !*  portocaliu *!*/
+    height: 10vh;
     background-color: #55b56a; /*verde*/
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 35px;
+}
+.mainClass
+{
+    height: 77vh;
 }
 
 .user-info {
@@ -95,6 +100,10 @@ body {
 
 main {
     padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .map-container {
@@ -161,11 +170,41 @@ main {
     color: #fadb14; /* culoare galbenă pentru stele umplute */
 }
 
+.score-ranking {
+    padding: 20px;
+    margin: 20px;
+    border-radius: 16px;
+    background-color: #d3d3d3;
+    display: flex;
+    flex-direction: row;
+}
+
 footer {
+    height: 5vh;
     text-align: center;
     padding: 20px;
     border-top: 2px solid #eeeeee;
     /*background-color: #f4f4e6; !* Gri deschis *!*/
     background-color: #55b56a; /*verde*/
     /*background-color:  #ffd782; !*  portocaliu *!*!;*/
+}
+#staff-volunteer-level-img
+{
+    filter: grayscale(100%);
+
+}
+#aed-level-img
+{
+    filter: grayscale(100%);
+}
+.tooltip {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    pointer-events: none; /* Prevent the tooltip from interfering with mouse events */
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+    z-index: 1000; /* Ensure the tooltip appears above other elements */
 }

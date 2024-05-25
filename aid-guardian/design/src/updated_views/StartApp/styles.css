@@ -22,7 +22,9 @@ header {
 .logo img {
     width: 120px; /* Ajustați dimensiunea logo-ului după necesități */
 }
-
+.headerClass{
+    height: 15vh;
+}
 .auth-buttons .button {
     text-decoration: none;
     padding: 10px 20px;
@@ -42,6 +44,7 @@ header {
 }
 
 .intro {
+    height: 80vh;
     text-align: center;
     /*padding: 50px 20px;*/
     padding: 253px 20px;
@@ -61,6 +64,7 @@ header {
 }
 
 footer {
+    height: 5vh;
     text-align: center;
     padding: 20px;
     border-top: 2px solid #eeeeee;

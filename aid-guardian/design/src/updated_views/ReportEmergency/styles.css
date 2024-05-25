@@ -13,6 +13,7 @@ body {
 }
 
 .user-header {
+    height: 10vh;
     background-color: #55b56a;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 15px;
@@ -49,6 +50,7 @@ body {
 }
 
 .main-nav {
+    height: 4vh;
     background-color: #be2821;
     padding: 10px 0;
 }
@@ -87,6 +89,7 @@ body {
 }
 
 main {
+    height: 77vh;
     padding: 50px;
 }
 
@@ -166,9 +169,7 @@ button[type="submit"]:hover {
 /* Adăugați următoarele stiluri pentru footer */
 
 footer {
-    position: fixed; /* Fixați footerul */
-    left: 0;
-    bottom: 0;
+    height: 5vh;
     width: 100%; /* Lățimea la 100% pentru a umple întreaga lățime a ecranului */
     text-align: center;
     padding: 20px;

@@ -7,6 +7,10 @@
 
 /* Global Styles */
 body {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     font-family: Arial, sans-serif;
     background-color: #f7f7f7;
     color: #333333;
@@ -16,7 +20,7 @@ body {
     background-color: #55b56a;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .user-info {
@@ -49,6 +53,7 @@ body {
 }
 
 .main-nav {
+    height: 4vh;
     background-color: #be2821;
     padding: 10px 0;
 }
@@ -88,6 +93,11 @@ body {
 
 main {
     padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
 }
 
 .form-group {
@@ -165,6 +175,7 @@ button[type="submit"]:hover {
 }
 
 footer {
+    height: 5vh;
     text-align: center;
     padding: 20px;
     border-top: 2px solid #eeeeee;
@@ -172,3 +183,129 @@ footer {
     background-color: #55b56a; /*verde*/
     /*background-color:  #ffd782; !*  portocaliu *!*!;*/
 }
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
+}
+
+.account-settings {
+    background-color: lightgrey;
+    color: #000000;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.header-tabs {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: black;
+    background-color: #55b56a;
+    padding: 10px;
+}
+
+.header-tabs h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    font-size: 24px;
+    cursor: pointer;
+    color: #000;
+}
+
+.tabs {
+    display: flex;
+    background-color: #333;
+}
+
+.tab {
+    flex: 1;
+    padding: 10px;
+    cursor: pointer;
+    background: white;
+    border: none;
+    color: black;
+}
+
+.tab.active {
+    background-color: lightgrey;
+    color: #000000;
+}
+
+.tab-content {
+    padding: 20px;
+}
+
+.tab-content.active {
+    display: block;
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+/*.form-group input {*/
+/*    width: 100%;*/
+/*    padding: 8px;*/
+/*    border: 1px solid #555;*/
+/*    border-radius: 4px;*/
+/*    background-color: #333;*/
+/*    color: #ffffff;*/
+/*}*/
+
+/*.form-group input:disabled {*/
+/*    background-color: #444;*/
+/*}*/
+
+.profile-picture {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.remove-picture {
+    background: none;
+    border: none;
+    color: lightgrey;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.save-btn, .cancel-btn {
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+/*.save-btn {*/
+/*    background-color: lightgrey;*/
+/*    color: #000;*/
+/*}*/
+

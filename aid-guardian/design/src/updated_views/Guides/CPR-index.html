@@ -11,23 +11,80 @@
     <img src="../images/shield.png" alt="Aid Guardian Logo" class="logo">
 </header>
 <main>
-    <h1>CPR Instructions</h1>
-    <p>There are two main steps in CPR: Applying chest compressions and then providing breaths.</p>
-    <h2>Apply 30 chest compressions:</h2>
-    <p>The first aider should kneel next to the person who is injured. They should be lying on their back.</p>
-    <p>For adults, place the heel of one hand in the middle of the chest. Place your other hand on top of the first hand and interlace the fingers.</p>
-    <p>Push the chest down about 1.5 to 2 inches. If the person is a child aged between 1 and 8 years, compress to a maximum of 1.5 inches with one hand. Let go, and wait for the chest to come back up completely before repeating. Your elbows must remain straight throughout.</p>
-    <p>Push the breastbone up and down to a depth of about 5 cm about 30 times, at a pulse rate of 100 beats per minute.</p>
-    <h2>Provide two breaths:</h2>
-    <p>Make sure the airway is open, and pinch the nose so it closes.</p>
-    <p>Gently raise the chin upwards with two fingers of your other hand.</p>
-    <p>Take a deep breath, seal your mouth over that of the person with the injury, and exhale into the airway.</p>
-    <p>You should see the chest rise and fall.</p>
-    <p>To get another breath, lift your head and breathe in deeply. Perform steps 1, 2, 3, and 4 again.</p>
-    <p>Repeat the 30 chest compressions followed by the two breaths about five times, and then check for normal breathing. If they are not breathing normally, carry on performing CPR. If breathing restarts as normal, stay with the injured person until help arrives.</p>
-    <p>Chest compressions alone can be lifesavers – the crucial factor is time. Make sure you respond quickly.</p>
-    <h4>It is important not to let your hands bounce when performing chest compressions. Make sure the heel of your hand is touching the chest throughout chest compressions.</h4>
-    <p>You might hear some pops and snaps during chest compressions. These are normal, so do not stop.</p>
+    <div>
+    <ol class="carousel">
+        <li class="carousel-item">
+                    <img class="cpr-images" src="cpr-images/cpr-image1.jpeg" alt="Image 1">
+
+        </li>
+        <li class="carousel-item">
+                    <img class="cpr-images" src="cpr-images/cpr-image2.jpeg" alt="Image 2">
+
+        </li>
+        <li class="carousel-item">
+                    <img class="cpr-images" src="cpr-images/cpr-image3.jpeg" alt="Image 3">
+
+        </li>
+        <li class="carousel-item">
+            <img class="cpr-images" src="cpr-images/cpr-image4.jpeg" alt="Image 4">
+
+        </li>
+        <li class="carousel-item">
+            <img class="cpr-images" src="cpr-images/cpr-image5.jpeg" alt="Image 5">
+
+        </li>
+        <li class="carousel-item">
+            <img class="cpr-images" src="cpr-images/cpr-image6.jpeg" alt="Image 6">
+
+        </li>
+    </ol>
+    <div style="display: flex;flex-direction: row;justify-content: space-between">
+        <button id="prevBtn" style="background-color: #55b56a">Previous</button>
+        <button id="nextBtn" style="background-color: #ff725e">Next</button>
+    </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const carouselItems = document.querySelectorAll('.carousel li');
+            let currentIndex = 0;
+
+            function showItem(index) {
+                carouselItems.forEach((item, i) => {
+                    if (i === index) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+
+                });
+            }
+
+            function nextItem() {
+                if (currentIndex < carouselItems.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                showItem(currentIndex);
+            }
+
+            function prevItem() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = carouselItems.length - 1;
+                }
+                showItem(currentIndex);
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', nextItem);
+            document.getElementById('prevBtn').addEventListener('click', prevItem);
+
+            showItem(currentIndex); // Afisare initiala a primului element
+        });
+    </script>
+
 </main>
 </body>
 </html>
