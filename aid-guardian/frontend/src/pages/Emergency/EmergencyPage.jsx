@@ -3,13 +3,13 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import React, {useState, useEffect, useRef, useContext} from "react";
-import {UserContext} from "../../Contexts";
+import React, {useState, useEffect, useRef } from "react";
 import UserHeader from "../../components/UserHeader";
 import './EmergencyPage.css';
+import {useData} from "../../contexts/DataContext";
 
 const EmergencyPage = () => {
-    const { user, profile } = useContext(UserContext);
+    const { user, profile } = useData();
     const navigate = useNavigate();
     const [currentLocation, setCurrentLocation] = useState(null);
     const [useCurrentLocation, setUseCurrentLocation] = useState(true);

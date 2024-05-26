@@ -1,12 +1,14 @@
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import './App.css';
-import {AuthProvider, SocketProvider, UserProvider} from "./Contexts";
 import HomePage from "./pages/Home/HomePage";
 import LoginPage from "./pages/Login/LoginPage";
 import SignUpPage from "./pages/SignUp/SignUpPage";
 import EmergencyPage from "./pages/Emergency/EmergencyPage";
 import ProfilePage from "./pages/Profile/ProfilePage";
 import PrivateRoute from "./components/PrivateRoute";
+import {AuthProvider} from "./contexts/AuthContext";
+import {UserProvider} from "./contexts/DataContext";
+import {SocketProvider} from "./contexts/ConnectionContext";
 
 const App = () => {
         return (

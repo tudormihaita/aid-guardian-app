@@ -1,7 +1,9 @@
 import React, {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import {useAuth, useSocket, useUserData} from "../../Contexts";
+import {useAuth} from "../../contexts/AuthContext";
+import {useData} from "../../contexts/DataContext";
+import {useSocket} from "../../contexts/ConnectionContext";
 
 const LoginPage = () => {
     const [credential, setCredential] = useState('');
@@ -9,7 +11,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const {setIsAuthenticated, setUsername, setAccessToken } = useAuth();
-    const {setUser, setProfile } = useUserData();
+    const {setUser, setProfile } = useData();
     const { initializeConnection } = useSocket();
 
     const handleLogin = () => {

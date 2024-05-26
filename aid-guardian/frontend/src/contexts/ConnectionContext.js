@@ -1,53 +1,8 @@
 import React, {createContext, useContext, useEffect, useState} from "react";
 import io from "socket.io-client";
 
-export const AuthContext = createContext();
-export const useAuth = () => useContext(AuthContext);
-export const UserContext = createContext();
-export const useUserData = () => useContext(UserContext);
 export const SocketContext = createContext();
 export const useSocket = () => useContext(SocketContext);
-
-export const AuthProvider = ({children}) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [username, setUsername] = useState('');
-    const [target, setTarget] = useState('');
-    const [messages, setMessages] = useState([]);
-    const [accessToken, setAccessToken] = useState('');
-
-    return(
-        <AuthContext.Provider value={{
-            isAuthenticated,
-            setIsAuthenticated,
-            username,
-            setUsername,
-            target,
-            setTarget,
-            messages,
-            setMessages,
-            accessToken,
-            setAccessToken
-        }}>
-            {children}
-        </AuthContext.Provider>
-    );
-}
-
-export const UserProvider = ({children}) => {
-    const [user, setUser] = useState(null);
-    const [profile, setProfile] = useState(null);
-
-    return(
-        <UserContext.Provider value={{
-            user,
-            setUser,
-            profile,
-            setProfile
-        }}>
-            {children}
-        </UserContext.Provider>
-    );
-}
 
 export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null);
@@ -98,6 +53,7 @@ export const SocketProvider = ({children}) => {
     const initializeConnection = () => {
         if( socket && !socket.connected) {
             socket.connect();
+            setIsConnected(true);
         }
     };
 

@@ -5,14 +5,15 @@ import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import {Link, useNavigate} from "react-router-dom";
 import "./ProfilePage.css";
-import {useSocket, useUserData} from "../../Contexts";
 import UserHeader from "../../components/UserHeader";
+import {useSocket} from "../../contexts/ConnectionContext";
+import {useData} from "../../contexts/DataContext";
 
 
 const ProfilePage = () => {
     const navigate = useNavigate();
 
-    const { user, setUser, profile } = useUserData();
+    const { user, setUser, profile } = useData();
     const { reportEmergency, subscribeToEmergencyReported } = useSocket();
 
     const mapRef = useRef(null);
