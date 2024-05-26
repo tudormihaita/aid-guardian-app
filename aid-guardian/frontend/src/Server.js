@@ -1,18 +1,17 @@
+import http from 'http';
+import express from 'express';
+import {Server} from "socket.io";
 
-const express = require('express');
-const { Server } = require('socket.io');
-const http = require('http');
-const cors = require('cors');
-
+const SERVER_PORT = 4040;
 const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server);
 app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('Access-Control-Allow-Origin', ['http://localhost:3000', 'http://localhost:5173']);
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
     res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type');
-    res.setHeader('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
     next();
 });
 
@@ -25,11 +24,16 @@ io.on('connection', (socket) => {
 
     socket.on('report-emergency', (data) => {
         console.log('Emergency reported:', data);
-        io.emit('emergency-reported', data);
+        socket.broadcast.emit('emergency-reported', data);
+    });
+
+    socket.on('respond-to-emergency', (data) => {
+        console.log('Emergency responded:', data);
+        socket.broadcast.emit('emergency-responded', data);
     });
 });
 
-server.listen(4040, () => {
-    console.log('Socket server listening on *:4040');
+server.listen(SERVER_PORT, () => {
+    console.log(`Socket server listening on *:${SERVER_PORT}`);
 });
 

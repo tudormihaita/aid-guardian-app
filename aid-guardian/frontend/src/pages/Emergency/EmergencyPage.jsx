@@ -3,17 +3,21 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import React, {useState, useEffect, useRef } from "react";
+import {useState, useEffect, useRef } from "react";
 import UserHeader from "../../components/UserHeader";
+import {useData} from "../../contexts/DataContext.jsx";
+import {useSocket} from "../../contexts/ConnectionContext.jsx";
 import './EmergencyPage.css';
-import {useData} from "../../contexts/DataContext";
 
 const EmergencyPage = () => {
-    const { user, profile } = useData();
     const navigate = useNavigate();
+
+    const { user, profile } = useData();
+    const {reportEmergency, subscribeToEmergencyResponded, unsubscribeFromEmergencyResponded } = useSocket();
+
     const [currentLocation, setCurrentLocation] = useState(null);
-    const [useCurrentLocation, setUseCurrentLocation] = useState(true);
     const mapRef = useRef(null);
+
 
     const confirmLogout = (event) => {
         event.preventDefault();
@@ -23,11 +27,31 @@ const EmergencyPage = () => {
         }
     };
 
-    const handleLocationChange = (event) => {
-        setUseCurrentLocation(event.target.value === 'current');
+    const handleReportEmergency = (event) => {
+        event.preventDefault();
+        const description = event.target['emergency-description'].value;
+
+        console.log('Emergency Description:', description);
+        console.log('Emergency Location:', currentLocation);
+
+        const emergencyData = {
+            "reporter": user.id,
+            "latitude": currentLocation.latitude,
+            "longitude": currentLocation.longitude,
+            "description": description
+        };
+        reportEmergency(emergencyData);
+    };
+
+    const handleEmergencyResponded = (data) => {
+        console.log("Emergency Responded:", data);
+        alert("EMERGENCY RESPONDED");
     }
 
     useEffect(() => {
+        // Subscribe to emergency response events
+        subscribeToEmergencyResponded(handleEmergencyResponded);
+
         if (!mapRef.current) {
             mapRef.current = L.map('map').setView([51.505, -0.09], 13);
 
@@ -55,20 +79,11 @@ const EmergencyPage = () => {
                 }
             );
         }
-    }, []);
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        const description = event.target['emergency-description'].value;
-        const location = useCurrentLocation
-            ? `Lat: ${currentLocation.latitude}, Lng: ${currentLocation.longitude}`
-            : event.target.elements['emergency-location'].value;
-
-        console.log('Emergency Description:', description);
-        console.log('Emergency Location:', location);
-
-        // TODO: implement form submission logic here
-    }
+        return () => {
+            unsubscribeFromEmergencyResponded();
+        }
+    }, [subscribeToEmergencyResponded, unsubscribeFromEmergencyResponded]);
 
     if (!user || !profile) return null;
 
@@ -87,42 +102,14 @@ const EmergencyPage = () => {
             <main>
                 <div className="emergency-report-container">
                     <h2>Report Emergency</h2>
-                    <form className="emergency-report-form" onSubmit={handleSubmit}>
+                    <form className="emergency-report-form" onSubmit={handleReportEmergency}>
                         <div className="form-group">
                             <label htmlFor="emergency-description">Describe the emergency:</label>
                             <textarea id="emergency-description" name="emergency-description" rows="4"></textarea>
                         </div>
-                        <div className="form-group-radio">
-                            <label>What is the location of the emergency?</label>
-                            <div>
-                                <input
-                                    type="radio"
-                                    id="current-location"
-                                    name="location"
-                                    value="current"
-                                    checked={useCurrentLocation}
-                                    onChange={handleLocationChange}
-                                />
-                                <label htmlFor="current-location">Use my current location</label>
-                            </div>
-                            <div>
-                                <input
-                                    type="radio"
-                                    id="other-location"
-                                    name="location"
-                                    value="other"
-                                    checked={!useCurrentLocation}
-                                    onChange={handleLocationChange}
-                                />
-                                <label htmlFor="other-location">Use another location</label>
-                            </div>
+                        <div className="emergency-report-details">
+                            <label>Emergency details</label>
                         </div>
-                        {!useCurrentLocation && (
-                            <div className="form-group" id="other-location-details">
-                                <label htmlFor="emergency-location">Enter location details:</label>
-                                <textarea id="emergency-location" name="emergency-location" rows="2"></textarea>
-                            </div>
-                        )}
                         <button type="submit" className="report-button">Report</button>
                     </form>
                 </div>

@@ -193,11 +193,11 @@ footer {
     flex-direction: column;
 }
 
-.form-group-radio {
+.emergency-report-details {
     margin-bottom: 5px;
 }
 
-.form-group-radio label {
+.emergency-report-details label {
     display: inline-block;
     margin-right: 10px;
 }

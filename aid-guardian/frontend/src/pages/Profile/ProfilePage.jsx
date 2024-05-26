@@ -1,24 +1,32 @@
-import React, {useEffect, useRef, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import L from "leaflet";
+import 'leaflet-routing-machine';
 import "leaflet/dist/leaflet.css";
+import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
 import {Link, useNavigate} from "react-router-dom";
 import "./ProfilePage.css";
 import UserHeader from "../../components/UserHeader";
-import {useSocket} from "../../contexts/ConnectionContext";
-import {useData} from "../../contexts/DataContext";
+import {useSocket} from "../../contexts/ConnectionContext.jsx";
+import {useData} from "../../contexts/DataContext.jsx";
+import EmergencyNotification from "../../components/EmergencyNotification.jsx";
 
 
 const ProfilePage = () => {
     const navigate = useNavigate();
 
     const { user, setUser, profile } = useData();
-    const { reportEmergency, subscribeToEmergencyReported } = useSocket();
+    const [isOnDuty, setIsOnDuty] = useState(!!(user && user.onDuty));
+
+    const { respondToEmergency, subscribeToEmergencyReported, unsubscribeFromEmergencyReported } = useSocket();
+    const [emergencyNotification, setEmergencyNotification] = useState(false);
+    const [emergencyDetails, setEmergencyDetails] = useState(null);
 
     const mapRef = useRef(null);
-    const [location, setLocation] = useState(null);
-    const [isOnDuty, setIsOnDuty] = useState(!!(user && user.onDuty));
+    const [currentLocation, setCurrentLocation] = useState(null);
+    const routeControlRef = useRef(null);
+
 
 
     const toggleDutyStatus = async () => {
@@ -42,11 +50,25 @@ const ProfilePage = () => {
         }
     };
 
+    const getPosition = async () => {
+        try {
+            const position = await new Promise((resolve, reject) => {
+                navigator.geolocation.getCurrentPosition(resolve, reject);
+            });
+            const { latitude, longitude } = position.coords;
+            setCurrentLocation({ latitude, longitude });
+            return { latitude, longitude };
+        } catch (error) {
+            console.error('Error getting location:', error);
+            throw error;
+        }
+    };
+
     const confirmLogout = (event) => {
         event.preventDefault();
         if (window.confirm("Are you sure you want to logout?")) {
             if (isOnDuty) {
-                toggleDutyStatus().then(r => {
+                toggleDutyStatus().then(() => {
                     console.log('Duty status set to inactive before logging out');
                 })
             }
@@ -55,19 +77,62 @@ const ProfilePage = () => {
         }
     };
 
-    const handleEmergencyReported = (data) => {
-        console.log("Emergency reported:", data);
-        alert("EMERGENCY REPORTED");
+    const handleEmergencyReported = async (data) => {
+        console.log("Emergency Reported:", data);
+        setEmergencyDetails(data.description);
+        setEmergencyNotification(true);
+
+        if (currentLocation && mapRef.current) {
+            const { latitude, longitude } = await getPosition();
+            console.log('Current Location:', latitude, longitude);
+
+            const markerIcon = L.icon({
+                iconUrl: icon,
+                shadowUrl: iconShadow,
+                iconAnchor: [12, 41]
+            });
+            L.marker([latitude, longitude], {icon: markerIcon}).addTo(mapRef.current);
+
+            routeControlRef.current = L.Routing.control({
+                waypoints: [
+                    L.latLng(latitude, longitude),
+                    L.latLng(data.latitude, data.longitude)
+                    // L.latLng(46.66, 23.62)
+                ],
+                serviceUrl: 'http://router.project-osrm.org/route/v1',
+                routeWhileDragging: true,
+                showAlternatives: false,
+                show: false,
+                lineOptions: {
+                    styles: [{color: '#3186cc', opacity: 0.7, weight: 5}]
+                }
+            }).addTo(mapRef.current);
+
+
+            mapRef.current.flyTo([data.latitude, data.longitude], 15);
+            // mapRef.current.flyTo([46.66, 23.62], 15);
+
+        }
     }
 
-    const handleReportEmergency = () => {
-        const emergencyData = {
-            "userId": user.id,
-            "latitude": location.getCenter().lat,
-            "longitude": location.getCenter().lng
-        };
-        reportEmergency(emergencyData);
-    };
+    const handleAcceptEmergency = () => {
+        console.log('Emergency Accepted');
+        setEmergencyNotification(false);
+        respondToEmergency({
+            responder: user.id
+        });
+    }
+
+    const handleIgnoreEmergency = async () => {
+        console.log('Emergency Ignored');
+        const { latitude, longitude } = await getPosition();
+        mapRef.current.flyTo([latitude, longitude], 15);
+
+        setEmergencyNotification(false);
+        if (routeControlRef.current) {
+            mapRef.current.removeControl(routeControlRef.current);
+        }
+    }
 
     useEffect(() => {
         // Assure user is logged in
@@ -80,71 +145,47 @@ const ProfilePage = () => {
         subscribeToEmergencyReported(handleEmergencyReported);
 
         // Initialize map location
-        if (location) return;
+        if (!mapRef.current) {
+            mapRef.current = L.map('map').setView([51.505, -0.09], 13);
 
-        let container = L.DomUtil.get('map');
-        if(container != null){
-            container._leaflet_id = null;
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+                id: 'mapbox/streets-v11',
+                accessToken: 'pk.eyJ1Ijoicm9ja3kxMzNwYSIsImEiOiJjbHcyY3prYXEwbTVzMmxweXh2cjg1bmVtIn0.apvKY9k9AwrpEUWZ6w1sPw'
+            }).addTo(mapRef.current);
+
+            getPosition().then(
+                (position) => {
+                    const { latitude: lat, longitude: lng } = position;
+                    setCurrentLocation({ lat, lng });
+
+                    const markerIcon = L.icon({
+                        iconUrl: icon,
+                        shadowUrl: iconShadow,
+                        iconAnchor: [12, 41]
+                    })
+
+                    let circle = L.circle([lat, lng], {
+                        color: 'blue',
+                        fillColor: '#3186cc',
+                        fillOpacity: 0.5,
+                    }).addTo(mapRef.current);
+                    L.marker([lat, lng], {icon: markerIcon}).addTo(mapRef.current);
+                    mapRef.current.setView([lat, lng], 13);
+                    mapRef.current.fitBounds(circle.getBounds());
+                },
+                (error) => {
+                    console.error('Error getting location: ', error);
+                    alert('Error getting location. Please allow location access.');
+                }
+            );
         }
 
-        const map = L.map(mapRef.current).setView([51.505, -0.09], 13);
-        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-            attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
-            maxZoom: 18,
-            id: 'mapbox/streets-v11',
-            accessToken: 'pk.eyJ1Ijoicm9ja3kxMzNwYSIsImEiOiJjbHcyY3prYXEwbTVzMmxweXh2cjg1bmVtIn0.apvKY9k9AwrpEUWZ6w1sPw'
-        }).addTo(map);
+        return () => {
+            unsubscribeFromEmergencyReported();
+        }
 
-        const options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-
-        let marker, circle, zoomed;
-        navigator.geolocation.watchPosition((pos) => {
-            const {latitude: lat, longitude: lng, accuracy} = pos.coords;
-
-            if(marker) {
-                map.removeLayer(marker);
-                map.removeLayer(circle);
-            }
-
-            let defaultIcon = L.icon({
-                iconUrl: icon,
-                shadowUrl: iconShadow,
-                iconAnchor: [12, 41]
-            });
-
-            marker = L.marker([lat, lng], {icon: defaultIcon}).addTo(map);
-            circle = L.circle([lat, lng], {
-                color: 'blue',
-                fillColor: '#3186cc',
-                fillOpacity: 0.5,
-                radius: accuracy
-            }).addTo(map);
-
-            if (!zoomed) {
-                zoomed = map.fitBounds(circle.getBounds());
-            }
-
-            // Optional: Adapt marker position based on map zoom
-            // map.on('zoomend', () => {
-            //     marker.setLatLng(map.getCenter());
-            // });
-
-            map.setView([lat, lng]);
-        }, (err) => {
-            if (err.code === 1) {
-                alert("Please allow access to your current location:");
-            }
-            else {
-                alert("Location access revoked, please enable location tracking to use the application emergency features.");
-            }
-        }, options);
-
-        setLocation(map);
-    }, [location, navigate, user]);
+    }, [currentLocation, navigate, subscribeToEmergencyReported, unsubscribeFromEmergencyReported, user]);
 
     if (!user || !profile) return null;
 
@@ -162,12 +203,10 @@ const ProfilePage = () => {
             </nav>
             <main>
                 <div className="map-positioning">
-                    <div id="map" ref={mapRef} className="emergency-map"></div>
+                    <div id="map"></div>
                 </div>
                 <div className="emergency-buttons">
-                    <button id="report-button" onClick={handleReportEmergency
-                        //() => navigate("/report-emergency" )
-                        }>
+                    <button id="report-button" onClick={() => navigate("/report-emergency" )}>
                         Report Emergency
                     </button>
                     <button>Respond to Emergency</button>
@@ -190,6 +229,9 @@ const ProfilePage = () => {
                     </div>
                 </div> )}
                 </div>
+                { emergencyNotification && (
+                    <EmergencyNotification details={emergencyDetails} onIgnore={handleIgnoreEmergency} onAccept={handleAcceptEmergency}/>
+                )}
             </main>
             <footer>
                 <p>Contact | Support</p>

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import {useState} from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
-import {useAuth} from "../../contexts/AuthContext";
-import {useData} from "../../contexts/DataContext";
-import {useSocket} from "../../contexts/ConnectionContext";
+import {useAuth} from "../../contexts/AuthContext.jsx";
+import {useData} from "../../contexts/DataContext.jsx";
+import {useSocket} from "../../contexts/ConnectionContext.jsx";
+
 
 const LoginPage = () => {
     const [credential, setCredential] = useState('');
@@ -32,13 +33,10 @@ const LoginPage = () => {
                 "password": password
             })
         }).then(response => {
-            if (response.status === 401) {
-                alert('Invalid login credentials!');
-            } else if (response.status === 200) {
-                alert('Login successful!');
+           if (response.status === 200) {
                 return response.json();
             } else {
-                alert('An error occurred while trying to log in your account, please try again later.');
+                alert('Invalid login credentials, please verify and try again.');
             }
         }).then(userData => {
             console.log(userData);

@@ -1,4 +1,4 @@
-import '../../../frontend/src/pages/SignUp/SignUpPage.css';
+import '../../../frontend/src/pages/Register/SignUpPage.css';
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
 
