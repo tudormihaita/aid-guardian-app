@@ -11,7 +11,7 @@ const LoginPage = () => {
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
 
-    const {setIsAuthenticated, setUsername, setAccessToken } = useAuth();
+    const { setToken } = useAuth();
     const {setUser, setProfile } = useData();
     const { initializeConnection } = useSocket();
 
@@ -40,15 +40,16 @@ const LoginPage = () => {
             }
         }).then(userData => {
             console.log(userData);
-            localStorage.setItem('user', JSON.stringify(userData));
 
-            setIsAuthenticated(true);
-            setUsername(userData.username);
-            setAccessToken(userData.accessToken);
-            setUser(userData);
+            const { authenticatedUser, accessToken } = userData;
+            sessionStorage.setItem('user', JSON.stringify(userData));
+            sessionStorage.setItem('token', accessToken);
+
+            setToken(userData.accessToken);
+            setUser(authenticatedUser);
             initializeConnection();
 
-            return userData;
+            return authenticatedUser;
         }).then(data => {
             return fetch("http://localhost:8080/aid-guardian/user-profiles/" + data.id, {
                 method: 'GET',
@@ -65,10 +66,11 @@ const LoginPage = () => {
             })
         }).then(profileData => {
             console.log(profileData);
-            localStorage.setItem('profile', JSON.stringify(profileData));
+
+            sessionStorage.setItem('profile', JSON.stringify(profileData));
 
             setProfile(profileData);
-            navigate('/profile');
+            navigate('/profile', {replace: true});
         }).catch(error => {
             console.log("Error on fetching login request: " + error);
         });

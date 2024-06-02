@@ -1,4 +1,4 @@
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import icon from "leaflet/dist/images/marker-icon.png";
@@ -8,12 +8,19 @@ import UserHeader from "../../components/UserHeader";
 import {useData} from "../../contexts/DataContext.jsx";
 import {useSocket} from "../../contexts/ConnectionContext.jsx";
 import './EmergencyPage.css';
+import UserNavbar from "../../components/UserNavbar.jsx";
+import {useAuth} from "../../contexts/AuthContext.jsx";
+import EmergencyResponseNotification from "../../components/EmergencyResponseNotification.jsx";
 
 const EmergencyPage = () => {
     const navigate = useNavigate();
 
     const { user, profile } = useData();
+    const { setToken } = useAuth();
+
     const {reportEmergency, subscribeToEmergencyResponded, unsubscribeFromEmergencyResponded } = useSocket();
+    const [emergencyNotification, setEmergencyNotification] = useState(false);
+    const [emergencyData, setEmegenyData] = useState(null);
 
     const [currentLocation, setCurrentLocation] = useState(null);
     const mapRef = useRef(null);
@@ -22,8 +29,8 @@ const EmergencyPage = () => {
     const confirmLogout = (event) => {
         event.preventDefault();
         if (window.confirm("Are you sure you want to logout?")) {
-            // TODO: Implement logout logic
-            navigate("/");
+            setToken(null);
+            navigate("/", { replace: true });
         }
     };
 
@@ -44,8 +51,19 @@ const EmergencyPage = () => {
     };
 
     const handleEmergencyResponded = (data) => {
+        // Notify only the user who reported the emergency
+        if (data.reporter !== user.id) return;
+
         console.log("Emergency Responded:", data);
-        alert("EMERGENCY RESPONDED");
+        setEmegenyData(data);
+        setEmergencyNotification(true);
+
+        // Center the map on the emergency location
+        mapRef.current.setView([data.latitude, data.longitude], 30);
+    }
+
+    const handleEmergencyNotificationClosed = () => {
+        setEmergencyNotification(false);
     }
 
     useEffect(() => {
@@ -90,15 +108,7 @@ const EmergencyPage = () => {
     return (
         <div>
             <UserHeader firstName={profile["firstName"]} lastName={profile["lastName"]} role={user["role"]}/>
-            <nav className="main-nav">
-                <ul className="nav-links">
-                    <li><Link to="/profile">Home</Link></li>
-                    <li><Link to="/guides">Guides</Link></li>
-                    <li><Link to="/score">Your Score</Link></li>
-                    <li><Link to="/settings">Settings</Link></li>
-                    <li><Link to="/" onClick={confirmLogout}>Logout</Link></li>
-                </ul>
-            </nav>
+            <UserNavbar handleLogout={confirmLogout} />
             <main>
                 <div className="emergency-report-container">
                     <h2>Report Emergency</h2>
@@ -107,15 +117,20 @@ const EmergencyPage = () => {
                             <label htmlFor="emergency-description">Describe the emergency:</label>
                             <textarea id="emergency-description" name="emergency-description" rows="4"></textarea>
                         </div>
-                        <div className="emergency-report-details">
-                            <label>Emergency details</label>
-                        </div>
+
+                        {/*<div className="emergency-report-details">*/}
+                        {/*    <label>Emergency details</label>*/}
+                        {/*</div>*/}
+
                         <button type="submit" className="report-button">Report</button>
                     </form>
                 </div>
                 <div className="map-container">
                     <div id="map"></div>
                 </div>
+                { emergencyNotification && (
+                    <EmergencyResponseNotification data={emergencyData} onClose={handleEmergencyNotificationClosed} />
+                )}
             </main>
             <footer>
                 <p>Contact | Support</p>

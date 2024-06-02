@@ -1,5 +1,6 @@
 package dot.help.api.controller;
 
+import dot.help.api.utils.JwtTokenUtil;
 import dot.help.model.FirstResponder;
 import dot.help.model.User;
 import dot.help.model.UserRole;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -20,11 +24,14 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/aid-guardian/users")
 public class UserRESTController {
     private final UserRepository userRepository;
+    private final JwtTokenUtil jwtProvider;
+
     private static final Logger log = LogManager.getLogger(UserRESTController.class);
 
     @Autowired
-    public UserRESTController(UserRepository userRepository) {
+    public UserRESTController(UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
+        this.jwtProvider = jwtTokenUtil;
     }
 
     @PostMapping("/register")
@@ -70,7 +77,14 @@ public class UserRESTController {
         }
         else {
             log.traceExit("User authenticated successfully: " + loggedUser.get().getUsername());
-            return ResponseEntity.ok().body(loggedUser.get());
+            User authenticatedUser = loggedUser.get();
+            String token = jwtProvider.generateToken(authenticatedUser);
+
+            Map<String, Object> response = new HashMap<>();
+            response.put("authenticatedUser", authenticatedUser);
+            response.put("accessToken", token);
+
+            return ResponseEntity.ok().body(response);
         }
     }
 

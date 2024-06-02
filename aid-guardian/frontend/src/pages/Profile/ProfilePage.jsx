@@ -5,23 +5,26 @@ import "leaflet/dist/leaflet.css";
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css';
 import icon from "leaflet/dist/images/marker-icon.png";
 import iconShadow from "leaflet/dist/images/marker-shadow.png";
-import {Link, useNavigate} from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import "./ProfilePage.css";
 import UserHeader from "../../components/UserHeader";
 import {useSocket} from "../../contexts/ConnectionContext.jsx";
 import {useData} from "../../contexts/DataContext.jsx";
-import EmergencyNotification from "../../components/EmergencyNotification.jsx";
+import EmergencyReportNotification from "../../components/EmergencyReportNotification.jsx";
+import UserNavbar from "../../components/UserNavbar.jsx";
+import {useAuth} from "../../contexts/AuthContext.jsx";
 
 
 const ProfilePage = () => {
     const navigate = useNavigate();
 
-    const { user, setUser, profile } = useData();
-    const [isOnDuty, setIsOnDuty] = useState(!!(user && user.onDuty));
+    const { user, setUser, profile, isOnDuty, setIsOnDuty } = useData();
+    const { setToken } = useAuth();
 
     const { respondToEmergency, subscribeToEmergencyReported, unsubscribeFromEmergencyReported } = useSocket();
     const [emergencyNotification, setEmergencyNotification] = useState(false);
-    const [emergencyDetails, setEmergencyDetails] = useState(null);
+    const [emergencyData, setEmergencyData] = useState(null);
+    const [emergencyDistance, setEmergencyDistance] = useState(null);
 
     const mapRef = useRef(null);
     const [currentLocation, setCurrentLocation] = useState(null);
@@ -70,21 +73,30 @@ const ProfilePage = () => {
             if (isOnDuty) {
                 toggleDutyStatus().then(() => {
                     console.log('Duty status set to inactive before logging out');
-                })
+                });
             }
-            // TODO: Implement logout logic
-            navigate("/");
+
+            setToken(null);
+            navigate("/", { replace: true });
         }
     };
 
     const handleEmergencyReported = async (data) => {
-        console.log("Emergency Reported:", data);
-        setEmergencyDetails(data.description);
-        setEmergencyNotification(true);
+        // Ignore emergency if not on duty or doesn't have rights
+        if (!isOnDuty || user.role !== "FIRST_RESPONDER") return;
 
+        console.log("Emergency Reported:", data);
         if (currentLocation && mapRef.current) {
             const { latitude, longitude } = await getPosition();
             console.log('Current Location:', latitude, longitude);
+
+            const userLocation = L.latLng(latitude, longitude);
+            const emergencyLocation = L.latLng(data.latitude, data.longitude);
+            const distance = userLocation.distanceTo(emergencyLocation);
+
+            setEmergencyDistance(distance);
+            setEmergencyData(data);
+            setEmergencyNotification(true);
 
             const markerIcon = L.icon({
                 iconUrl: icon,
@@ -111,15 +123,20 @@ const ProfilePage = () => {
 
             mapRef.current.flyTo([data.latitude, data.longitude], 15);
             // mapRef.current.flyTo([46.66, 23.62], 15);
-
         }
     }
 
-    const handleAcceptEmergency = () => {
+    const handleAcceptEmergency = (data, distance) => {
         console.log('Emergency Accepted');
         setEmergencyNotification(false);
         respondToEmergency({
-            responder: user.id
+            "id" : data.id,
+            "reporter": data.reporter,
+            "responder": user.id,
+            "latitude": data.latitude,
+            "longitude": data.longitude,
+            "description": data.description,
+            "distance": distance
         });
     }
 
@@ -192,15 +209,7 @@ const ProfilePage = () => {
     return (
         <div>
             <UserHeader firstName={profile["firstName"]} lastName={profile["lastName"]} role={user["role"]}/>
-            <nav className="main-nav">
-                <ul className="nav-links">
-                    <li><Link to="/profile">Home</Link></li>
-                    <li><Link to="/guides">Guides</Link></li>
-                    <li><Link to="/score">Your Score</Link></li>
-                    <li><Link to="/settngs">Settings</Link></li>
-                    <li><Link to="/" onClick={confirmLogout}>Logout</Link></li>
-                </ul>
-            </nav>
+            <UserNavbar handleLogout={confirmLogout} />
             <main>
                 <div className="map-positioning">
                     <div id="map"></div>
@@ -209,7 +218,6 @@ const ProfilePage = () => {
                     <button id="report-button" onClick={() => navigate("/report-emergency" )}>
                         Report Emergency
                     </button>
-                    <button>Respond to Emergency</button>
                 </div>
                 <div className="emergency-info">
                 { user.role === "FIRST_RESPONDER" && (
@@ -230,7 +238,7 @@ const ProfilePage = () => {
                 </div> )}
                 </div>
                 { emergencyNotification && (
-                    <EmergencyNotification details={emergencyDetails} onIgnore={handleIgnoreEmergency} onAccept={handleAcceptEmergency}/>
+                    <EmergencyReportNotification data={emergencyData} distance={emergencyDistance} onIgnore={handleIgnoreEmergency} onAccept={handleAcceptEmergency}/>
                 )}
             </main>
             <footer>
