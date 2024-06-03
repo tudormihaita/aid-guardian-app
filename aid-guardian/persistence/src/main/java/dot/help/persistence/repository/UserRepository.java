@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Component
-public interface UserRepository extends Repository<Long, User> {
+public interface UserRepository extends CrudRepository<Long, User> {
     enum CredentialType {
         USERNAME, EMAIL
     }

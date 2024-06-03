@@ -5,8 +5,8 @@ export const AuthContext = createContext();
 export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({children}) => {
-    const [isAuthenticated, setIsAuthenticated] = useState(false);
-    const [token, setToken_] = useState(sessionStorage.getItem("token"));
+    const [token, setToken_] = useState(localStorage.getItem('token'));
+    const isAuthenticated = !!token;
 
     const setToken = (newToken) => {
         setToken_(newToken);
@@ -14,14 +14,12 @@ export const AuthProvider = ({children}) => {
 
     useEffect(() => {
         if(token) {
-            setIsAuthenticated(true);
             axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
-            sessionStorage.setItem('token', token);
+            localStorage.setItem('token', token);
         }
         else {
-            setIsAuthenticated(false);
             delete axios.defaults.headers.common['Authorization'];
-            sessionStorage.removeItem('token');
+            localStorage.removeItem('token');
         }
     }, [token]);
 

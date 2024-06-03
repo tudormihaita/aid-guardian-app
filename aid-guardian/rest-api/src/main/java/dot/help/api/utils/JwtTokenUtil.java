@@ -15,7 +15,7 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
     private static final String SECRET_KEY = SecretKeyGenerator.generateRandomKeyHex(256);
-    private static final long EXPIRATION_TIME = 1000 * 60 * 60;
+    private static final long EXPIRATION_TIME = 1000 * 15 * 60; // Token valid for 15 minutes
 
     private SecretKey getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);

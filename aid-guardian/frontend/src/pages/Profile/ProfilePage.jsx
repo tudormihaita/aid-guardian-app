@@ -13,15 +13,16 @@ import {useData} from "../../contexts/DataContext.jsx";
 import EmergencyReportNotification from "../../components/EmergencyReportNotification.jsx";
 import UserNavbar from "../../components/UserNavbar.jsx";
 import {useAuth} from "../../contexts/AuthContext.jsx";
+import UserFooter from "../../components/UserFooter.jsx";
 
 
 const ProfilePage = () => {
     const navigate = useNavigate();
 
     const { user, setUser, profile, isOnDuty, setIsOnDuty } = useData();
-    const { setToken } = useAuth();
+    const { isAuthenticated, setToken } = useAuth();
 
-    const { respondToEmergency, subscribeToEmergencyReported, unsubscribeFromEmergencyReported } = useSocket();
+    const { respondToEmergency, subscribeToEmergencyReported, unsubscribeFromEmergencyReported, closeConnection } = useSocket();
     const [emergencyNotification, setEmergencyNotification] = useState(false);
     const [emergencyData, setEmergencyData] = useState(null);
     const [emergencyDistance, setEmergencyDistance] = useState(null);
@@ -76,6 +77,9 @@ const ProfilePage = () => {
                 });
             }
 
+            unsubscribeFromEmergencyReported();
+            closeConnection();
+
             setToken(null);
             navigate("/", { replace: true });
         }
@@ -126,9 +130,47 @@ const ProfilePage = () => {
         }
     }
 
-    const handleAcceptEmergency = (data, distance) => {
+    const handleAcceptEmergency = async (data, distance) => {
         console.log('Emergency Accepted');
         setEmergencyNotification(false);
+
+        // try {
+        //     const response = await fetch(`http://localhost:8080/aid-guardian/emergencies/${data.id}`, {
+        //         method: 'PUT',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify({
+        //             "id" : data.id,
+        //             "reporter": data.reporter,
+        //             "responder": user.id,
+        //             "latitude": data.latitude,
+        //             "longitude": data.longitude,
+        //             "description": data.description,
+        //         })
+        //     });
+        //
+        //     if (!response.ok) {
+        //         alert('Error responding to emergency');
+        //         return;
+        //     }
+        //
+        //     const updatedEmergencyData = await response.json();
+        //     console.log('Updated Emergency with responder:', updatedEmergencyData);
+        //     respondToEmergency({
+        //         "id" : updatedEmergencyData.id,
+        //         "reporter": updatedEmergencyData.reporter,
+        //         "responder": updatedEmergencyData.responder,
+        //         "latitude": updatedEmergencyData.latitude,
+        //         "longitude": updatedEmergencyData.longitude,
+        //         "description": updatedEmergencyData.description,
+        //         "distance": distance
+        //     });
+        // } catch (error) {
+        //     console.error('Error responding to emergency:', error);
+        //     alert('Error responding to emergency');
+        // }
+
         respondToEmergency({
             "id" : data.id,
             "reporter": data.reporter,
@@ -152,8 +194,7 @@ const ProfilePage = () => {
     }
 
     useEffect(() => {
-        // Assure user is logged in
-        if(!user) {
+        if(!isAuthenticated) {
             navigate("/login");
             return;
         }
@@ -241,9 +282,7 @@ const ProfilePage = () => {
                     <EmergencyReportNotification data={emergencyData} distance={emergencyDistance} onIgnore={handleIgnoreEmergency} onAccept={handleAcceptEmergency}/>
                 )}
             </main>
-            <footer>
-                <p>Contact | Support</p>
-            </footer>
+            <UserFooter/>
         </div>
     );
 }

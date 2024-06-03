@@ -59,7 +59,7 @@ public class ReportEmergencyController {
         User reporter = currentProfile.getUser();
         LocalDateTime dateTime = LocalDateTime.now();
         String description = EmergencyDescriptionTextArea.getText();
-        EmergencyStatus status =  EmergencyStatus.Reported;
+        EmergencyStatus status =  EmergencyStatus.REPORTED;
         FirstResponder firstResponder = null;
         String location = null;
         Boolean myLocation = useMyCurrentLocationRadioButton.isSelected();
@@ -77,7 +77,7 @@ public class ReportEmergencyController {
         else {
             location = anotherLocationString;
         }
-        Emergency  emergency = new Emergency(reporter, dateTime, description, status, firstResponder, location);
+        Emergency  emergency = new Emergency(reporter, dateTime, description, status, firstResponder, 45.3, 23.4);
         try {
             server.reportEmergency(emergency, profileController);
         } catch (Exception e) {

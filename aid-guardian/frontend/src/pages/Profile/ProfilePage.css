@@ -57,6 +57,12 @@ body {
     /*color: #CCCCCC;*/
 }
 
+.date-time {
+    font-size: 1.2em;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
 .main-nav {
     /*background-color: #ffd782; !*  Orange *!*/
     background-color: #be2821; /* Red */;

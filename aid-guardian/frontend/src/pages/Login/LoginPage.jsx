@@ -42,8 +42,8 @@ const LoginPage = () => {
             console.log(userData);
 
             const { authenticatedUser, accessToken } = userData;
-            sessionStorage.setItem('user', JSON.stringify(userData));
-            sessionStorage.setItem('token', accessToken);
+            localStorage.setItem('user', JSON.stringify(authenticatedUser));
+            localStorage.setItem('token', accessToken);
 
             setToken(userData.accessToken);
             setUser(authenticatedUser);
@@ -67,7 +67,7 @@ const LoginPage = () => {
         }).then(profileData => {
             console.log(profileData);
 
-            sessionStorage.setItem('profile', JSON.stringify(profileData));
+            localStorage.setItem('profile', JSON.stringify(profileData));
 
             setProfile(profileData);
             navigate('/profile', {replace: true});

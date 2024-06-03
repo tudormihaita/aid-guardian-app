@@ -8,35 +8,30 @@ public class Emergency extends Identifiable<Long> {
     private String description;
     private EmergencyStatus status;
     private FirstResponder responder;
-    private String location;
+    private double latitude;
+    private double longitude;
 
     public Emergency()
     {
-
     }
-    public Emergency(User reporter, LocalDateTime reportedAt, String description, EmergencyStatus status, FirstResponder responder, String location) {
+
+    public Emergency(User reporter, LocalDateTime reportedAt, String description, EmergencyStatus status, FirstResponder responder, double latitude, double longitude) {
         this.reporter = reporter;
         this.reportedAt = reportedAt;
         this.description = description;
         this.status = status;
         this.responder = responder;
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public Emergency(User reporter, LocalDateTime reportedAt, String description, EmergencyStatus status, String location) {
+    public Emergency(User reporter, LocalDateTime reportedAt, String description, EmergencyStatus status, double latitude, double longitude) {
         this.reporter = reporter;
         this.reportedAt = reportedAt;
         this.description = description;
         this.status = status;
-        this.location = location;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public void setLocation(String location) {
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public User getReporter() {
@@ -77,5 +72,21 @@ public class Emergency extends Identifiable<Long> {
 
     public void setResponder(FirstResponder responder) {
         this.responder = responder;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
+
+    public void setLatitude(double latitude) {
+        this.latitude = latitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public void setLongitude(double longitude) {
+        this.longitude = longitude;
     }
 }

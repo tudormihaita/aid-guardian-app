@@ -1,0 +1,200 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333333;
+}
+
+.user-header {
+    background-color: #55b56a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 20px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+#icon {
+    width: 60px;
+    height: 60px;
+}
+
+.user-details h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #000000;
+}
+
+.date-time {
+    font-size: 1.2em;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
+.main-nav {
+    height: 4vh;
+    background-color: #be2821;
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+}
+
+.nav-links li {
+    margin-right: 10px;
+}
+
+.nav-links li:not(:last-child) {
+    border-right: 2px solid #ffffff;
+    padding-right: 10px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.nav-links li a:hover {
+    background-color: #ff725e;
+    color: #ffffff;
+}
+
+.main-nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+main {
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+
+}
+
+.container {
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 600px;
+    display: block;
+}
+
+.header-tabs h2 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.profile-picture {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.profile-picture img {
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+}
+
+.remove-picture {
+    background: none;
+    border: none;
+    color: lightgrey;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.guides-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.guide {
+    display: flex;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.guide img {
+    width: 25%;
+    height: auto;
+    object-fit: cover;
+}
+
+.guide-details {
+    padding: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.guide-details h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333333;
+}
+
+.guide-details a {
+    text-decoration: none;
+    color: #55b56a;
+    font-size: 16px;
+}
+
+.guide-details a:hover {
+    text-decoration: underline;
+}
+
+footer {
+    position: fixed;
+    height: 5vh;
+    text-align: center;
+    padding: 20px;
+    flex-shrink: 0;
+    border-top: 2px solid #eeeeee;
+    background-color: #55b56a;
+}

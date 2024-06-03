@@ -11,16 +11,17 @@ import './EmergencyPage.css';
 import UserNavbar from "../../components/UserNavbar.jsx";
 import {useAuth} from "../../contexts/AuthContext.jsx";
 import EmergencyResponseNotification from "../../components/EmergencyResponseNotification.jsx";
+import UserFooter from "../../components/UserFooter.jsx";
 
 const EmergencyPage = () => {
     const navigate = useNavigate();
 
     const { user, profile } = useData();
-    const { setToken } = useAuth();
+    const { isAuthenticated, setToken } = useAuth();
 
     const {reportEmergency, subscribeToEmergencyResponded, unsubscribeFromEmergencyResponded } = useSocket();
     const [emergencyNotification, setEmergencyNotification] = useState(false);
-    const [emergencyData, setEmegenyData] = useState(null);
+    const [emergencyData, setEmergencyData] = useState(null);
 
     const [currentLocation, setCurrentLocation] = useState(null);
     const mapRef = useRef(null);
@@ -34,20 +35,49 @@ const EmergencyPage = () => {
         }
     };
 
-    const handleReportEmergency = (event) => {
+    const handleReportEmergency = async (event) => {
         event.preventDefault();
         const description = event.target['emergency-description'].value;
 
         console.log('Emergency Description:', description);
         console.log('Emergency Location:', currentLocation);
 
-        const emergencyData = {
-            "reporter": user.id,
-            "latitude": currentLocation.latitude,
-            "longitude": currentLocation.longitude,
-            "description": description
-        };
-        reportEmergency(emergencyData);
+        // const emergencyData = {
+        //     //TODO: check if data sent to backend is correct
+        //     "reporter": { "id": user.id },
+        //     "latitude": currentLocation.latitude,
+        //     "longitude": currentLocation.longitude,
+        //     "description": description
+        // };
+        //
+        // try {
+        //     const response = await fetch('http://localhost:8080/aid-guardian/emergencies', {
+        //         method: 'POST',
+        //         headers: {
+        //             'Content-Type': 'application/json',
+        //         },
+        //         body: JSON.stringify(emergencyData),
+        //     });
+        //
+        //     if (!response.ok) {
+        //         alert('Error reporting emergency');
+        //         return;
+        //     }
+        //
+        //     const reportedEmergencyData = await response.json();
+        //     console.log('Reported Emergency:', reportedEmergencyData);
+        //     setEmergencyData(reportedEmergencyData);
+        //     reportEmergency(reportedEmergencyData);
+        // } catch (error) {
+        //     console.error('Error reporting emergency:', error);
+        //     alert('Error reporting emergency');
+        // }
+        reportEmergency({
+            reporter: user.id,
+            latitude: currentLocation.latitude,
+            longitude: currentLocation.longitude,
+            description: description
+        });
     };
 
     const handleEmergencyResponded = (data) => {
@@ -55,7 +85,7 @@ const EmergencyPage = () => {
         if (data.reporter !== user.id) return;
 
         console.log("Emergency Responded:", data);
-        setEmegenyData(data);
+        setEmergencyData(data);
         setEmergencyNotification(true);
 
         // Center the map on the emergency location
@@ -67,6 +97,11 @@ const EmergencyPage = () => {
     }
 
     useEffect(() => {
+        if(!isAuthenticated) {
+            navigate("/login", { replace: true });
+            return;
+        }
+
         // Subscribe to emergency response events
         subscribeToEmergencyResponded(handleEmergencyResponded);
 
@@ -132,9 +167,7 @@ const EmergencyPage = () => {
                     <EmergencyResponseNotification data={emergencyData} onClose={handleEmergencyNotificationClosed} />
                 )}
             </main>
-            <footer>
-                <p>Contact | Support</p>
-            </footer>
+            <UserFooter></UserFooter>
         </div>
     );
 };

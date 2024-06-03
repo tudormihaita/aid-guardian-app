@@ -9,6 +9,8 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 @Repository
@@ -23,7 +25,8 @@ public class EmergencyDBRepository extends AbstractDBRepository<Long, Emergency>
         Long id = resultSet.getLong("id_emergency");
         LocalDateTime reportedAt = resultSet.getTimestamp("reported_at").toLocalDateTime();
         EmergencyStatus status = EmergencyStatus.valueOf(resultSet.getString("status"));
-        String location = resultSet.getString("location");
+        double latitude = resultSet.getDouble("latitude");
+        double longitude = resultSet.getDouble("longitude");
         String description = resultSet.getString("description");
 
         Long idReporter = resultSet.getLong("id_reporter");
@@ -33,10 +36,10 @@ public class EmergencyDBRepository extends AbstractDBRepository<Long, Emergency>
         Long idResponder = resultSet.getLong("id_responder");
         if (idResponder != 0) {
             responder = (FirstResponder) getUserById(idResponder);
-            emergency = new Emergency(reporter, reportedAt, description, status, responder, location);
+            emergency = new Emergency(reporter, reportedAt, description, status, responder, latitude, longitude);
         }
         else {
-            emergency = new Emergency(reporter, reportedAt, description, status, location);
+            emergency = new Emergency(reporter, reportedAt, description, status, latitude, longitude);
         }
 
         emergency.setId(id);
@@ -84,13 +87,14 @@ public class EmergencyDBRepository extends AbstractDBRepository<Long, Emergency>
 
     @Override
     protected PreparedStatement saveStatement(Connection connection, Emergency entity) throws SQLException {
-        PreparedStatement saveStatement = connection.prepareStatement("INSERT INTO emergencies (id_reporter, reported_at, description, status, location) " +
-                "VALUES (?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
+        PreparedStatement saveStatement = connection.prepareStatement("INSERT INTO emergencies (id_reporter, reported_at, description, status, latitude, longitude) " +
+                "VALUES (?, ?, ?, ?, ?, ?)", PreparedStatement.RETURN_GENERATED_KEYS);
         saveStatement.setLong(1, entity.getReporter().getId());
         saveStatement.setTimestamp(2, Timestamp.valueOf(entity.getReportedAt()));
         saveStatement.setString(3, entity.getDescription());
         saveStatement.setString(4, entity.getStatus().toString());
-        saveStatement.setString(5, entity.getLocation());
+        saveStatement.setDouble(5, entity.getLatitude());
+        saveStatement.setDouble(6, entity.getLongitude());
 
         return saveStatement;
     }
@@ -106,21 +110,66 @@ public class EmergencyDBRepository extends AbstractDBRepository<Long, Emergency>
     @Override
     protected PreparedStatement updateStatement(Connection connection, Emergency entity) throws SQLException {
         PreparedStatement updateStatement = connection.prepareStatement("UPDATE emergencies SET " +
-                "id_reporter = ?, reported_at = ?, description = ?, status = ?, location = ?, id_responder = ? " +
-                "WHERE id_emergency = ?");
+                "id_reporter = ?, reported_at = ?, description = ?, status = ?, id_responder = ?, latitude = ?, longitude = ? " +
+                "WHERE  id_emergency = ?");
         updateStatement.setLong(1, entity.getReporter().getId());
         updateStatement.setTimestamp(2, Timestamp.valueOf(entity.getReportedAt()));
         updateStatement.setString(3, entity.getDescription());
         updateStatement.setString(4, entity.getStatus().toString());
-        updateStatement.setString(5, entity.getLocation());
         if(entity.getResponder() != null) {
-            updateStatement.setLong(6, entity.getResponder().getId());
+            updateStatement.setLong(5, entity.getResponder().getId());
         }
         else {
-            updateStatement.setLong(6, 0);
+            updateStatement.setLong(5, 0);
         }
-        updateStatement.setLong(7, entity.getId());
+        updateStatement.setDouble(6, entity.getLatitude());
+        updateStatement.setDouble(7, entity.getLongitude());
+        updateStatement.setLong(8, entity.getId());
 
         return updateStatement;
+    }
+
+    @Override
+    public List<Emergency> findEmergenciesReportedBy(Long userId) {
+        log.traceEntry("Retrieving emergencies reported by user with id: " + userId);
+        List<Emergency> emergencies = new ArrayList<>();
+
+        try(Connection connection = dbUtils.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT * FROM emergencies WHERE id_reporter = ?");
+            preparedStatement.setLong(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                emergencies.add(extractEntity(resultSet));
+            }
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            throw new RuntimeException(sqlException);
+        }
+
+        log.traceExit("Successfully retrieved emergencies reported by user: " + emergencies);
+        return emergencies;
+    }
+
+    @Override
+    public List<Emergency> findEmergenciesRespondedBy(Long userId) {
+        log.traceEntry("Retrieving emergencies responded by user with id: " + userId);
+        List<Emergency> emergencies = new ArrayList<>();
+
+        try(Connection connection = dbUtils.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT DISTINCT * FROM emergencies WHERE id_responder = ?");
+            preparedStatement.setLong(1, userId);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while(resultSet.next()) {
+                emergencies.add(extractEntity(resultSet));
+            }
+        } catch (SQLException sqlException) {
+            log.error(sqlException);
+            throw new RuntimeException(sqlException);
+        }
+
+        log.traceExit("Successfully retrieved emergencies responded by user: " + emergencies);
+        return emergencies;
     }
 }

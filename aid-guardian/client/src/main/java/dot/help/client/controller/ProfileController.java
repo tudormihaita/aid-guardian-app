@@ -78,7 +78,7 @@ public class ProfileController implements Initializable, IObserver {
 
             Platform.runLater(() -> {
                 EmergencyAlert.showMessage(null, Alert.AlertType.WARNING, "Emergency reported",
-                        "An emergency has been reported in your area at " + emergency.getLocation() + ". Do you want to help?",
+                        "An emergency has been reported in your area at " + ". Do you want to help?",
                         (acceptEvent) -> {
                             server.respondToEmergency(responder, emergency, this);
                             MessageAlert.showMessage(null, Alert.AlertType.CONFIRMATION, "Emergency responded", "You have successfully responded to the emergency." +

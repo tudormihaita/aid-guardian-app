@@ -6,12 +6,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.stream.StreamSupport;
+import java.util.Optional;
+
 
 @RestController
 @CrossOrigin
@@ -25,10 +23,45 @@ public class EmergencyRESTController {
         this.emergencyRepository = emergencyRepository;
     }
 
-    @GetMapping
-    public ResponseEntity<?> getAll() {
-        log.traceEntry("Retrieving all emergencies");
-        Emergency[] emergencies = StreamSupport.stream(emergencyRepository.findAll().spliterator(), false).toArray(Emergency[]::new);
-        return ResponseEntity.ok(emergencies);
+    @PostMapping
+    public ResponseEntity<?> createEmergency(@RequestBody Emergency emergency) {
+        log.traceEntry("Creating reported emergency: " + emergency);
+
+        Optional<Emergency> reportedEmergency = emergencyRepository.save(emergency);
+        if (reportedEmergency.isEmpty()) {
+            log.error("Failed to create emergency: " + emergency);
+            return ResponseEntity.badRequest().body("Failed to create emergency");
+        }
+
+        log.traceExit("Created emergency: " + reportedEmergency.get());
+        return ResponseEntity.ok(reportedEmergency.get());
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<?> updateEmergency(@RequestBody Emergency emergency) {
+        log.traceEntry("Updating responded emergency: " + emergency);
+
+        Optional<Emergency> updatedEmergency = emergencyRepository.update(emergency);
+        if (updatedEmergency.isEmpty()) {
+            log.error("Failed to update emergency: " + emergency);
+            return ResponseEntity.badRequest().body("Failed to update emergency");
+        }
+
+        log.traceExit("Updated emergency: " + updatedEmergency.get());
+        return ResponseEntity.ok(updatedEmergency.get());
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteEmergency(@PathVariable Long id) {
+        log.traceEntry("Deleting aborted emergency with id: " + id);
+
+        Optional<Emergency> deletedEmergency = emergencyRepository.delete(id);
+        if (deletedEmergency.isEmpty()) {
+            log.error("Failed to delete emergency with id: " + id);
+            return ResponseEntity.badRequest().body("Failed to delete emergency");
+        }
+
+        log.traceExit("Deleted emergency: " + deletedEmergency.get());
+        return ResponseEntity.ok(deletedEmergency.get());
     }
 }

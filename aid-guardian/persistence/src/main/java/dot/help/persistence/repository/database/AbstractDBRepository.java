@@ -1,7 +1,7 @@
 package dot.help.persistence.repository.database;
 
 import dot.help.model.Identifiable;
-import dot.help.persistence.repository.Repository;
+import dot.help.persistence.repository.CrudRepository;
 import dot.help.persistence.utils.DBUtils;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Properties;
 
-public abstract class AbstractDBRepository<ID, E extends Identifiable<ID>> implements Repository<ID, E> {
+public abstract class AbstractDBRepository<ID, E extends Identifiable<ID>> implements CrudRepository<ID, E> {
     protected final String table;
     protected final DBUtils dbUtils;
     protected static final Logger log = LogManager.getLogger(AbstractDBRepository.class);
