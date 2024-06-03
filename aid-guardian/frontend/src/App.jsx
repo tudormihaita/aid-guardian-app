@@ -9,6 +9,11 @@ import LoginPage from "./pages/Login/LoginPage.jsx";
 import SignUpPage from "./pages/Register/SignUpPage.jsx";
 import ProfilePage from "./pages/Profile/ProfilePage.jsx";
 import EmergencyPage from "./pages/Emergency/EmergencyPage.jsx";
+import SettingsPage from "./pages/Settings/SettingsPage.jsx";
+import TrainingPage from "./pages/Training/TrainingPage.jsx";
+import BleedingGuide from "./pages/Training/Guides/BleedingGuide.jsx";
+import ScorePage from "./pages/Score/ScorePage.jsx";
+import HistoryPage from "./pages/History/HistoryPage.jsx";
 
 function App() {
     return (
@@ -24,9 +29,12 @@ function App() {
 
                                 <Route path="/profile" element={ <ProtectedRoute> <ProfilePage /> </ProtectedRoute> }/>
                                 <Route path="/report-emergency" element={ <ProtectedRoute> <EmergencyPage /> </ProtectedRoute> }/>
+                                <Route path="/score" element={ <ProtectedRoute> <ScorePage /> </ProtectedRoute> }/>
+                                <Route path="/settings" element={ <ProtectedRoute> <SettingsPage /> </ProtectedRoute> }/>
+                                <Route path="/training" element={ <ProtectedRoute> <TrainingPage /> </ProtectedRoute> }/>
+                                <Route path="/history" element={ <ProtectedRoute> <HistoryPage /> </ProtectedRoute> }/>
 
-                                {/*<Route path="/profile" element={<ProfilePage/>}/>*/}
-                                {/*<Route path="/report-emergency" element={<EmergencyPage/>}/>*/}
+                                <Route path="/training/bleeding" element={ <ProtectedRoute> <BleedingGuide /> </ProtectedRoute> }/>
                             </Routes>
                         </BrowserRouter>
                     </SocketProvider>

@@ -7,7 +7,13 @@ export const useSocket = () => useContext(SocketContext);
 
 export const SocketProvider = ({children}) => {
     const [socket, setSocket] = useState(null);
-    const [isConnected, setIsConnected] = useState(false);
+    const [isConnected, setIsConnected] = useState(socket ? socket.connected : false);
+
+    const closeConnection = () => {
+        if(socket) {
+            socket.disconnect();
+        }
+    };
 
     useEffect(() => {
         let newSocket;
@@ -15,24 +21,20 @@ export const SocketProvider = ({children}) => {
         if(!socket) {
             newSocket = io(SERVER_URL, {
                 autoConnect: false,
-                transports: ['websocket', 'polling', 'flashsocket']
+                transports: ['websocket', 'polling', 'flashsocket'],
+                upgrade: false,
             });
 
 
             newSocket.on('connect', () => setIsConnected(true));
+            newSocket.on('reconnect', () => setIsConnected(true));
             newSocket.on('disconnect', () => setIsConnected(false));
 
             setSocket(newSocket);
         }
 
-        const cleanupSocket = () => {
-            if(newSocket) {
-                newSocket.disconnect();
-            }
-        };
-
         return () => {
-            cleanupSocket();
+            closeConnection();
         }
     }, [socket]);
 
@@ -98,7 +100,7 @@ export const SocketProvider = ({children}) => {
 
     return (
         <SocketContext.Provider value={{
-            socket, isConnected, initializeConnection,
+            socket, isConnected, initializeConnection, closeConnection,
             reportEmergency, subscribeToEmergencyReported, unsubscribeFromEmergencyReported,
             respondToEmergency, subscribeToEmergencyResponded, unsubscribeFromEmergencyResponded
         }}>

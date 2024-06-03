@@ -48,9 +48,15 @@ body {
     text-align: left;
 }
 
+.date-time {
+    font-size: 1.2em;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
 .main-nav {
     background-color: #be2821;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .nav-links {

@@ -4,7 +4,7 @@ import dot.help.model.Identifiable;
 
 import java.util.Optional;
 
-public interface Repository<ID, E extends Identifiable<ID>> {
+public interface CrudRepository<ID, E extends Identifiable<ID>> {
 
     /**
      * Searches for an entity by identifier and returns it

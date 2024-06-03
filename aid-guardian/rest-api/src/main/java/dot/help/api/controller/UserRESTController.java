@@ -1,9 +1,11 @@
 package dot.help.api.controller;
 
 import dot.help.api.utils.JwtTokenUtil;
+import dot.help.model.Emergency;
 import dot.help.model.FirstResponder;
 import dot.help.model.User;
 import dot.help.model.UserRole;
+import dot.help.persistence.repository.EmergencyRepository;
 import dot.help.persistence.repository.UserRepository;
 import dot.help.persistence.utils.CredentialChecker;
 import dot.help.persistence.utils.PasswordEncoder;
@@ -15,7 +17,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.StreamSupport;
 
@@ -24,13 +25,15 @@ import java.util.stream.StreamSupport;
 @RequestMapping("/aid-guardian/users")
 public class UserRESTController {
     private final UserRepository userRepository;
+    private final EmergencyRepository emergencyRepository;
     private final JwtTokenUtil jwtProvider;
 
     private static final Logger log = LogManager.getLogger(UserRESTController.class);
 
     @Autowired
-    public UserRESTController(UserRepository userRepository, JwtTokenUtil jwtTokenUtil) {
+    public UserRESTController(UserRepository userRepository, EmergencyRepository emergencyRepository, JwtTokenUtil jwtTokenUtil) {
         this.userRepository = userRepository;
+        this.emergencyRepository = emergencyRepository;
         this.jwtProvider = jwtTokenUtil;
     }
 
@@ -100,7 +103,7 @@ public class UserRESTController {
     ResponseEntity<?> logOut(@RequestBody User user) {
         log.traceEntry("Logging out user: " + user.getUsername());
 
-        // TODO: what should happen on logout?
+        // TODO: invalidate token on logout
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
@@ -142,6 +145,20 @@ public class UserRESTController {
 
         log.traceExit("Successfully retrieved all users");
         return ResponseEntity.ok().body(users);
+    }
+
+    @GetMapping("/{id}/emergencies/reported")
+    public ResponseEntity<?> getEmergenciesReportedByUser(@PathVariable Long id) {
+        log.traceEntry("Retrieving emergencies for user: " + id);
+        Emergency[] emergencies = emergencyRepository.findEmergenciesReportedBy(id).toArray(Emergency[]::new);
+        return ResponseEntity.ok(emergencies);
+    }
+
+    @GetMapping("/{id}/emergencies/responded")
+    public ResponseEntity<?> getEmergenciesRespondedByUser(@PathVariable Long id) {
+        log.traceEntry("Retrieving emergencies responded by user: " + id);
+        Emergency[] emergencies = emergencyRepository.findEmergenciesRespondedBy(id).toArray(Emergency[]::new);
+        return ResponseEntity.ok(emergencies);
     }
 
 }

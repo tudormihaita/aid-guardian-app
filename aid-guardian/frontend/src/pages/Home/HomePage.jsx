@@ -1,5 +1,6 @@
 import {Link} from "react-router-dom";
 import "./HomePage.css";
+import UserFooter from "../../components/UserFooter.jsx";
 
 const HomePage = () => {
     return (
@@ -17,9 +18,7 @@ const HomePage = () => {
                 <h1>Welcome to Aid Guardian!</h1>
                 <p>Aid Guardian is your online first aid application, dedicated to providing quick and efficient help in critical moments.</p>
             </section>
-            <footer>
-                <p>Contact | Support</p>
-            </footer>
+            <UserFooter/>
         </div>
     );
 };
