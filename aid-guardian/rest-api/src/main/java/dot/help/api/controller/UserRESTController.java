@@ -38,19 +38,27 @@ public class UserRESTController {
     ResponseEntity<?> signUp(@RequestBody User user) {
         log.traceEntry("Signing up user: " + user.getUsername());
 
-        // TODO: Implement check if user already exists
-
         String hashedPassword = PasswordEncoder.hashPassword(user.getPassword());
         user.setPassword(hashedPassword);
-        Optional<User> savedUser = userRepository.save(user);
 
-        if(savedUser.isEmpty()) {
-            log.error("Failed to sign up user: " + user.getUsername());
-            return ResponseEntity.badRequest().body("Failed to sign up user");
+        // Implement check if user already exists
+        Optional<User> existingUser = userRepository.findByLoginCredentials(UserRepository.CredentialType.USERNAME, user.getUsername(), hashedPassword);
+        if(existingUser.isEmpty())
+        {
+            Optional<User> savedUser = userRepository.save(user);
+            if(savedUser.isEmpty()) {
+                log.error("Failed to sign up user: " + user.getUsername());
+                return ResponseEntity.badRequest().body("Failed to sign up user");
+            }
+            else {
+                log.traceExit("Signed up user: " + user.getUsername());
+                return ResponseEntity.ok().body(savedUser.get());
+            }
         }
-        else {
-            log.traceExit("Signed up user: " + user.getUsername());
-            return ResponseEntity.ok().body(savedUser.get());
+        else
+        {
+            log.error("User already exists");
+            return ResponseEntity.badRequest().body("User already exists");
         }
     }
 

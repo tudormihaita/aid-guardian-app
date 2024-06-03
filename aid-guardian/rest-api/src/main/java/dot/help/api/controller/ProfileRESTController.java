@@ -22,7 +22,7 @@ public class ProfileRESTController {
         this.profileRepository = profileRepository;
     }
 
-    @PostMapping
+    @PostMapping("/register")
     ResponseEntity<?> registerProfile(@RequestBody Profile profile) {
         log.traceEntry("Registering profile for user: " + profile.getUser().getUsername());
 

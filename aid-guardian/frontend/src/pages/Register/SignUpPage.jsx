@@ -1,6 +1,9 @@
 import './SignUpPage.css';
 import {useNavigate} from "react-router-dom";
 import {useState} from "react";
+import {useAuth} from "../../contexts/AuthContext.jsx";
+import {useData} from "../../contexts/DataContext.jsx";
+import {useSocket} from "../../contexts/ConnectionContext.jsx";
 
 const SignUpPage = () => {
     const navigate = useNavigate();
@@ -18,45 +21,144 @@ const SignUpPage = () => {
     const [bloodGroup, setBloodGroup] = useState("A_POSITIVE");
     const [medicalHistory, setMedicalHistory] = useState("");
     const [certificationFile, setCertificationFile] = useState();
-    const [isFirstResponder, setIsFirstResponder] = useState(false);
+    const [isFirstResponder, setIsFirstResponder] = useState("COMMUNITY_DISPATCHER");
+    const [score, setScore] = useState(1.0);
 
-    const handleSubmit = (event) => {
+    // const { setToken } = useAuth();
+    // const { setUser, setProfile } = useData();
+    // const { initializeConnection } = useSocket();
+
+    const handleSubmit = async(event) => {
         event.preventDefault();
-        fetch("http://localhost:8080/register", {
+
+        if (email === '' || username === '' || password === '' || confirmPassword === '' || firstName === ''
+            || lastName === '' || dob === '' || height === '' || weight === '')
+        {
+            alert('Please fill in all required fields!');
+            return;
+        }
+        if(password !== confirmPassword) {
+            alert('Passwords do not match!');
+            return;
+        }
+
+        if(certificationFile)
+        {
+            try{
+                await validateCertificate(event);
+            }catch(error)
+            {
+                console.error('Error validating certificate:', error);
+                alert('Error validating certificate. Please try again.');
+                return;
+            }
+        }
+
+        // Send user register request
+        fetch("http://localhost:8080/aid-guardian/users/register", {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
-                email: email,
-                username: username,
-                password: password,
-                confirmPassword: confirmPassword,
-                firstName: firstName,
-                lastName: lastName,
-                gender: gender,
-                dob: dob,
-                height: height,
-                weight: weight,
-                bloodGroup: bloodGroup,
-                medicalHistory: medicalHistory,
-                certificationFile: certificationFile,
-                isFirstResponder: isFirstResponder,
+                "email": email,
+                "username": username,
+                "password": password,
+                "role": isFirstResponder
             })
         }).then(response => {
-            navigate("/profile");
+            if (response.status === 200) {
+                return response.json();
+            }
+            else
+            {
+                alert('Invalid registration credentials, please verify and try again.');
+            }
+        }).then(userData =>{
 
-        })
+            console.log("USER: ",userData);
+            //const { authenticatedUser, accessToken } = userData;
+            localStorage.setItem('user', JSON.stringify(userData));
+            //localStorage.setItem('token', accessToken);
+
+            // setToken(userData.accessToken);
+            // setUser(authenticatedUser);
+            // initializeConnection();
+
+
+            //console.log("AUT: ", authenticatedUser)
+            return userData;
+        }).then(savedUserData => {
+
+            console.log("IMPORTANT: ", savedUserData);
+            const profileData = {
+                "user": savedUserData,
+                "firstName": firstName,
+                "lastName": lastName,
+                "gender": gender,
+                "birthDate": dob,
+                "bloodGroup": bloodGroup,
+                "height": height,
+                "weight": weight,
+                "medicalHistory": medicalHistory,
+                "score": score
+            };
+            console.log("Profile data sent: ", profileData);
+
+            return fetch("http://localhost:8080/aid-guardian/user-profiles/register", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(profileData)
+            });
+        }).then(response => {
+                if (response.status === 200)
+                {
+                    return response.json();
+                }
+                else
+                {
+                    alert('Unable to create user profile.');
+                    return ;
+                }
+        }).then(profileResponse => {
+
+            console.log(profileResponse);
+            localStorage.setItem('profile', JSON.stringify(profileResponse));
+            //setProfile(profileResponse);
+            navigate("/profile", {replace: true});
+        }).catch(error => {
+            console.log("Error on fetching registration request: " + error);
+        });
     }
 
     const validateCertificate = (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append("certificate", certificationFile);
-        formData.append("name", `${lastName} ${firstName}`);
-        fetch("http://localhost:5000/certificate-recognition", {method: 'POST', body: formData}).then(response => {
-            response.json().then(data => {
-                setIsFirstResponder(data["is_valid"]);
-            })
-        })
-    }
+        return new Promise((resolve, reject) => {
+            event.preventDefault();
+            const formData = new FormData();
+            formData.append("certificate", certificationFile);
+            formData.append("name", `${lastName} ${firstName}`);
+            fetch("http://localhost:5000/certificate-recognition", {
+                method: 'POST',
+                body: formData
+            }).then(response => response.json())
+                .then(data => {
+                    if (data["is_valid"]) {
+                        setIsFirstResponder("FIRST_RESPONDER")
+                        console.log("Valid certificate");
+                        console.log("aici ", isFirstResponder);
+                    } else {
+                        console.log("Invalid certificate");
+                    }
+                    //setIsFirstResponder(data["is_valid"]);
+                    resolve(data["is_valid"]);
+                }).catch(error => {
+                console.error('Error validating certficate:', error);
+                reject(error);
+            });
+        });
+    };
 
 
     return (
@@ -155,7 +257,7 @@ const SignUpPage = () => {
                     <small>Please upload your medical or first-aid certification here. Only PDF, JPG, and PNG formats
                         are accepted.</small>
                 </div>
-                <button type="submit" className="register-button">Register</button>
+                <button type="submit" className="register-button" >Register</button>
             </form>
         </div>
     );
