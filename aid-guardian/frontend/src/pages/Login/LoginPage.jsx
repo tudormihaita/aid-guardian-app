@@ -12,7 +12,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     const { setToken } = useAuth();
-    const {setUser, setProfile } = useData();
+    const { setUser, setProfile } = useData();
     const { initializeConnection } = useSocket();
 
     const handleLogin = () => {

@@ -93,8 +93,9 @@ const SettingsPage = () => {
                                 <div className="form-group">
                                     <label htmlFor="password">Password:</label>
                                     <input className="disabled" type="password" id="password" name="password"
-                                           defaultValue={user.password}/>
+                                           defaultValue=''/>
                                 </div>
+                                <button type="submit" className="save-button">Save Changes</button>
                             </div>
                             <div className={`tab-content ${activeTab === 'account' ? 'active' : ''}`}
                                  style={{display: activeTab === 'privacy' ? 'block' : 'none'}} id="privacy">
