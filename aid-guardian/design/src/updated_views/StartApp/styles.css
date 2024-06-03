@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+html {
+    height: 60%;
+}
 
 body {
     font-family: Arial, sans-serif;

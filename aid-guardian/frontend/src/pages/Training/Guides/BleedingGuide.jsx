@@ -4,9 +4,12 @@ import {useState} from "react";
 const BleedingGuide = () => {
     const [currentIndex, setCurrentIndex] = useState(0);
     const numSlides = 9;
-    const slideWidth = 800 / numSlides;
+    const slideWidth = 900 / numSlides;
+
+
 
     const nextSlide = () => {
+        console.log(currentIndex);
         setCurrentIndex((currentIndex + 1) % numSlides);
     };
 

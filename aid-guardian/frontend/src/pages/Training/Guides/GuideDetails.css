@@ -128,10 +128,11 @@ footer {
 }
 
 .carousel {
+    list-style-type: none;
     display: flex;
-    justify-content: center;
-    overflow-x: auto; /* Enable horizontal scrolling */
-    scroll-snap-type: x mandatory; /* Snap items to the viewport */
+    /*justify-content: center;*/
+    /*overflow-x: auto; !* Enable horizontal scrolling *!*/
+    /*scroll-snap-type: x mandatory; !* Snap items to the viewport *!*/
     -webkit-overflow-scrolling: touch; /* Enable smooth scrolling on iOS */
     transition: transform 0.5s ease-in-out;
 }
