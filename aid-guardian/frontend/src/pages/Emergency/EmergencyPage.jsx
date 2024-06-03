@@ -42,47 +42,44 @@ const EmergencyPage = () => {
         console.log('Emergency Description:', description);
         console.log('Emergency Location:', currentLocation);
 
-        // const emergencyData = {
-        //     //TODO: check if data sent to backend is correct
-        //     "reporter": { "id": user.id },
-        //     "latitude": currentLocation.latitude,
-        //     "longitude": currentLocation.longitude,
-        //     "description": description
-        // };
-        //
-        // try {
-        //     const response = await fetch('http://localhost:8080/aid-guardian/emergencies', {
-        //         method: 'POST',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify(emergencyData),
-        //     });
-        //
-        //     if (!response.ok) {
-        //         alert('Error reporting emergency');
-        //         return;
-        //     }
-        //
-        //     const reportedEmergencyData = await response.json();
-        //     console.log('Reported Emergency:', reportedEmergencyData);
-        //     setEmergencyData(reportedEmergencyData);
-        //     reportEmergency(reportedEmergencyData);
-        // } catch (error) {
-        //     console.error('Error reporting emergency:', error);
-        //     alert('Error reporting emergency');
-        // }
-        reportEmergency({
-            reporter: user.id,
+        const emergencyData = {
+            reporter: user ,
+            status: "REPORTED",
             latitude: currentLocation.latitude,
             longitude: currentLocation.longitude,
-            description: description
-        });
+            description: description,
+            reportedAt: new Date().toISOString(),
+            responder: null
+        };
+
+        try {
+            const response = await fetch('http://localhost:8080/aid-guardian/emergencies', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(emergencyData),
+            });
+
+            if (!response.ok) {
+                alert('Error reporting emergency');
+                return;
+            }
+
+            const reportedEmergencyData = await response.json();
+            console.log('Reported Emergency:', reportedEmergencyData);
+            setEmergencyData(reportedEmergencyData);
+            reportEmergency(reportedEmergencyData);
+        } catch (error) {
+            console.error('Error reporting emergency:', error);
+            alert('Error reporting emergency');
+        }
+
     };
 
     const handleEmergencyResponded = (data) => {
         // Notify only the user who reported the emergency
-        if (data.reporter !== user.id) return;
+        if (data.reporter.id !== user.id) return;
 
         console.log("Emergency Responded:", data);
         setEmergencyData(data);

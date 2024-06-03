@@ -33,7 +33,7 @@ public class EmergencyDBRepository extends AbstractDBRepository<Long, Emergency>
         User reporter = getUserById(idReporter);
 
         FirstResponder responder = null;
-        Long idResponder = resultSet.getLong("id_responder");
+        long idResponder = resultSet.getLong("id_responder");
         if (idResponder != 0) {
             responder = (FirstResponder) getUserById(idResponder);
             emergency = new Emergency(reporter, reportedAt, description, status, responder, latitude, longitude);

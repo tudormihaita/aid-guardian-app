@@ -44,7 +44,6 @@ public class UserRESTController {
         String hashedPassword = PasswordEncoder.hashPassword(user.getPassword());
         user.setPassword(hashedPassword);
 
-        // Implement check if user already exists
         Optional<User> existingUser = userRepository.findByLoginCredentials(UserRepository.CredentialType.USERNAME, user.getUsername(), hashedPassword);
         if(existingUser.isEmpty())
         {
@@ -54,12 +53,15 @@ public class UserRESTController {
                 return ResponseEntity.badRequest().body("Failed to sign up user");
             }
             else {
+                String token = jwtProvider.generateToken(savedUser.get());
+                Map<String, Object> response = new HashMap<>();
+                response.put("authenticatedUser", savedUser.get());
+                response.put("accessToken", token);
+
                 log.traceExit("Signed up user: " + user.getUsername());
-                return ResponseEntity.ok().body(savedUser.get());
+                return ResponseEntity.ok().body(response);
             }
-        }
-        else
-        {
+        } else {
             log.error("User already exists");
             return ResponseEntity.badRequest().body("User already exists");
         }
@@ -107,8 +109,32 @@ public class UserRESTController {
         throw new UnsupportedOperationException("Not implemented yet");
     }
 
+
     @PutMapping("/{id}")
-    ResponseEntity<?> toggleOnDutyStatus(@PathVariable Long id, @RequestParam("isOnDuty") boolean isOnDuty) {
+    ResponseEntity<?> updateUser(@PathVariable Long id, @RequestBody User user, @RequestParam(value = "isOnDuty", required = false) Boolean isOnDuty) {
+        if (isOnDuty != null) {
+            return toggleOnDutyStatus(id, isOnDuty);
+        }
+        log.traceEntry("Updating user with id: " + id);
+
+        Optional<User> existingUser = userRepository.findOne(id);
+        if(existingUser.isEmpty()) {
+            log.error("User with id " + id + " not found");
+            return ResponseEntity.badRequest().body("User not found");
+        }
+
+        Optional<User> updatedUser = userRepository.update(user);
+        if(updatedUser.isEmpty()) {
+            log.error("Failed to update user: " + user.getUsername());
+            return ResponseEntity.badRequest().body("Failed to update user");
+        }
+        else {
+            log.traceExit("Successfully updated user: " + user.getUsername());
+            return ResponseEntity.ok().body(updatedUser.get());
+        }
+    }
+
+    private ResponseEntity<?> toggleOnDutyStatus(Long id, boolean isOnDuty) {
         log.traceEntry("Toggling on duty status for user with id: " + id);
 
 

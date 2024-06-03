@@ -54,7 +54,6 @@ const LoginPage = () => {
             return fetch("http://localhost:8080/aid-guardian/user-profiles/" + data.id, {
                 method: 'GET',
                 headers: {
-                    'Accept': 'application/json',
                     'Content-Type': 'application/json',
                 }
             }).then(response => {

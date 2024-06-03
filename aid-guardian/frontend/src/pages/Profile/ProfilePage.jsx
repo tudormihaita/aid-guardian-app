@@ -19,7 +19,7 @@ import UserFooter from "../../components/UserFooter.jsx";
 const ProfilePage = () => {
     const navigate = useNavigate();
 
-    const { user, setUser, profile, isOnDuty, setIsOnDuty } = useData();
+    const { user, setUser, profile, setProfile, isOnDuty, setIsOnDuty } = useData();
     const { isAuthenticated, setToken } = useAuth();
 
     const { respondToEmergency, subscribeToEmergencyReported, unsubscribeFromEmergencyReported, closeConnection } = useSocket();
@@ -31,7 +31,7 @@ const ProfilePage = () => {
     const [currentLocation, setCurrentLocation] = useState(null);
     const routeControlRef = useRef(null);
 
-
+    const emergencyScoreXp = 0.3;
 
     const toggleDutyStatus = async () => {
         try {
@@ -40,6 +40,7 @@ const ProfilePage = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
+                body: JSON.stringify(user)
             });
 
             if(response.ok) {
@@ -134,52 +135,72 @@ const ProfilePage = () => {
         console.log('Emergency Accepted');
         setEmergencyNotification(false);
 
-        // try {
-        //     const response = await fetch(`http://localhost:8080/aid-guardian/emergencies/${data.id}`, {
-        //         method: 'PUT',
-        //         headers: {
-        //             'Content-Type': 'application/json',
-        //         },
-        //         body: JSON.stringify({
-        //             "id" : data.id,
-        //             "reporter": data.reporter,
-        //             "responder": user.id,
-        //             "latitude": data.latitude,
-        //             "longitude": data.longitude,
-        //             "description": data.description,
-        //         })
-        //     });
-        //
-        //     if (!response.ok) {
-        //         alert('Error responding to emergency');
-        //         return;
-        //     }
-        //
-        //     const updatedEmergencyData = await response.json();
-        //     console.log('Updated Emergency with responder:', updatedEmergencyData);
-        //     respondToEmergency({
-        //         "id" : updatedEmergencyData.id,
-        //         "reporter": updatedEmergencyData.reporter,
-        //         "responder": updatedEmergencyData.responder,
-        //         "latitude": updatedEmergencyData.latitude,
-        //         "longitude": updatedEmergencyData.longitude,
-        //         "description": updatedEmergencyData.description,
-        //         "distance": distance
-        //     });
-        // } catch (error) {
-        //     console.error('Error responding to emergency:', error);
-        //     alert('Error responding to emergency');
-        // }
+        try {
+            const response = await fetch(`http://localhost:8080/aid-guardian/emergencies/${data.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id : data.id,
+                    reporter: data.reporter,
+                    responder: user,
+                    latitude: data.latitude,
+                    longitude: data.longitude,
+                    description: data.description,
+                    status: "RESPONDED",
+                    reportedAt: data.reportedAt
+                })
+            });
 
-        respondToEmergency({
-            "id" : data.id,
-            "reporter": data.reporter,
-            "responder": user.id,
-            "latitude": data.latitude,
-            "longitude": data.longitude,
-            "description": data.description,
-            "distance": distance
-        });
+            if (!response.ok) {
+                alert('Error responding to emergency');
+                return;
+            }
+
+            const updatedEmergencyData = await response.json();
+            const responseData = {
+                id : updatedEmergencyData.id,
+                reporter: updatedEmergencyData.reporter,
+                responder: updatedEmergencyData.responder,
+                latitude: updatedEmergencyData.latitude,
+                longitude: updatedEmergencyData.longitude,
+                description: updatedEmergencyData.description,
+                status: updatedEmergencyData.status,
+                reportedAt: updatedEmergencyData.reportedAt,
+                distance: distance
+            };
+            console.log('Updated Emergency with responder:', updatedEmergencyData);
+
+            let updatedScore = profile.score + emergencyScoreXp;
+            if (updatedScore >= 5.0) {
+                updatedScore = 5.0;
+            }
+            profile.score = updatedScore;
+
+            const profileResponse = await fetch(`http://localhost:8080/aid-guardian/user-profiles/${profile.id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(profile)
+            });
+
+            if (!profileResponse.ok) {
+                alert('Error updating user score');
+                return;
+            }
+
+            const updatedProfileData = await profileResponse.json();
+            console.log('Updated User with score:', updatedProfileData);
+            setProfile(updatedProfileData);
+
+            respondToEmergency(responseData);
+        } catch (error) {
+            console.error('Error responding to emergency:', error);
+            alert('Error responding to emergency');
+        }
+
     }
 
     const handleIgnoreEmergency = async () => {

@@ -74,7 +74,8 @@ public class UserDBRepository extends AbstractDBRepository<Long, User> implement
     @Override
     protected PreparedStatement updateStatement(Connection connection, User entity) throws SQLException {
         String sql = "UPDATE users SET email = ?, username = ?, password = ?, role = ?";
-        if (entity.getRole() == UserRole.FIRST_RESPONDER) {
+        boolean isFirstResponder = entity instanceof FirstResponder;
+        if (isFirstResponder) {
             sql += ", on_duty = ?";
         }
         sql += " WHERE id_user = ?";
@@ -85,14 +86,14 @@ public class UserDBRepository extends AbstractDBRepository<Long, User> implement
         preparedStatement.setString(3, entity.getPassword());
         preparedStatement.setString(4, entity.getRole().toString());
 
-        if (entity.getRole() == UserRole.FIRST_RESPONDER) {
-            preparedStatement.setBoolean(5, ((FirstResponder) entity).isOnDuty());
+        if (isFirstResponder) {
+            FirstResponder firstResponder = (FirstResponder) entity;
+            preparedStatement.setBoolean(5, firstResponder.isOnDuty());
             preparedStatement.setLong(6, entity.getId());
         }
         else {
             preparedStatement.setLong(5, entity.getId());
         }
-
         return preparedStatement;
     }
 

@@ -14,7 +14,7 @@ const SignUpPage = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [gender, setGender] = useState("male");
+    const [gender, setGender] = useState("Male");
     const [dob, setDob] = useState("");
     const [height, setHeight] = useState("");
     const [weight, setWeight] = useState("");
@@ -22,13 +22,13 @@ const SignUpPage = () => {
     const [medicalHistory, setMedicalHistory] = useState("");
     const [certificationFile, setCertificationFile] = useState();
     const [isFirstResponder, setIsFirstResponder] = useState("COMMUNITY_DISPATCHER");
-    const [score, setScore] = useState(1.0);
+    const [score] = useState(1.0);
 
-    // const { setToken } = useAuth();
-    // const { setUser, setProfile } = useData();
-    // const { initializeConnection } = useSocket();
+    const { setToken } = useAuth();
+    const { setUser, setProfile } = useData();
+    const { initializeConnection } = useSocket();
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (email === '' || username === '' || password === '' || confirmPassword === '' || firstName === ''
@@ -40,18 +40,6 @@ const SignUpPage = () => {
         if(password !== confirmPassword) {
             alert('Passwords do not match!');
             return;
-        }
-
-        if(certificationFile)
-        {
-            try{
-                await validateCertificate(event);
-            }catch(error)
-            {
-                console.error('Error validating certificate:', error);
-                alert('Error validating certificate. Please try again.');
-                return;
-            }
         }
 
         // Send user register request
@@ -75,22 +63,21 @@ const SignUpPage = () => {
                 alert('Invalid registration credentials, please verify and try again.');
             }
         }).then(userData =>{
+            console.log("New registered user: ",userData);
 
-            console.log("USER: ",userData);
-            //const { authenticatedUser, accessToken } = userData;
-            localStorage.setItem('user', JSON.stringify(userData));
-            //localStorage.setItem('token', accessToken);
+            const { authenticatedUser, accessToken } = userData;
+            localStorage.setItem('user', JSON.stringify(authenticatedUser));
+            localStorage.setItem('token', accessToken);
 
-            // setToken(userData.accessToken);
-            // setUser(authenticatedUser);
-            // initializeConnection();
+            setToken(userData.accessToken);
+            setUser(authenticatedUser);
+            initializeConnection();
 
 
-            //console.log("AUT: ", authenticatedUser)
-            return userData;
+            return authenticatedUser;
         }).then(savedUserData => {
 
-            console.log("IMPORTANT: ", savedUserData);
+            console.log("New registered user data: ", savedUserData);
             const profileData = {
                 "user": savedUserData,
                 "firstName": firstName,
@@ -113,51 +100,66 @@ const SignUpPage = () => {
                 body: JSON.stringify(profileData)
             });
         }).then(response => {
-                if (response.status === 200)
-                {
+                if (response.status === 401) {
+                   alert('Unable to retrieve user information.');
+                } else {
                     return response.json();
                 }
-                else
-                {
-                    alert('Unable to create user profile.');
-                    return ;
-                }
-        }).then(profileResponse => {
+        }).then(profileData => {
+            console.log(profileData);
 
-            console.log(profileResponse);
-            localStorage.setItem('profile', JSON.stringify(profileResponse));
-            //setProfile(profileResponse);
+            localStorage.setItem('profile', JSON.stringify(profileData));
+            setProfile(profileData);
+
+            alert(`Welcome to Aid Guardian, ${firstName}! You have successfully registered as ${isFirstResponder.toLowerCase()}!`);
             navigate("/profile", {replace: true});
         }).catch(error => {
             console.log("Error on fetching registration request: " + error);
         });
     }
 
-    const validateCertificate = (event) => {
-        return new Promise((resolve, reject) => {
+    const validateCertificate = async (event) => {
             event.preventDefault();
+
+            if (!certificationFile) {
+                alert('Please upload a certificate before validating!');
+                return;
+            }
+
             const formData = new FormData();
             formData.append("certificate", certificationFile);
             formData.append("name", `${lastName} ${firstName}`);
-            fetch("http://localhost:5000/certificate-recognition", {
-                method: 'POST',
-                body: formData
-            }).then(response => response.json())
-                .then(data => {
-                    if (data["is_valid"]) {
-                        setIsFirstResponder("FIRST_RESPONDER")
-                        console.log("Valid certificate");
-                        console.log("aici ", isFirstResponder);
-                    } else {
-                        console.log("Invalid certificate");
-                    }
-                    //setIsFirstResponder(data["is_valid"]);
-                    resolve(data["is_valid"]);
-                }).catch(error => {
-                console.error('Error validating certficate:', error);
-                reject(error);
-            });
-        });
+
+            try {
+                const response = await fetch("http://localhost:5050/certificate-recognition", {
+                    method: 'POST',
+                    headers: {
+                        'Access-Control-Allow-Origin': '*'
+                    },
+                    body: formData
+                });
+
+                if (!response.ok) {
+                    console.error('Error validating certificate');
+                    return;
+                }
+
+                const data = await response.json();
+                console.log("Certificate validation response: ", data);
+                if (data["is_valid"]) {
+                    setIsFirstResponder("FIRST_RESPONDER");
+                    alert("Congratulations! Your certificate is valid! You can now register as a first responder.")
+
+                    console.log("Valid certificate");
+                    console.log("First aid validation for user: ", isFirstResponder);
+                } else {
+                    alert("Validation failed. Please check again your user credentials or provide a valid certificate.");
+                    console.log("Invalid certificate");
+                }
+            }
+            catch (error) {
+                console.error('Error validating certificate:', error);
+            }
     };
 
 
@@ -203,9 +205,9 @@ const SignUpPage = () => {
                 <div className="form-group">
                     <label form="gender">Gender:</label>
                     <select id="gender" name="gender" value={gender} onChange={(e) => setGender(e.target.value)}>
-                        <option value="female">Female</option>
-                        <option value="male">Male</option>
-                        <option value="other">Other</option>
+                        <option value="Female">Female</option>
+                        <option value="Male">Male</option>
+                        <option value="Other">Other</option>
                     </select>
                 </div>
                 <div className="form-group">
@@ -246,11 +248,7 @@ const SignUpPage = () => {
                     <label form="certification">Medical/First-aid Certification:</label>
                     <input type="file" id="certification" name="certification"
                            onChange={(e) => setCertificationFile(e.target.files[0])}/>
-                    <button id="validate-certificate" onClick={(event) => {
-                        if (certificationFile) {
-                            validateCertificate(event)
-                        }
-                    }}>Validate</button>
+                    <button id="validate-certificate" onClick={validateCertificate}>Validate</button>
                 </div>
                 <div className="form-group-validate"></div>
                 <div className="form-group-information">

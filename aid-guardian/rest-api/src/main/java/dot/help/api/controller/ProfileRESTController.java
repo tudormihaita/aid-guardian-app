@@ -49,4 +49,24 @@ public class ProfileRESTController {
             return ResponseEntity.ok().body(profile.get());
         }
     }
+
+    @PutMapping("/{id}")
+    ResponseEntity<?> updateProfile(@PathVariable Long id, @RequestBody Profile profile) {
+        log.traceEntry("Updating profile for user: " + profile.getId());
+
+        Optional<Profile> existingProfile = profileRepository.findOne(id);
+        if (existingProfile.isEmpty()) {
+            log.error("Profile not found for user: " + profile.getId());
+            return ResponseEntity.notFound().build();
+        }
+
+        Optional<Profile> updatedProfile = profileRepository.update(profile);
+        if (updatedProfile.isEmpty()) {
+            log.error("Failed to update profile for user: " + profile.getId());
+            return ResponseEntity.badRequest().body("Failed to update profile");
+        } else {
+            log.traceExit("Updated profile for user: " + profile.getId());
+            return ResponseEntity.ok().body(updatedProfile.get());
+        }
+    }
 }

@@ -116,7 +116,7 @@ public class ProfileDBRepository extends AbstractDBRepository<Long, Profile> imp
         updateStatement.setDouble(7, entity.getWeight());
         updateStatement.setString(8, entity.getMedicalHistory());
         updateStatement.setDouble(9, entity.getScore());
-        updateStatement.setLong(10, entity.getUser().getId());
+        updateStatement.setLong(10, entity.getId());
 
         return updateStatement;
     }

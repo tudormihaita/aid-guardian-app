@@ -14,6 +14,10 @@ import TrainingPage from "./pages/Training/TrainingPage.jsx";
 import BleedingGuide from "./pages/Training/Guides/BleedingGuide.jsx";
 import ScorePage from "./pages/Score/ScorePage.jsx";
 import HistoryPage from "./pages/History/HistoryPage.jsx";
+import ChokingGuide from "./pages/Training/Guides/ChokingGuide.jsx";
+import CPRGuide from "./pages/Training/Guides/CPRGuide.jsx";
+import BurnsGuide from "./pages/Training/Guides/BurnsGuide.jsx";
+import FracturesGuide from "./pages/Training/Guides/FracturesGuide.jsx";
 
 function App() {
     return (
@@ -34,7 +38,11 @@ function App() {
                                 <Route path="/training" element={ <ProtectedRoute> <TrainingPage /> </ProtectedRoute> }/>
                                 <Route path="/history" element={ <ProtectedRoute> <HistoryPage /> </ProtectedRoute> }/>
 
+                                <Route path="/training/cpr" element={ <ProtectedRoute> <CPRGuide /> </ProtectedRoute> }/>
+                                <Route path="/training/choking" element={ <ProtectedRoute> <ChokingGuide /> </ProtectedRoute>}/>
                                 <Route path="/training/bleeding" element={ <ProtectedRoute> <BleedingGuide /> </ProtectedRoute> }/>
+                                <Route path="/training/burns" element={ <ProtectedRoute> <BurnsGuide /> </ProtectedRoute> }/>
+                                <Route path="/training/fractures" element={ <ProtectedRoute> <FracturesGuide /> </ProtectedRoute> }/>
                             </Routes>
                         </BrowserRouter>
                     </SocketProvider>

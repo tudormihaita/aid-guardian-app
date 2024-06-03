@@ -141,7 +141,7 @@ public abstract class AbstractDBRepository<ID, E extends Identifiable<ID>> imple
                 int affectedRows = updateStatement.executeUpdate();
                 if (affectedRows == 1) {
                     log.traceExit("Entity {} updated successfully", optionalEntity.get());
-                    return optionalEntity;
+                    return Optional.of(entity);
                 }
             } catch (SQLException sqlException) {
                 log.error(sqlException);
