@@ -1,0 +1,142 @@
+/* Resetare CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Stiluri Globale */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    /*background-color: #f4f4e6; !* Gri deschis *!*/
+    color: #333333;
+}
+
+.user-header {
+    /*background-color: #be2821; !* Rosu *!*/
+    /*background-color: #ffd782; !*  portocaliu *!*/
+    background-color: #55b56a; /*verde*/
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+#icon{
+    width: 60px;
+    height: 60px;
+    border: black;
+}
+
+.user-details h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    /*color: #ffffff;*/
+    color: #000000;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #000000;
+    /*color: #CCCCCC;*/
+}
+
+.main-nav {
+    /*background-color: #ffd782; !*  portocaliu *!*/
+    background-color: #be2821; /* Rosu */;
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start; /* Aliniere de la stânga la dreapta */
+    list-style-type: none;
+}
+
+.nav-links li {
+    margin-right: 10px;
+}
+
+.nav-links li:not(:last-child) {
+    border-right: 2px solid #ffffff; /* Bară între butoane */
+    padding-right: 10px; /* Spațiu între bară și buton */
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.nav-links li a:hover {
+    background-color: #ff725e;
+    color: #ffffff;
+}
+
+.main-nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+.guides-container {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.guide {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid ;
+    border-color: #be2821; /* Rosu */;
+    margin-bottom: 20px;
+}
+
+.guide img {
+    width: 200px;
+    height: 150px;
+    margin: 10px;
+    object-fit: inherit;
+    border-radius: 10px;
+    border: 1px solid black;
+}
+
+.guide-details {
+    padding: 20px;
+}
+
+.guide-details h2 {
+    border-bottom: 3px solid #55b56a;
+    width: 100%;
+}
+
+.guide-details a {
+    color: #d9534f;
+    text-decoration: none;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #55b56a; /*verde*/
+    color: white;
+}

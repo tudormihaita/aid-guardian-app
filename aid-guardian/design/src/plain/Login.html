@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+  <style>
+    body {
+      font-family: 'Avenir Light', sans-serif;
+      background-color: RGB(204, 229, 255);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 500px;
+      margin: 0 auto;
+      padding: 0;
+      position: relative;
+    }
+    .pane {
+      border: 2px solid black;
+      border-radius: 20px;
+      background-color: RGB(250, 250, 250);
+      padding: 20px;
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    .header {
+      font-size: 25px;
+    }
+    .title {
+      font-size: 32px;
+      margin-top: 10px;
+    }
+     .form-row {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+    .form-row + .form-row {
+  margin-top: 0;
+}
+    .input-label {
+      font-size: 16px;
+      margin-top: 20px;
+      display: inline-block;
+      width: 150px;
+    }
+    input[type="text"],
+    input[type="password"] {
+      width: calc(100% - 170px);
+      padding: 10px;
+      margin-top: 20px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .btn {
+      background-color: RGB(200, 200, 200);
+      border-radius: 20px;
+      border: 1.5px solid black;
+      padding: 10px 20px;
+      font-size: 18px;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .back-btn {
+      position: absolute;
+      background-color: transparent;
+      border: none;
+      cursor: pointer;
+      z-index: 1; /* Adăugăm un index z pentru a asigura afișarea butonului deasupra conținutului */
+    }
+    .back-btn img {
+      width: 36px;
+      height: 37px;
+    }
+  </style>
+</head>
+<body>
+<script>
+  function loginHandler() {
+    const usernameEmail = document.getElementById('usernameEmailTextField').value;
+    const password = document.getElementById('passwordTextField').value;
+
+    if (usernameEmail === '' || password === '') {
+      alert('Please fill in all fields');
+      return;
+    }
+
+    fetch('http://localhost:8080/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "username": usernameEmail,
+        "email": usernameEmail,
+        "password": password
+      })
+    }).then(response => {
+      if (response.status === 401) {
+        alert('Invalid username/email or password');
+      } else if (response.status === 500) {
+        alert('An error occurred. Please try again later');
+      } else {
+        return response.json();
+      }
+    }).then(data => {
+      if (data) {
+        localStorage.setItem('user', JSON.stringify(data));
+        window.location.href= 'Profile.html';
+      }
+    });
+  }
+
+</script>
+<button class="back-btn" onclick="handleBackButton()">
+  <img src="../assets/images/backButton.png" alt="Back">
+</button>
+<div class="container">
+  <div class="pane">
+    <div class="header">
+      <img src="../assets/images/shield.png" alt="Shield" style="vertical-align: middle; width: 30px; height: 30px">
+      <span style="margin-left: 10px;">AidGuardian</span>
+    </div>
+    <div class="title">Login</div>
+    <div class="form">
+      <div class="form-row">
+        <div class="input-label">Username/Email:</div>
+        <input type="text" id="usernameEmailTextField" placeholder="Your username/Your email">
+      </div>
+
+      <div class = "form-row">
+        <div class="input-label">Password:</div>
+        <input type="password" id="passwordTextField" placeholder="Your password">
+      </div>
+    </div>
+    <button class="btn" onclick="loginHandler()">Login</button>
+  </div>
+</div>
+</body>
+</html>

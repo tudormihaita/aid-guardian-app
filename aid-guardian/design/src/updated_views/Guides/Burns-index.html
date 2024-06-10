@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burns First Aid - Aid Guardian</title>
+    <link rel="stylesheet" href="stylesGUIDES.css">
+</head>
+<body>
+<header>
+    <img src="../images/shield.png" alt="Aid Guardian Logo" class="logo">
+</header>
+<main>
+    <div>
+        <ol class="carousel">
+            <li class="carousel-item">
+                <img class="cpr-images" src="burn-images/burn-images1.png" alt="Image 1">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="burn-images/burn-images2.png" alt="Image 2">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="burn-images/burn-images3.png" alt="Image 3">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="burn-images/burn-images4.png" alt="Image 4">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="burn-images/burn-images5.png" alt="Image 5">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="burn-images/burn-images6.png" alt="Image 6">
+
+            </li>
+
+        </ol>
+        <div style="display: flex;flex-direction: row;justify-content: space-between">
+            <button id="prevBtn" style="background-color: #55b56a">Previous</button>
+            <button id="nextBtn" style="background-color: #ff725e">Next</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const carouselItems = document.querySelectorAll('.carousel li');
+            let currentIndex = 0;
+
+            function showItem(index) {
+                carouselItems.forEach((item, i) => {
+                    if (i === index) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+
+                });
+            }
+
+            function nextItem() {
+                if (currentIndex < carouselItems.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                showItem(currentIndex);
+            }
+
+            function prevItem() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = carouselItems.length - 1;
+                }
+                showItem(currentIndex);
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', nextItem);
+            document.getElementById('prevBtn').addEventListener('click', prevItem);
+
+            showItem(currentIndex); // Afisare initiala a primului element
+        });
+    </script>
+
+
+</main>
+<!--<main>-->
+<!--    <h1>Burns First Aid Instructions</h1>-->
+<!--    <p>Burns can be very serious and need immediate attention. Here are the steps you should follow:</p>-->
+
+<!--    <h2>Steps to Treat Burns:</h2>-->
+<!--    <ol>-->
+<!--        <li><strong>Stop the Burning Process:</strong> Remove the person from the source of the burn to prevent further injury.</li>-->
+<!--        <li><strong>Cool the Burn:</strong> Hold the burned area under cool (not cold) running water for 10-20 minutes. Do not use ice.</li>-->
+<!--        <li><strong>Protect the Burn:</strong> Cover the burn with a sterile, non-adhesive bandage or clean cloth.</li>-->
+<!--        <li><strong>Prevent Shock:</strong> Lay the person down and elevate their legs. Keep them warm and comfortable.</li>-->
+<!--        <li><strong>Do Not Break Blisters:</strong> If blisters form, do not break them as this can increase the risk of infection.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>For Minor Burns:</h2>-->
+<!--    <ol>-->
+<!--        <li><strong>Clean the Burn:</strong> After cooling, gently clean the burn with mild soap and water.</li>-->
+<!--        <li><strong>Apply an Antibiotic Ointment:</strong> Use an antibiotic ointment to help prevent infection.</li>-->
+<!--        <li><strong>Cover the Burn:</strong> Use a sterile gauze bandage to cover the burn and keep it clean.</li>-->
+<!--        <li><strong>Monitor for Infection:</strong> Watch for signs of infection, such as increased pain, redness, fever, swelling, or oozing.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>For Severe Burns:</h2>-->
+<!--    <ol>-->
+<!--        <li><strong>Call Emergency Services:</strong> Seek immediate medical attention for severe burns.</li>-->
+<!--        <li><strong>Do Not Remove Stuck Clothing:</strong> If clothing is stuck to the burn, do not attempt to remove it.</li>-->
+<!--        <li><strong>Cover the Burn:</strong> Cover the burn with a cool, moist, sterile bandage or cloth.</li>-->
+<!--        <li><strong>Monitor for Shock:</strong> Watch for signs of shock, such as pale skin, rapid breathing, and weakness. Keep the person lying down with their feet elevated if you suspect shock.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>Special Considerations:</h2>-->
+<!--    <p>For chemical burns, rinse the affected area with cool running water for at least 20 minutes. For electrical burns, ensure the source of electricity is turned off before touching the person.</p>-->
+<!--</main>-->
+</body>
+</html>

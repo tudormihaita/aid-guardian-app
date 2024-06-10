@@ -1,0 +1,75 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #fff;
+    padding: 10px 20px;
+    border-bottom: 1px solid #ddd;
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    height: 50px;
+}
+button{
+    text-decoration: none;
+    padding: 10px 20px;
+    border: none;
+    margin: 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #be2821;
+    color: #ffffff;
+}
+main {
+    border: 2px solid #be2821;
+
+    width: 800px;
+    height: 600px;
+    margin: 20px auto;
+    padding: 2px;
+    background-color: #fff;
+    border-radius: 30px;
+}
+main > div:first-child{
+    border: 2px solid darkgreen;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 596px;
+    background-color: #fff;
+    border-radius: 25px;
+}
+
+h1 {
+    color: #be2821; /* Rosu */
+    text-align: center;
+}
+
+h2 {
+    color: #333;
+    margin-top: 20px;
+}
+
+p {
+    line-height: 1.6;
+    margin: 10px 0;
+}
+
+.cpr-images{
+    position: relative;
+    height: 400px;
+    width: 400px;
+    margin-top: 40px;
+}
+ol.carousel{
+    display: flex;
+    justify-content: center;
+}

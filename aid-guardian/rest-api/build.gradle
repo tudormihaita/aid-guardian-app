@@ -1,0 +1,63 @@
+plugins {
+    id 'org.springframework.boot' version '3.2.5'
+    id 'java'
+    id 'application'
+}
+
+group = 'dot.help.api'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':model')
+    implementation project(':persistence')
+
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core
+    implementation 'org.apache.logging.log4j:log4j-core:2.23.1'
+
+    // https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-api
+    implementation 'org.apache.logging.log4j:log4j-api:2.23.1'
+
+    // Spring Boot dependencies
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-web' // If you need Spring MVC or REST
+    implementation 'org.springframework.boot:spring-boot-starter-logging'
+    implementation platform('org.springframework.boot:spring-boot-dependencies:2.7.8')
+
+    // JwT Security dependencies
+    implementation 'io.jsonwebtoken:jjwt-api:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-impl:0.12.5'
+    runtimeOnly 'io.jsonwebtoken:jjwt-jackson:0.12.5'
+
+    // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-websocket
+    // implementation 'org.springframework.boot:spring-boot-starter-websocket:3.2.5'
+
+    // https://mvnrepository.com/artifact/org.springframework.security.oauth/spring-security-oauth
+    // implementation 'org.springframework.security.oauth:spring-security-oauth:2.5.2.RELEASE'
+
+}
+
+application {
+    mainClass = 'dot.help.services.StartRESTServer'
+}
+
+jar{
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    manifest {
+        attributes('Main-Class': 'dot.help.services.StartRESTServer')
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+
+test {
+    useJUnitPlatform()
+}

@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    position: relative; /* Needed for footer positioning */
+}
+
+#header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 2px solid #eeeeee;
+}
+
+.logo img {
+    width: 120px; /* Adjust logo size as needed */
+}
+
+.auth-buttons .button {
+    text-decoration: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #be2821; /* Rosu */
+    color: #ffffff; /* Text alb */
+}
+
+.auth-buttons .button:hover {
+    opacity: 0.8;
+}
+
+.intro {
+    text-align: center;
+    background-color: #f7f7f7; /* Gri deschis */
+    flex: 1; /* Takes up remaining vertical space */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centers content vertically */
+    align-items: center; /* Centers content horizontally */
+    padding: 250px 100px;
+}
+
+.intro h1 {
+    font-size: 36px;
+    color: #333333;
+    margin-bottom: 20px;
+}
+
+.intro p {
+    font-size: 18px;
+    color: #666666;
+    line-height: 1.5;
+}
+
+footer {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: #55b56a; /* Green */
+    border-top: 2px solid #eeeeee;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fractures First Aid - Aid Guardian</title>
+    <link rel="stylesheet" href="stylesGUIDES.css">
+</head>
+<body>
+<header>
+    <img src="../images/shield.png" alt="Aid Guardian Logo" class="logo">
+</header>
+<main>
+    <div>
+        <ol class="carousel">
+            <li class="carousel-item">
+                <img class="cpr-images" src="fracture-images/fracture-images2.jpeg" alt="Image 1">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="fracture-images/fracture-images3.jpeg" alt="Image 2">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="fracture-images/fracture-images4.jpeg" alt="Image 3">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="fracture-images/fracture-images5.jpeg" alt="Image 4">
+
+            </li>
+
+
+        </ol>
+        <div style="display: flex;flex-direction: row;justify-content: space-between">
+            <button id="prevBtn" style="background-color: #55b56a">Previous</button>
+            <button id="nextBtn" style="background-color: #ff725e">Next</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const carouselItems = document.querySelectorAll('.carousel li');
+            let currentIndex = 0;
+
+            function showItem(index) {
+                carouselItems.forEach((item, i) => {
+                    if (i === index) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+
+                });
+            }
+
+            function nextItem() {
+                if (currentIndex < carouselItems.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                showItem(currentIndex);
+            }
+
+            function prevItem() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = carouselItems.length - 1;
+                }
+                showItem(currentIndex);
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', nextItem);
+            document.getElementById('prevBtn').addEventListener('click', prevItem);
+
+            showItem(currentIndex); // Afisare initiala a primului element
+        });
+    </script>
+
+
+</main>
+<!--<main>-->
+<!--    <h1>Fractures First Aid Instructions</h1>-->
+<!--    <p>Fractures, or broken bones, require immediate medical attention. Here are the steps you should follow:</p>-->
+
+<!--    <h2>Steps to Treat Fractures:</h2>-->
+<!--    <ol>-->
+<!--        <li><strong>Stop Any Bleeding:</strong> If the person is bleeding, apply pressure with a clean cloth or bandage.</li>-->
+<!--        <li><strong>Immobilize the Injured Area:</strong> Keep the injured area as still as possible. Use a splint or sling to immobilize the limb.</li>-->
+<!--        <li><strong>Apply Cold:</strong> Use an ice pack or cold compress to reduce swelling and pain. Do not apply ice directly to the skin.</li>-->
+<!--        <li><strong>Provide Pain Relief:</strong> Give over-the-counter pain relievers like ibuprofen or acetaminophen if the person is in pain.</li>-->
+<!--        <li><strong>Seek Medical Attention:</strong> Call emergency services or take the person to the nearest hospital or urgent care center.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>For Open Fractures:</h2>-->
+<!--    <ol>-->
+<!--        <li><strong>Do Not Push the Bone Back In:</strong> Do not attempt to push a bone back in if it is protruding through the skin.</li>-->
+<!--        <li><strong>Cover the Wound:</strong> Cover the wound with a sterile bandage or clean cloth to prevent infection.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>For Suspected Neck or Back Injuries:</h2>-->
+<!--    <ol>-->
+<!--        <li><strong>Do Not Move the Person:</strong> Do not move the person unless absolutely necessary, such as if they are in immediate danger.</li>-->
+<!--        <li><strong>Keep the Person Still:</strong> Encourage the person to remain as still as possible. Use rolled towels or cushions to keep the neck and head stable.</li>-->
+<!--        <li><strong>Call Emergency Services:</strong> Seek immediate medical help.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>Special Considerations:</h2>-->
+<!--    <p>Always suspect a fracture if there is severe pain, swelling, bruising, or an inability to move the limb. In the case of a suspected fracture, it is better to be safe and seek medical attention even if you are not sure.</p>-->
+<!--</main>-->
+</body>
+</html>

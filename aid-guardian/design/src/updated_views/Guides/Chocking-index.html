@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choking First Aid - Aid Guardian</title>
+    <link rel="stylesheet" href="stylesGUIDES.css">
+</head>
+<body>
+<header>
+    <img src="../images/shield.png" alt="Aid Guardian Logo" class="logo">
+</header>
+<main>
+    <div>
+        <ol class="carousel">
+            <li class="carousel-item">
+                <img class="cpr-images" src="choking-images/chocking-images1.jpeg" alt="Image 1">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="choking-images/chocking-images2.jpeg" alt="Image 2">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="choking-images/chocking-images3.jpeg" alt="Image 3">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="choking-images/chocking-images4.jpeg" alt="Image 4">
+
+            </li>
+            <li class="carousel-item">
+                <img class="cpr-images" src="choking-images/chocking-images5.jpeg" alt="Image 5">
+
+            </li>
+        </ol>
+        <div style="display: flex;flex-direction: row;justify-content: space-between">
+            <button id="prevBtn" style="background-color: #55b56a">Previous</button>
+            <button id="nextBtn" style="background-color: #ff725e">Next</button>
+        </div>
+    </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+
+            const carouselItems = document.querySelectorAll('.carousel li');
+            let currentIndex = 0;
+
+            function showItem(index) {
+                carouselItems.forEach((item, i) => {
+                    if (i === index) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+
+                });
+            }
+
+            function nextItem() {
+                if (currentIndex < carouselItems.length - 1) {
+                    currentIndex++;
+                } else {
+                    currentIndex = 0;
+                }
+                showItem(currentIndex);
+            }
+
+            function prevItem() {
+                if (currentIndex > 0) {
+                    currentIndex--;
+                } else {
+                    currentIndex = carouselItems.length - 1;
+                }
+                showItem(currentIndex);
+            }
+
+            document.getElementById('nextBtn').addEventListener('click', nextItem);
+            document.getElementById('prevBtn').addEventListener('click', prevItem);
+
+            showItem(currentIndex); // Afisare initiala a primului element
+        });
+    </script>
+
+
+</main>
+<!--<main>-->
+<!--    <h1>Choking First Aid Instructions</h1>-->
+<!--    <p>If someone is choking, they need immediate help. Here are the steps you should follow:</p>-->
+
+<!--    <h2>For an Adult or Child over One Year Old:</h2>-->
+<!--    <p>If the person can cough forcefully, encourage them to keep coughing.</p>-->
+<!--    <p>If the person cannot cough, speak, or breathe, use the Heimlich maneuver:</p>-->
+<!--    <ol>-->
+<!--        <li>Stand behind the person and wrap your arms around their waist.</li>-->
+<!--        <li>Make a fist with one hand. Place the thumb side of your fist just above the person's navel, below the ribcage.</li>-->
+<!--        <li>Grasp your fist with your other hand and press into the person’s abdomen with a quick, upward thrust.</li>-->
+<!--        <li>Repeat thrusts until the object is expelled or the person becomes unconscious.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>If the Person Becomes Unconscious:</h2>-->
+<!--    <p>Lower them to the ground and start CPR:</p>-->
+<!--    <ol>-->
+<!--        <li>Kneel next to the person's shoulders.</li>-->
+<!--        <li>Begin chest compressions by placing the heel of one hand on the center of the chest and your other hand on top. Push hard and fast, compressing at least 2 inches deep at a rate of 100-120 compressions per minute.</li>-->
+<!--        <li>After 30 compressions, check the mouth for any visible obstructions. Remove any object you can see and reach.</li>-->
+<!--        <li>Attempt to give two rescue breaths. Tilt the head back, lift the chin, and give a breath to make the chest rise. If the chest doesn’t rise, reposition and try again.</li>-->
+<!--        <li>Continue with cycles of 30 compressions and 2 breaths until help arrives or the person starts to breathe normally.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>For an Infant Under One Year Old:</h2>-->
+<!--    <p>If the infant is coughing or gagging, let them try to clear the object.</p>-->
+<!--    <p>If the infant cannot cough, cry, or breathe, do the following:</p>-->
+<!--    <ol>-->
+<!--        <li>Sit down and hold the infant face down on your forearm, resting on your thigh. Support the infant's head and jaw with your hand.</li>-->
+<!--        <li>Give up to 5 back blows between the infant’s shoulder blades with the heel of your hand.</li>-->
+<!--        <li>If the object is not expelled, turn the infant face up, resting on your thigh, and give up to 5 chest thrusts. Place two fingers in the center of the infant’s chest just below the nipple line, and press down about 1.5 inches.</li>-->
+<!--        <li>Repeat the sequence of 5 back blows and 5 chest thrusts until the object is expelled or the infant becomes unresponsive.</li>-->
+<!--    </ol>-->
+
+<!--    <h2>If the Infant Becomes Unresponsive:</h2>-->
+<!--    <p>Begin infant CPR:</p>-->
+<!--    <ol>-->
+<!--        <li>Place the infant on a flat surface and start chest compressions by using two fingers to press down in the center of the chest just below the nipple line, compressing about 1.5 inches deep.</li>-->
+<!--        <li>Give 30 compressions at a rate of 100-120 per minute, followed by two rescue breaths.</li>-->
+<!--        <li>Continue with cycles of 30 compressions and 2 breaths until help arrives or the infant starts to breathe normally.</li>-->
+<!--    </ol>-->
+<!--</main>-->
+</body>
+</html>

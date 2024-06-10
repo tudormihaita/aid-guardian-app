@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up/Login Form</title>
+    <style>
+        body {
+            font-family: 'Avenir Light', sans-serif;
+            background-color: RGB(204, 229, 255);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            border: 2px solid black; 
+            border-radius: 20px; 
+            padding: 20px;
+            background-color: white; 
+            width: 300px;
+        }
+
+        .logo-container {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container img {
+            width: 35px;
+            height: 35px;
+            margin-right: 10px; /* Adjust as needed */
+        }
+
+        .logo-container h1 {
+            font-size: 25px;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column; /* Arrange buttons in a column */
+            align-items: center;
+            margin-top: 30px; /* Adjust spacing between logo and buttons */
+        }
+
+        .button-container button {
+            background-color: RGB(200, 200, 200);
+            border: 2px solid black;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-family: 'Avenir Heavy';
+            font-size: 15px;
+            cursor: pointer;
+            margin-bottom: 22px; /* Add space between buttons */
+            width: 180px;
+        }
+
+        .not-colored-link {
+            text-decoration: none;
+            color: inherit;
+        }
+    </style>
+</head>
+<body>
+<div class="form-container">
+    <div class = "logo-container">
+            <img src="../assets/images/shield.png" alt="Shield Icon" style="width: 35px; height: 35px;">
+            <h1 style="font-size: 25px;">AidGuardian</h1>
+    </div>
+    <hr>
+    <div class="button-container">
+        <button onclick="handleSignUp()"><a href="SignUp.html" class="not-colored-link">Sign up</a></button>
+        <button onclick="handleLogin()"><a href="Login.html" class="not-colored-link">Login</a></button>
+    </div>
+</div>
+</body>
+</html>

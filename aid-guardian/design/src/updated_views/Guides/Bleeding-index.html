@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bleeding First Aid - Aid Guardian</title>
+  <link rel="stylesheet" href="stylesGUIDES.css">
+</head>
+<body>
+<header>
+  <img src="../images/shield.png" alt="Aid Guardian Logo" class="logo">
+</header>
+<main>
+  <div>
+    <ol class="carousel">
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image1.jpeg" alt="Image 1">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image2.jpeg" alt="Image 2">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image3.jpeg" alt="Image 3">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image4.jpeg" alt="Image 4">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image5.jpeg" alt="Image 5">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image6.jpeg" alt="Image 6">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image7.jpeg" alt="Image 6">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image8.jpeg" alt="Image 6">
+
+      </li>
+      <li class="carousel-item">
+        <img class="cpr-images" src="bleeding-images/bleeding-image9.jpeg" alt="Image 6">
+      </li>
+    </ol>
+    <div style="display: flex;flex-direction: row;justify-content: space-between">
+      <button id="prevBtn" style="background-color: #55b56a">Previous</button>
+      <button id="nextBtn" style="background-color: #ff725e">Next</button>
+    </div>
+  </div>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      const carouselItems = document.querySelectorAll('.carousel li');
+      let currentIndex = 0;
+
+      function showItem(index) {
+        carouselItems.forEach((item, i) => {
+          if (i === index) {
+            item.style.display = 'block';
+          } else {
+            item.style.display = 'none';
+          }
+
+        });
+      }
+
+      function nextItem() {
+        if (currentIndex < carouselItems.length - 1) {
+          currentIndex++;
+        } else {
+          currentIndex = 0;
+        }
+        showItem(currentIndex);
+      }
+
+      function prevItem() {
+        if (currentIndex > 0) {
+          currentIndex--;
+        } else {
+          currentIndex = carouselItems.length - 1;
+        }
+        showItem(currentIndex);
+      }
+
+      document.getElementById('nextBtn').addEventListener('click', nextItem);
+      document.getElementById('prevBtn').addEventListener('click', prevItem);
+
+      showItem(currentIndex); // Afisare initiala a primului element
+    });
+  </script>
+
+
+</main>
+<!--<main>-->
+<!--  <h1>Bleeding First Aid Instructions</h1>-->
+<!--  <p>If someone is bleeding heavily, they need immediate help. Here are the steps you should follow:</p>-->
+
+<!--  <h2>Steps to Control Bleeding:</h2>-->
+<!--  <ol>-->
+<!--    <li><strong>Stay Calm:</strong> Keep yourself and the injured person as calm as possible.</li>-->
+<!--    <li><strong>Call for Help:</strong> Call emergency services immediately if the bleeding is severe.</li>-->
+<!--    <li><strong>Protect Yourself:</strong> Use gloves or a plastic bag to avoid contact with blood.</li>-->
+<!--    <li><strong>Apply Pressure:</strong> Use a clean cloth or bandage to apply firm pressure directly to the wound.</li>-->
+<!--    <li><strong>Elevate the Wound:</strong> If possible, raise the injured area above the level of the heart to slow the bleeding.</li>-->
+<!--    <li><strong>Maintain Pressure:</strong> Keep applying pressure to the wound until help arrives. Do not remove the cloth or bandage if it becomes soaked with blood; instead, add more layers.</li>-->
+<!--  </ol>-->
+
+<!--  <h2>For Minor Bleeding:</h2>-->
+<!--  <ol>-->
+<!--    <li><strong>Clean the Wound:</strong> Rinse the wound with clean water to remove any dirt or debris.</li>-->
+<!--    <li><strong>Apply an Antibiotic:</strong> Use an antibiotic ointment to help prevent infection.</li>-->
+<!--    <li><strong>Cover the Wound:</strong> Use a sterile bandage or dressing to protect the wound.</li>-->
+<!--    <li><strong>Change Dressings:</strong> Change the bandage as needed, keeping the wound clean and dry.</li>-->
+<!--  </ol>-->
+
+<!--  <h2>For Severe Bleeding:</h2>-->
+<!--  <ol>-->
+<!--    <li><strong>Do Not Remove Objects:</strong> If there is an object embedded in the wound, do not remove it. Instead, apply pressure around the object.</li>-->
+<!--    <li><strong>Use a Tourniquet:</strong> If bleeding cannot be controlled with direct pressure and elevation, and if you have been trained to do so, apply a tourniquet above the wound.</li>-->
+<!--    <li><strong>Monitor for Shock:</strong> Watch for signs of shock, such as pale skin, rapid breathing, and weakness. Keep the person lying down with their feet elevated if you suspect shock.</li>-->
+<!--  </ol>-->
+
+<!--  <h2>Special Considerations:</h2>-->
+<!--  <p>For bleeding from the nose, pinch the nostrils together and lean forward slightly. Do not tilt the head back. For bleeding from the mouth, lean forward or lie on the side to prevent blood from being swallowed or obstructing the airway.</p>-->
+<!--</main>-->
+</body>
+</html>

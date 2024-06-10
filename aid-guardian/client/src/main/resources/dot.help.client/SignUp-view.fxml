@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane cache="true" maxHeight="550.0" maxWidth="830.0" minHeight="550.0" minWidth="830.0" prefHeight="550.0" prefWidth="830.0" style="-fx-background-color: RGB(204, 229, 255);" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dot.help.client.controller.SignUpController">
+   <children>
+      <Pane layoutX="116.0" layoutY="46.0" prefHeight="458.0" prefWidth="627.0" style="-fx-border-color: black; -fx-border-radius: 20; -fx-background-radius: 20; -fx-border-width: 2; -fx-background-color: RGB(250, 250, 250);">
+         <children>
+            <Label alignment="TOP_LEFT" layoutX="47.0" layoutY="7.0" prefHeight="35.0" prefWidth="181.0" text="AidGuardian ">
+               <font>
+                  <Font name="Avenir Light" size="25.0" />
+               </font>
+            </Label>
+            <ImageView fitHeight="35.0" fitWidth="36.0" layoutX="14.0" layoutY="7.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/shield.png" />
+               </image>
+            </ImageView>
+            <Label alignment="CENTER" layoutX="199.0" layoutY="35.0" prefHeight="52.0" prefWidth="199.0" text="Sign up">
+               <font>
+                  <Font name="Avenir Light" size="32.0" />
+               </font>
+            </Label>
+            <GridPane layoutX="31.0" layoutY="104.0" prefHeight="248.0" prefWidth="567.0">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="132.0" minWidth="10.0" prefWidth="132.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="144.0" minWidth="10.0" prefWidth="117.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="109.0" minWidth="10.0" prefWidth="46.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="174.0" minWidth="10.0" prefWidth="117.0" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="167.0" minWidth="10.0" prefWidth="143.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="34.0" prefWidth="115.0" text="email:">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="username:" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Avenir Light" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label text="password:" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="confirm password:" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="24.0" prefWidth="84.0" text="first name:" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="24.0" prefWidth="85.0" text="last name:" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Avenir Light" size="17.0" />
+                     </font>
+                  </Label>
+                  <Label prefHeight="24.0" prefWidth="59.0" text="gender" GridPane.columnIndex="3">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="date of birth:" GridPane.columnIndex="3" GridPane.rowIndex="1">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="height:" GridPane.columnIndex="3" GridPane.rowIndex="2">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="weight:" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <Label text="medical history:" GridPane.columnIndex="3" GridPane.rowIndex="5">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="firstNameTextField" promptText="your first name" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                  <TextField fx:id="emailTextField" promptText="your email" GridPane.columnIndex="1" />
+                  <TextField fx:id="usernameTextField" promptText="your username" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <TextField fx:id="lastNameTextField" promptText="your last name" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                  <DatePicker fx:id="dateOfBirthDatePicker" promptText="date of birth" GridPane.columnIndex="4" GridPane.rowIndex="1" />
+                  <TextField fx:id="heightTextField" promptText="your height" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <TextField fx:id="weeightTextField" promptText="your weight" GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                  <TextField fx:id="medicalHstoryTextField" promptText="medical . history" GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                  <PasswordField fx:id="passwordTextField" promptText="your password" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <PasswordField fx:id="confirmPasswordTextField" promptText="confirm password" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                  <ChoiceBox fx:id="genderChoiceBox" prefWidth="150.0" GridPane.columnIndex="4" />
+                  <Label text="blood group:" GridPane.columnIndex="3" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Avenir Light" size="16.0" />
+                     </font>
+                  </Label>
+                  <ChoiceBox fx:id="bloodGroupChoiceBox" prefWidth="150.0" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+               </children>
+            </GridPane>
+            <Button fx:id="signUUpButton" layoutX="250.0" layoutY="396.0" mnemonicParsing="false" onAction="#handleSignUp" prefHeight="35.0" prefWidth="129.0" style="-fx-background-radius: 20; -fx-border-radius: 20; -fx-border-width: 1.5; -fx-background-color: RGB(200, 200, 200); -fx-border-color: black;" text="Sign up">
+               <font>
+                  <Font name="Avenir Heavy Oblique" size="18.0" />
+               </font>
+            </Button>
+            <CheckBox fx:id="certiifiedCheckBox" layoutX="32.0" layoutY="352.0" mnemonicParsing="false" prefHeight="34.0" prefWidth="311.0" text="I am certified in medicine or first aid">
+               <font>
+                  <Font name="Avenir Light" size="16.0" />
+               </font>
+            </CheckBox>
+         </children>
+      </Pane>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#handleBackButton" prefHeight="26.0" prefWidth="50.0" style="-fx-shape: circle;">
+         <graphic>
+            <ImageView fitHeight="37.0" fitWidth="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@images/backButton.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+   </children>
+</AnchorPane>

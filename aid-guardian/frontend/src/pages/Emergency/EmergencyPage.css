@@ -1,0 +1,232 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    color: #333333;
+}
+
+.user-header {
+    background-color: #55b56a;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 30px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-info img {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    margin-right: 10px;
+    overflow: hidden;
+}
+
+#icon {
+    width: 60px;
+    height: 60px;
+}
+
+.user-details h2 {
+    font-size: 18px;
+    margin-bottom: 5px;
+    color: #000000;
+}
+
+.user-details p {
+    font-size: 14px;
+    color: #000000;
+    text-align: left;
+}
+
+.date-time {
+    font-size: 1.2em;
+    color: #333;
+    font-family: 'Roboto', sans-serif;
+}
+
+.main-nav {
+    background-color: #be2821;
+    padding: 5px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: flex-start;
+    list-style-type: none;
+}
+
+.nav-links li {
+    margin-right: 10px;
+}
+
+.nav-links li:not(:last-child) {
+    border-right: 2px solid #ffffff;
+    padding-right: 10px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 16px;
+    padding: 10px 20px;
+}
+
+.nav-links li a:hover {
+    background-color: #ff725e;
+    color: #ffffff;
+}
+
+.main-nav::after {
+    content: "";
+    display: block;
+    clear: both;
+}
+
+main {
+    padding: 50px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group-checkbox {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center; /* Align buttons and their labels */
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 10px;
+    min-height: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="date"],
+select,
+textarea {
+    width: 100%;
+    padding: 3px;
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #55b56a;
+    color: #ffffff;
+    font-size: 18px;
+    cursor: pointer;
+    align-self: center;
+}
+
+button[type="submit"]:hover {
+    opacity: 0.8;
+}
+
+.disabled {
+    background-color: #ffe5ad; /* Orange */;
+}
+
+.settings-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.settings-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.settings-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.save-button {
+    margin-top: 20px; /* Spacing between button and last field */
+}
+
+/* Footer Styles */
+footer {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    background-color: #55b56a; /* Green */
+    border-top: 2px solid #eeeeee;
+    z-index: 100;
+}
+
+
+/* Emergency Report Styles */
+.emergency-report-container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.emergency-report-container h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.emergency-report-form {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.emergency-report-details {
+    margin-bottom: 5px;
+}
+
+.emergency-report-details label {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+#other-location-details {
+    display: none;
+}
+
+.map-container {
+    height: 350px;
+    width: 750px;
+    background-color: #ffffff;
+    border: 1px solid #eeeeee;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center; /* Vertical centering */
+    align-items: center;
+    margin: 0 auto 20px;
+}
+
+#map {
+    height: 100%;
+    width: 100%;
+    border-radius: 10px;
+
+}

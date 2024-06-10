@@ -1,0 +1,16 @@
+/* Stil pentru corpul paginii */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #19171e; /* Gri închis */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Setează înălțimea la 100% din înălțimea vizibilă a ecranului */
+}
+
+/* Stil pentru imaginea de fundal */
+.background-image {
+    width: 400px;
+    height: 200px;
+}

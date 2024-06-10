@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <style>
+        html, body, .container {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Avenir Light', sans-serif;
+            background-color: RGB(204, 229, 255);
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+        }
+        .menu {
+            background-color: RGB(18, 80, 151);
+            color: white;
+            width: 298px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+        .menu-item {
+            width: 100%;
+            padding: 50px 0;
+            text-align: center;
+            background-color: RGB(18, 80, 151);
+            border: none;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .menu-item:hover {
+            background-color: #0c4d93;
+        }
+        .profile-info {
+            background-color: RGB(53, 115, 186);
+            color: white;
+            padding: 20px;
+            width: calc(100% - 330px);
+        }
+        .profile-info .user-details {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            background-color: RGB(18, 80, 151);
+        }
+        .profile-info .user-details img {
+            border-radius: 50%;
+            margin-right: 20px;
+            width: 60px;
+            height: 60px;
+        }
+        .profile-info .user-details .user-info {
+            display: flex;
+            flex-direction: column;
+        }
+        .profile-info .user-details .user-info .username {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .profile-info .user-details .user-info .user-role {
+            font-size: 14px;
+        }
+        .profile-image {
+            align-content:center;
+            padding: 10px;
+        }
+        #map {
+            border: 4px solid RGB(18, 80, 151);
+            width: 960px;
+            height: 570px;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 20px;
+        }
+        .buttons .btn {
+            border-radius: 100px;
+            border: 1px solid black;
+            background-color: RGB(200, 200, 200);
+            padding: 10px 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #map_positioning{
+            display:flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+    </style>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.3/dist/leaflet.css" integrity="sha256-kLaT2GOSpHechhsozzB+flnD+zUyjE2LlfWPgU04xyI=" crossorigin="" />
+
+    <script src="https://unpkg.com/leaflet@1.9.3/dist/leaflet.js" integrity="sha256-WBkoXOwTeyKclOHuWtc+i2uENFpDZ9YPdf5Hf+D7ewM=" crossorigin=""></script>
+
+     
+</head>
+<body>
+<div class="container">
+    <div class="menu">
+        <div class="logo">
+            <img src="../assets/images/shield.png" alt="Shield" style="vertical-align: middle; width: 30px; height: 30px;">
+            <span style="margin-left: 10px;">AidGuardian</span>
+        </div>
+        <button class="menu-item">Call 112</button>
+        <button class="menu-item">Guides</button>
+        <button class="menu-item">Your Score</button>
+        <button class="menu-item">Settings</button>
+        <button class="menu-item">Logout</button>
+    </div>
+    <div class="profile-info">
+        <div class="user-details">
+            <div class="profile-image">
+                <img src="../assets/images/user_icon.png" alt="Profile Image">
+            </div>
+            <div class="user-info">
+                <div class="username">Username</div>
+                <div class="user-role">First Responder/ Community Helper</div>
+            </div>
+        </div>
+        <div id="map_positioning">
+            <div id="map" class="emergency-map">
+
+            </div>
+
+            <div class="buttons">
+                <button class="btn">Report Emergency</button>
+                <button class="btn">Respond to Emergency</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const map = L.map('map');
+    // Initializes map
+
+    map.setView([51.505, -0.09], 13);
+    // Sets initial coordinates and zoom level
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+        attribution: '&copy; <a href="https://www.mapbox.com/about/maps/">Mapbox</a>',
+        maxZoom: 18,
+        id: 'mapbox/streets-v11', // Specify the Mapbox style ID
+        accessToken: 'pk.eyJ1Ijoicm9ja3kxMzNwYSIsImEiOiJjbHcyY3prYXEwbTVzMmxweXh2cjg1bmVtIn0.apvKY9k9AwrpEUWZ6w1sPw' // Replace with your Mapbox Access Token
+    }).addTo(map);
+    /*L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap'
+    }).addTo(map);*/
+    // Sets map data source and associates with map
+    var options = {
+        enableHighAccuracy: true,  // Enable high accuracy mode
+        timeout: 5000,             // Maximum time (in milliseconds) allowed for the position retrieval
+        maximumAge: 0              // Maximum age (in milliseconds) of a cached position to be considered valid
+    };
+    let marker, circle, zoomed;
+
+    navigator.geolocation.watchPosition(success, error,options);
+
+    function success(pos) {
+
+        const lat = pos.coords.latitude;
+        const lng = pos.coords.longitude;
+        const accuracy = pos.coords.accuracy;
+
+        //Removes old marker and circle
+        if (marker) {
+            map.removeLayer(marker);
+            map.removeLayer(circle);
+        }
+
+        //Display the new marker and circle
+        marker = L.marker([lat, lng]).addTo(map);
+        circle = L.circle([lat, lng], { radius: accuracy }).addTo(map);
+
+        //Initializing the zoom
+        if (!zoomed) {
+            zoomed = map.fitBounds(circle.getBounds());
+        }
+
+        //Update the map view to the current user location
+        map.setView([lat, lng]);
+
+    }
+
+    function error(err) {
+
+        if (err.code === 1) {
+            alert("Please allow geolocation access");
+        } else {
+            alert("Cannot get current location");
+        }
+
+    }
+
+</script>
+</body>
+</html>
